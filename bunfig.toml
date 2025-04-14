@@ -1,0 +1,9 @@
+logLevel = "debug"
+
+[run]
+shell = "bun"
+bun = true
+
+[install]
+# set default registry as a string
+registry = "https://registry.npmjs.org"
