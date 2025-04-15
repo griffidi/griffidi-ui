@@ -8,6 +8,11 @@
       "@/*": ["./app/*"]
     }
   },
-  "include": ["**/*", "**/.server/**/*", "**/.client/**/*", ".react-router/types/**/*"]
-  // "exclude": ["node_modules", "build"]
+  "include": [
+    "**/*",
+    "**/.server/**/*",
+    "**/.client/**/*",
+    ".react-router/types/**/*"
+  ],
+  "exclude": ["node_modules", "build"]
 }

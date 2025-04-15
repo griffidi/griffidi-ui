@@ -12,7 +12,7 @@ export function meta({}: Route.MetaArgs) {
 export default function Home() {
   return (
     <div>
-      <span>Ghost UI</span>
+      <span className='brand'>Ghost UI</span>
     </div>
   );
 }
