@@ -17,4 +17,4 @@ tasks:
     desc: Build typescript
     deps: [build:clean]
     cmds:
-      - bun build src/index.ts --root-=src --outdir=build --target=browser --packages=external --sourcemap=linked
+      - bun build app/index.ts --root=. --outdir=build --target=browser --packages=external --sourcemap=linked

@@ -2,7 +2,7 @@
   "compilerOptions": {
     "declaration": true,
     "emitDeclarationOnly": true,
-    "rootDir": "${configDir}/src",
+    "rootDir": "${configDir}/app",
     "outDir": "${configDir}/build",
     "skipLibCheck": true,
     "moduleResolution": "bundler",
@@ -10,7 +10,7 @@
     "moduleDetection": "force",
     "target": "ESNext",
     "paths": {
-      "@/*": ["${configDir}/src/*"]
+      "@/*": ["${configDir}/app/*"]
     }
   }
 }

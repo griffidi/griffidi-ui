@@ -71,8 +71,8 @@
     "typescript.enablePromptUseWorkspaceTsdk": true,
     "typescript.tsserver.experimental.enableProjectDiagnostics": true,
     "typescript.updateImportsOnFileMove.enabled": "prompt",
-    "typescript.preferences.quoteStyle": "single",
-    "javascript.preferences.quoteStyle": "single",
+    // "typescript.preferences.quoteStyle": "single",
+    // "javascript.preferences.quoteStyle": "single",
     // "typescript.workspaceSymbols.excludeLibrarySymbols": true,
     // "typescript.workspaceSymbols.scope": "allOpenProjects",
 
@@ -101,7 +101,10 @@
     },
 
     "yaml.schemas": {
-      "https://taskfile.dev/schema.json": ["**/Taskfile.yml", "./path/to/any/other/taskfile.yml"]
+      "https://taskfile.dev/schema.json": [
+        "**/Taskfile.yml",
+        "./path/to/any/other/taskfile.yml"
+      ]
     },
 
     "jspm.generate.defaultConditions": "development,browser,module",
@@ -134,7 +137,10 @@
       "**/.hg": true,
       "**/CVS": true,
       "**/.DS_Store": true,
-      "**/Thumbs.db": true
+      "**/Thumbs.db": true,
+      "**/node_modules": true,
+      "**/build": true,
+      "**/.react-router": true
     },
 
     "workbench.editor.labelFormat": "medium",

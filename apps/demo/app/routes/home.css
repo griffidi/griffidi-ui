@@ -1,0 +1,24 @@
+div {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+
+  span {
+    font-size: 7rem;
+    font-weight: 700;
+    background: linear-gradient(
+      to right,
+      oklch(42.4% 0.199 265.638),
+      oklch(43.2% 0.232 292.759)
+    );
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: transform 1s ease-in-out;
+
+    &:hover {
+      transform: scale(2);
+      transition: transform 0.5s ease-in-out;
+    }
+  }
+}

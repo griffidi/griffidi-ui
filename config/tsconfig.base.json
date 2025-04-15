@@ -52,7 +52,7 @@
     "strictFunctionTypes": true,
 
     "paths": {
-      "@/*": ["${configDir}/src/*"]
+      "@/*": ["${configDir}/app/*"]
     }
   }
 }
