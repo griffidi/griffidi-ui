@@ -1,0 +1,35 @@
+{
+  "name": "@gui/core",
+  "version": "1.0.0",
+  "author": "Dustin Griffith",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/griffidi/griffidi-ui"
+  },
+  "private": true,
+  "license": "MIT",
+  "packageManager": "bun@1.2.9",
+  "engines": {
+    "bun": ">=1.2.9"
+  },
+  "type": "module",
+  "main": "./src/index.ts",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "dev": "task build",
+    "build": "task build"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  }
+}

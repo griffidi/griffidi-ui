@@ -1,9 +1,0 @@
-{
-  "declaration": true,
-  "compilerOptions": {
-    "allowArbitraryExtensions": true,
-    "declaration": true,
-    // "types": [""]
-  },
-  "files": []
-}

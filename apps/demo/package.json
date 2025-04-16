@@ -20,6 +20,8 @@
     "typecheck": "bunx react-router typegen && tsc"
   },
   "dependencies": {
+    "@gui/components": "workspace:*",
+    "@gui/core": "workspace:*",
     "@heroicons/react": "^2.2.0",
     "@react-router/node": "^7.5.0",
     "@react-router/serve": "^7.5.0",

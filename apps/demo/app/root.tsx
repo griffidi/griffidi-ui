@@ -8,6 +8,8 @@ import {
 } from 'react-router';
 
 import '@/styles/styles.css';
+import Footer from '@/layout/footer.tsx';
+import Header from '@/layout/header.tsx';
 
 import type { Route } from './+types/root';
 import './app.css';
@@ -49,7 +51,13 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  return <Outlet />;
+  return (
+    <>
+      <Header />
+      <Outlet />
+      <Footer />
+    </>
+  );
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
