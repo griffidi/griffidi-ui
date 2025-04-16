@@ -7,7 +7,11 @@
       "type": "node-terminal",
       "noDebug": false,
       "command": "bun run dev",
-      "skipFiles": ["**/<node_internals>/**", "**/node_modules/**", "!**/node_modules/@hui/**"],
+      "skipFiles": [
+        "**/<node_internals>/**",
+        "**/node_modules/**",
+        "!**/node_modules/@hui/**"
+      ],
       "sourceMaps": true,
       "smartStep": true,
       "internalConsoleOptions": "openOnSessionStart",
@@ -28,7 +32,6 @@
       "sourceMaps": true,
       "cwd": "${workspaceFolder}/apps/demo",
       "smartStep": true,
-      "preLaunchTask": "Debug server",
       "presentation": {
         "hidden": false,
         "group": "3",
@@ -66,7 +69,11 @@
     },
     {
       "name": "Debug demo (chrome)",
-      "configurations": ["Launch api", "Launch demo:serve", "Launch demo:client (chrome)"],
+      "configurations": [
+        "Launch api",
+        "Launch demo:serve",
+        "Launch demo:client (chrome)"
+      ],
       "stopAll": true,
       "presentation": {
         "hidden": false,

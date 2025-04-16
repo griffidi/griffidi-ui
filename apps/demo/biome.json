@@ -8,5 +8,8 @@
   "linter": {
     "includes": ["**/*", "!build"]
   },
+  "formatter": {
+    "includes": ["**/*", "!build"]
+  },
   "css": { "formatter": { "enabled": true }, "linter": { "enabled": true } }
 }

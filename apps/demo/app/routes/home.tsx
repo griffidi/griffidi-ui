@@ -9,10 +9,10 @@ export function meta({}: Route.MetaArgs) {
   ];
 }
 
-export default function Home() {
+export default function HomePage() {
   return (
     <div>
-      <span className='brand'>Ghost UI</span>
+      <span className='brand'>ghost UI</span>
     </div>
   );
 }
