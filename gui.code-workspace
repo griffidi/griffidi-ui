@@ -20,7 +20,25 @@
     "bun.debugTerminal.stopOnEntry": false,
     "npm.packageManager": "bun",
 
-    "biome.experimental.rename": true,
+    "biome.rename": true,
+    // "biome.projects": [
+    //   {
+    //     "name": "root",
+    //     "path": "."
+    //   },
+    //   {
+    //     "name": "demo",
+    //     "path": "./apps/demo"
+    //   },
+    //   {
+    //     "name": "core",
+    //     "path": "./packages/core"
+    //   },
+    //   {
+    //     "name": "components",
+    //     "path": "./packages/components"
+    //   }
+    // ],
 
     "editor.lightbulb.enabled": "on",
     "editor.defaultFormatter": "biomejs.biome",

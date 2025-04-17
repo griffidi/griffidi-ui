@@ -1,0 +1,7 @@
+:root {
+  --gui-color-primary: oklch(43.2% 0.232 292.759);
+  --gui-color-primary-lighter: oklch(54.1% 0.281 293.009);
+  --gui-color-secondary: oklch(70.4% 0.14 182.503);
+
+  --app-header-height: 60px;
+}

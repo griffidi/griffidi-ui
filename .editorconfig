@@ -23,6 +23,9 @@ block_comment_end = */
 [*.{css,html}]
 quote_type = double
 
+[*html]
+on_different_lines = true
+
 [*.css]
 block_comment_start = /*
 block_comment = *

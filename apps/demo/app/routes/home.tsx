@@ -1,6 +1,6 @@
 import type { Route } from './+types/home';
 
-import './home.css';
+import '@/styles/home.css';
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -11,8 +11,8 @@ export function meta({}: Route.MetaArgs) {
 
 export default function HomePage() {
   return (
-    <div>
-      <span className='brand'>ghost UI</span>
+    <div className="home-container">
+      <span className="brand-text-color">ghost UI</span>
     </div>
   );
 }

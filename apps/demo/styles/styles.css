@@ -1,10 +1,24 @@
-.brand {
+.brand-text-color {
   background: linear-gradient(
     to right,
-    oklch(42.4% 0.199 265.638),
-    oklch(43.2% 0.232 292.759)
+    var(--gui-color-primary),
+    var(--gui-color-secondary)
   );
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+button {
+  &:has(svg) {
+    cursor: pointer;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    /* padding: 4px; */
+
+    &:hover {
+      color: var(--gui-color-primary-lighter);
+    }
+  }
 }
