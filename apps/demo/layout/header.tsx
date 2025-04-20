@@ -15,7 +15,7 @@ const useStyles = makeStyles({
   },
 
   popover: {
-    '--_inset-block-start': 0,
+    '--_inset-block-start': 'calc(var(--app-header-height) / 2)',
 
     contentVisibility: 'hidden',
     visibility: 'hidden',
@@ -36,12 +36,15 @@ const useStyles = makeStyles({
 
       contentVisibility: 'visible',
       visibility: 'visible',
+      transition: 'transform 200ms ease-in-out, visibility 0ms linear 0ms',
     },
   },
 });
 
 const Header = () => {
   const styles = useStyles();
+
+  const userId = '1234567890'; // TODO: get userId from context
 
   return (
     <header>
@@ -55,7 +58,10 @@ const Header = () => {
         </button>
         <menu id="menu" popover="auto" className={styles.popover}>
           <li>
-            <LinkButton href="/profile" icon={<UserProfile size={16} />}>
+            <LinkButton
+              href={`/users/${userId}`}
+              icon={<UserProfile size={16} />}
+            >
               Profile
             </LinkButton>
           </li>
