@@ -1,4 +1,4 @@
-import type { Route } from './+types/home';
+import type { Route } from './+types/Home';
 
 import '@/styles/home.css';
 
