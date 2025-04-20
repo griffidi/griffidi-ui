@@ -6,8 +6,8 @@ import {
   Scripts,
   ScrollRestoration,
 } from 'react-router';
-import Footer from '@/layout/Footer';
-import Header from '@/layout/Header';
+import Footer from '@/layout/footer';
+import Header from '@/layout/header';
 import type { Route } from './+types/root';
 import '@/styles/styles.css';
 import './app.css';

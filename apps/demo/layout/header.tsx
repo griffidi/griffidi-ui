@@ -1,12 +1,6 @@
-import {
-  Logout,
-  Menu,
-  Settings,
-  UserAvatar,
-  UserProfile,
-} from '@carbon/icons-react';
+import { Logout, Settings, UserAvatar, UserProfile } from '@carbon/icons-react';
 import { makeStyles } from '@griffel/react';
-import LinkButton from '@gui/components/button/LinkButton';
+import LinkButton from '@gui/components/button/link-button';
 import { Link } from 'react-router';
 
 const useStyles = makeStyles({

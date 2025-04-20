@@ -1,3 +1,3 @@
-export * from './Button';
-export * from './LinkButton';
-export * from './MenuButton';
+export * from './button';
+export * from './link-button';
+export * from './menu-button';
