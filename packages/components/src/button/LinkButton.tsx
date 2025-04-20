@@ -10,6 +10,8 @@ type LinkButtonProps = {
 const useStyles = makeStyles({
   linkButton: {
     display: 'flex',
+    gap: '0.8rem',
+    alignItems: 'center',
   },
 });
 
