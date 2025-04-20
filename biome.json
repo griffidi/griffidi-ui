@@ -11,7 +11,7 @@
     "rules": {
       "recommended": true,
       "correctness": {
-        "useImportExtensions": "warn",
+        "useImportExtensions": "off",
         "noEmptyPattern": "off"
       },
       "suspicious": {

@@ -3,9 +3,15 @@
   "compilerOptions": {
     "rootDir": ".",
     "baseUrl": "src",
-    "resolveJsonModule": true,
+    "types": ["bun"],
+    "experimentalDecorators": true,
+    "useDefineForClassFields": false,
+    "allowArbitraryExtensions": true,
+    "esModuleInterop": true,
+    "declaration": true,
     "paths": {
-      "@gui/core/*": ["../core/*"]
+      "@/*": ["./*"],
+      "@gui/core/*": ["../core/src/*"]
     }
   },
   "include": ["src/**/*"]

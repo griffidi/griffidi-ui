@@ -161,6 +161,18 @@
       "**/.react-router": true
     },
 
+    "files.associations": {
+      "*.css": "tailwindcss"
+    },
+
+    "editor.quickSuggestions": {
+      "strings": "on"
+    },
+
+    "tailwindCSS.includeLanguages": {
+      "plaintext": "html"
+    },
+
     "workbench.editor.labelFormat": "medium",
 
     "task.autoDetect": "off",

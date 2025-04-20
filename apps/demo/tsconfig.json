@@ -1,13 +1,16 @@
 {
   "extends": "../../config/tsconfig.base.json",
   "compilerOptions": {
+    "moduleResolution": "bundler",
+    "resolvePackageJsonExports": true,
+    "isolatedModules": true,
     "sourceMap": true,
     "baseUrl": ".",
     "rootDirs": [".", "./.react-router/types"],
     "paths": {
       "@/*": ["./*"],
-      "@gui/components": ["../../packages/components/src/*"],
-      "@gui/core": ["../../packages/core/src/*"]
+      "@gui/components/*": ["../../packages/components/*"],
+      "@gui/core/*": ["../../packages/core/*"]
     }
   },
   "include": [

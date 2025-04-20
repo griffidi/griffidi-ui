@@ -15,14 +15,14 @@
     "module": "ESNext",
     "moduleDetection": "force",
     "jsx": "react-jsx",
-    "moduleResolution": "bundler",
+    "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "verbatimModuleSyntax": true,
     "sourceMap": false,
     "composite": true,
     "incremental": true,
     "esModuleInterop": true,
-    "resolvePackageJsonExports": true,
+    // "resolvePackageJsonExports": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
@@ -49,10 +49,6 @@
     "noImplicitThis": true,
     "noUncheckedIndexedAccess": false,
     "noPropertyAccessFromIndexSignature": true,
-    "strictFunctionTypes": true,
-
-    "paths": {
-      "@/*": ["${configDir}/app/*"]
-    }
+    "strictFunctionTypes": true
   }
 }

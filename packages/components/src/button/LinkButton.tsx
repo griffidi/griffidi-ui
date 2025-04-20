@@ -1,0 +1,27 @@
+import { makeStyles } from '@griffel/react';
+import type { JSX } from 'react/jsx-runtime';
+
+type LinkButtonProps = {
+  children: React.ReactNode;
+  icon: JSX.Element;
+  href: string;
+};
+
+const useStyles = makeStyles({
+  linkButton: {
+    display: 'flex',
+  },
+});
+
+const LinkButton: React.FC<LinkButtonProps> = ({ children, icon, href }) => {
+  const styles = useStyles();
+
+  return (
+    <a className={styles.linkButton} href={href}>
+      {icon}
+      {children}
+    </a>
+  );
+};
+
+export default LinkButton;

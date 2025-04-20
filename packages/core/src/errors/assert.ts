@@ -1,4 +1,4 @@
-import { isEmpty } from '../utils/string.js';
+import { isEmpty } from '../utils/string';
 
 /**
  * Assertion utilities.

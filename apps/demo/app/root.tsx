@@ -6,12 +6,10 @@ import {
   Scripts,
   ScrollRestoration,
 } from 'react-router';
-
-import '@/styles/styles.css';
-import '@/styles/layout.css';
-import Footer from '@/layout/footer.tsx';
-import Header from '@/layout/header.tsx';
+import Footer from '@/layout/Footer';
+import Header from '@/layout/Header';
 import type { Route } from './+types/root';
+import '@/styles/styles.css';
 import './app.css';
 
 export const links: Route.LinksFunction = () => [

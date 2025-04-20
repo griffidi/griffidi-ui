@@ -1,24 +1,33 @@
-* {
-  box-sizing: border-box;
+@import "tailwindcss";
+
+html,
+body {
+  height: 100%;
 }
 
 body {
+  display: grid;
+  place-content: center;
+  min-height: 100vh;
+
   & > header,
   & > footer {
     position: fixed;
     display: flex;
     align-items: center;
-    padding: 0.75rem 1.25rem;
     width: 100vw;
+    padding-inline: 1.25rem;
   }
 
   & > header {
     inset-block-start: 0;
     justify-content: space-between;
+    height: var(--app-header-height);
   }
 
   & > footer {
     inset-block-end: 0;
     justify-content: space-between;
+    padding-block: 0.75rem;
   }
 }

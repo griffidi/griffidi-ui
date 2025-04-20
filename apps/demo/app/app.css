@@ -1,5 +1,4 @@
 @import "tailwindcss";
-@import "../styles/variables.css";
 
 @theme {
   --font-sans: "Poppins", ui-sans-serif, system-ui, sans-serif,

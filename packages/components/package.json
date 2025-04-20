@@ -16,9 +16,13 @@
   "main": "./src/index.ts",
   "exports": {
     "./package.json": "./package.json",
+    "./button/LinkButton": {
+      "types": "./build/button/LinkButton.d.ts",
+      "import": "./build/button/LinkButton.js"
+    },
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
+      "types": "./build/index.d.ts",
+      "import": "./build/index.js"
     }
   },
   "scripts": {
@@ -26,6 +30,7 @@
     "build": "task build"
   },
   "dependencies": {
+    "@griffel/react": "^1.5.29",
     "@gui/core": "workspace:*"
   },
   "peerDependencies": {

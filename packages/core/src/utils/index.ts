@@ -1,3 +1,3 @@
-export * from './function.js';
-export * from './number.js';
-export * from './string.js';
+export * from './function';
+export * from './number';
+export * from './string';
