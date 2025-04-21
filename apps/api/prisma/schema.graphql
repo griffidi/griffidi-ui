@@ -761,8 +761,11 @@ type Query {
   groupByCustomer(by: [CustomerScalarFieldEnum!]!, having: CustomerScalarWhereWithAggregatesInput, orderBy: [CustomerOrderByWithAggregationInput!], skip: Int, take: Int, where: CustomerWhereInput): [CustomerGroupBy!]!
   groupByCustomerContact(by: [CustomerContactScalarFieldEnum!]!, having: CustomerContactScalarWhereWithAggregatesInput, orderBy: [CustomerContactOrderByWithAggregationInput!], skip: Int, take: Int, where: CustomerContactWhereInput): [CustomerContactGroupBy!]!
   groupByUser(by: [UserScalarFieldEnum!]!, having: UserScalarWhereWithAggregatesInput, orderBy: [UserOrderByWithAggregationInput!], skip: Int, take: Int, where: UserWhereInput): [UserGroupBy!]!
+  signIn(password: String!, userName: String!): String!
+  signOut: Boolean!
   user(where: UserWhereUniqueInput!): User
   users(cursor: UserWhereUniqueInput, distinct: [UserScalarFieldEnum!], orderBy: [UserOrderByWithRelationInput!], skip: Int, take: Int, where: UserWhereInput): [User!]!
+  validate(token: String!): Boolean!
 }
 
 enum SortOrder {

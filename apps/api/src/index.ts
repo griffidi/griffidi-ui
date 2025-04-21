@@ -10,12 +10,11 @@ import { buildSchema } from 'type-graphql';
 import type { Context } from '@/client/context.js';
 import { prisma } from '@/client/index.js';
 import { corsConfig, isDev, jwtConfig, port } from '@/config.js';
-// import { resolvers } from '@/prisma/types/index.js';
-// import { AuthResolver } from '@/resolvers/auth.js';
+import { AuthResolver } from '@/resolvers/auth.js';
 import { ForbiddenError } from './errors.js';
 
 const schema = await buildSchema({
-  resolvers: [...resolvers],
+  resolvers: [...resolvers, AuthResolver],
   emitSchemaFile: './prisma/schema.graphql',
   validate: false,
 });

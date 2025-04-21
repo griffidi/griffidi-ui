@@ -2,7 +2,7 @@ import { Logout, Settings, UserAvatar, UserProfile } from '@carbon/icons-react';
 import { makeStyles } from '@griffel/react';
 import LinkButton from '@gui/components/button/link-button';
 import { Link } from 'react-router';
-import GuiIcon from '@/components/icons/gui';
+import GuiIcon from '@/src/components/icons/gui';
 
 const useStyles = makeStyles({
   nav: {

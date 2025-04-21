@@ -13,10 +13,9 @@
       "@/*": ["./*"],
       "@gui/core/*": ["../../packages/core/src/*"],
       "@/prisma/client/*": ["../prisma/generated/prisma/client/*"],
-      // "@/prisma/types/*": ["../prisma/generated/type-graphql/*"],
       "@/constants/*": ["./constants/*"]
     }
   },
-  "include": ["src/**/*", "prisma/**/*", "!./prisma/generated/**/*"],
+  "include": ["src/**/*", "prisma/**/*"],
   "exclude": ["node_modules", "dist", "./prisma/generated"]
 }

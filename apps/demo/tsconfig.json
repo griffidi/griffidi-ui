@@ -5,7 +5,7 @@
     "resolvePackageJsonExports": true,
     "isolatedModules": true,
     "sourceMap": true,
-    "baseUrl": ".",
+    "baseUrl": "src ",
     "rootDirs": [".", "./.react-router/types"],
     "paths": {
       "@/*": ["./*"],
@@ -14,10 +14,14 @@
     }
   },
   "include": [
-    "**/*",
+    "src/**/*",
     "**/.server/**/*",
     "**/.client/**/*",
-    ".react-router/types/**/*"
+    ".react-router/types/**/*",
+    "app",
+    "components",
+    "hooks",
+    "layout"
   ],
   "exclude": ["node_modules", "build"]
 }

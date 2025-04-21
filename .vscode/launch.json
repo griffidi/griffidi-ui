@@ -1,6 +1,27 @@
 {
   "configurations": [
     {
+      "name": "Launch api",
+      "cwd": "${workspaceFolder}/apps/api",
+      "request": "launch",
+      "type": "node-terminal",
+      "noDebug": false,
+      "command": "bun run dev:debug",
+      "skipFiles": [
+        "**/<node_internals>/**",
+        "**/node_modules/**",
+        "!**/node_modules/@mui/**"
+      ],
+      "sourceMaps": true,
+      "smartStep": true,
+      "internalConsoleOptions": "openOnSessionStart",
+      "presentation": {
+        "hidden": false,
+        "group": "2",
+        "order": 1
+      }
+    },
+    {
       "name": "Launch demo:serve",
       "cwd": "${workspaceFolder}/apps/demo",
       "request": "launch",
@@ -59,7 +80,11 @@
   "compounds": [
     {
       "name": "Debug demo (edge)",
-      "configurations": ["Launch demo:serve", "Launch demo:client (edge)"],
+      "configurations": [
+        "Launch api",
+        "Launch demo:serve",
+        "Launch demo:client (edge)"
+      ],
       "stopAll": true,
       "presentation": {
         "hidden": false,

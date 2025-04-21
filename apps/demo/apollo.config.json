@@ -1,0 +1,9 @@
+{
+  "client": {
+    "includes": ["./src/graphql/**/*.graphql"],
+    "service": {
+      "name": "@gui/api",
+      "localSchemaFile": "../api/prisma/schema.graphql"
+    }
+  }
+}
