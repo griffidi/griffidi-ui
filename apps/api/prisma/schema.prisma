@@ -1,0 +1,74 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["views"]
+}
+
+generator typegraphql {
+  provider               = "typegraphql-prisma"
+  output                 = "../../../node_modules/@prisma/generated/type-graphql"
+  // output           = "generated/type-graphql"
+  contextPrismaKey       = "prisma"
+  emitRedundantTypesInfo = true
+  simpleResolvers        = true
+  useSimpleInputs        = true
+}
+
+model User {
+  id           String         @id @default(uuid())
+  firstName    String
+  lastName     String
+  email        String         @unique
+  address      String
+  phone        String
+  password     String
+  role         String
+  dateCreated  DateTime       @default(now())
+  LoginHistory LoginHistory[]
+}
+
+// enum Role {
+//   ADMIN
+//   USER
+//   SALES
+//   ACCOUNTING
+// }
+
+model LoginHistory {
+  id        String   @id @default(uuid())
+  userId    String
+  loginTime DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+}
+
+model Customer {
+  id              String            @id @default(uuid())
+  name            String
+  address         String
+  phone           String
+  dateCreated     DateTime          @default(now())
+  dateUpdated     DateTime          @updatedAt
+  CustomerContact CustomerContact[]
+}
+
+model CustomerContact {
+  id          String   @id @default(uuid())
+  customerId  String
+  firstName   String
+  lastName    String
+  email       String
+  phone       String
+  dateCreated DateTime @default(now())
+  dateUpdated DateTime @updatedAt
+  customer    Customer @relation(fields: [customerId], references: [id])
+}
