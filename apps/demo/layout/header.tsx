@@ -2,6 +2,7 @@ import { Logout, Settings, UserAvatar, UserProfile } from '@carbon/icons-react';
 import { makeStyles } from '@griffel/react';
 import LinkButton from '@gui/components/button/link-button';
 import { Link } from 'react-router';
+import GuiIcon from '@/components/icons/gui';
 
 const useStyles = makeStyles({
   nav: {
@@ -11,6 +12,14 @@ const useStyles = makeStyles({
     '> a:hover': {
       textDecoration: 'underline',
       textUnderlineOffset: '6px',
+    },
+
+    '> a svg[data-icon="gui-icon"]': {
+      color: '#fff',
+
+      '&:hover': {
+        color: 'var(--color-blue-500)',
+      },
     },
   },
 
@@ -49,6 +58,9 @@ const Header = () => {
   return (
     <header>
       <nav className={styles.nav}>
+        <Link to="/">
+          <GuiIcon className="w-6 h-6" />
+        </Link>
         <Link to="/users">Users</Link>
         <Link to="/customers">Customers</Link>
       </nav>
