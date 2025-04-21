@@ -1,8 +1,8 @@
 {
   "declaration": true,
   "compilerOptions": {
-    "module": "NodeNext",
-    "moduleResolution": "nodenext",
+    "module": "Node16",
+    "moduleResolution": "node16",
     "types": ["node"]
   },
   "files": []

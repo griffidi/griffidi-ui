@@ -9,8 +9,8 @@
     "rootDirs": [".", "./.react-router/types"],
     "paths": {
       "@/*": ["./*"],
-      "@gui/components/*": ["../../packages/components/*"],
-      "@gui/core/*": ["../../packages/core/*"]
+      "@gui/components/*": ["../../packages/components/src/*"],
+      "@gui/core/*": ["../../packages/core/src/*"]
     }
   },
   "include": [

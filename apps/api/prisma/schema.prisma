@@ -12,12 +12,13 @@ datasource db {
 generator client {
   provider        = "prisma-client-js"
   previewFeatures = ["views"]
+  output          = "generated/prisma/client"
 }
 
 generator typegraphql {
   provider               = "typegraphql-prisma"
   output                 = "../../../node_modules/@prisma/generated/type-graphql"
-  // output           = "generated/type-graphql"
+  // output                 = "generated/type-graphql"
   contextPrismaKey       = "prisma"
   emitRedundantTypesInfo = true
   simpleResolvers        = true
@@ -25,16 +26,15 @@ generator typegraphql {
 }
 
 model User {
-  id           String         @id @default(uuid())
-  firstName    String
-  lastName     String
-  email        String         @unique
-  address      String
-  phone        String
-  password     String
-  role         String
-  dateCreated  DateTime       @default(now())
-  LoginHistory LoginHistory[]
+  id          String   @id @default(uuid())
+  firstName   String
+  lastName    String
+  email       String   @unique
+  address     String
+  phone       String
+  password    String
+  role        String
+  dateCreated DateTime @default(now())
 }
 
 // enum Role {
@@ -43,13 +43,6 @@ model User {
 //   SALES
 //   ACCOUNTING
 // }
-
-model LoginHistory {
-  id        String   @id @default(uuid())
-  userId    String
-  loginTime DateTime @default(now())
-  user      User     @relation(fields: [userId], references: [id])
-}
 
 model Customer {
   id              String            @id @default(uuid())

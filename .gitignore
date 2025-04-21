@@ -14,3 +14,7 @@ build
 # React Router
 .react-router
 build
+
+# Prisma
+*.db
+**/prisma/generated

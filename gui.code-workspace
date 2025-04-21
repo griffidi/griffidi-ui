@@ -50,11 +50,6 @@
     },
     "editor.codeActions.triggerOnFocusChange": true,
 
-    "editor.quickSuggestions": {
-      "other": "on",
-      "comments": "off",
-      "strings": "on"
-    },
     "editor.suggestSelection": "first",
     "editor.roundedSelection": true,
     "workbench.commandPalette.experimental.suggestCommands": true,
@@ -156,7 +151,7 @@
       "**/CVS": true,
       "**/.DS_Store": true,
       "**/Thumbs.db": true,
-      "**/node_modules": true,
+      // "**/node_modules": true,
       "**/build": true,
       "**/.react-router": true
     },
@@ -166,6 +161,8 @@
     },
 
     "editor.quickSuggestions": {
+      "other": "on",
+      "comments": "off",
       "strings": "on"
     },
 
