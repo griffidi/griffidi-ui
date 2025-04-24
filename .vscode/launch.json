@@ -47,7 +47,7 @@
       "type": "msedge",
       "request": "launch",
       "url": "http://localhost:3006/",
-      "webRoot": "${workspaceFolder}/apps/demo/app",
+      "webRoot": "${workspaceFolder}/apps/demo/src",
       "userDataDir": "${workspaceFolder}/.out/edge/apps",
       "internalConsoleOptions": "openOnSessionStart",
       "sourceMaps": true,

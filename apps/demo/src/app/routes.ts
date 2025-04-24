@@ -8,6 +8,7 @@ import {
 export default [
   index('routes/index.tsx'),
   route('settings', 'routes/settings.tsx'),
+  route('login', 'routes/auth/login.tsx'),
   ...prefix('users', [
     index('routes/users/index.tsx'),
     route(':id', 'routes/users/[id].tsx'),

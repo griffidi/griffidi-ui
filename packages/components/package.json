@@ -16,6 +16,10 @@
   "main": "./src/index.ts",
   "exports": {
     "./package.json": "./package.json",
+    "./button/button": {
+      "types": "./build/button/button.d.ts",
+      "import": "./build/button/button.js"
+    },
     "./button/link-button": {
       "types": "./build/button/link-button.d.ts",
       "import": "./build/button/link-button.js"

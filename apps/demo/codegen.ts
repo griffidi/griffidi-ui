@@ -6,7 +6,7 @@ const config: CodegenConfig = {
   verbose: true,
   errorsOnly: false,
   schema: '../api/prisma/schema.graphql',
-  documents: ['graphql/**/*.graphql'],
+  documents: ['src/graphql/**/*.graphql'],
   emitLegacyCommonJSImports: false,
   ignoreNoDocuments: true,
   config: {

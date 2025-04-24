@@ -1,7 +1,27 @@
-const Button = () => {
+import { makeStyles } from '@griffel/react';
+
+const useStyles = makeStyles({
+  button: {
+    padding: '0.3rem 1.5rem',
+    borderRadius: 'var(--radius-sm)',
+    backgroundColor: 'var(--color-blue-500)',
+    color: '#fff',
+    border: 'none',
+    cursor: 'pointer',
+    '&:hover': {
+      backgroundColor: 'var(--color-blue-600)',
+    },
+  },
+});
+
+const Button: React.FC<
+  React.ButtonHTMLAttributes<HTMLButtonElement>
+> = props => {
+  const styles = useStyles();
+
   return (
-    <button className="bg-blue-500 text-white font-bold py-2 px-4 rounded">
-      Button
+    <button {...props} className={styles.button}>
+      {props.children}
     </button>
   );
 };

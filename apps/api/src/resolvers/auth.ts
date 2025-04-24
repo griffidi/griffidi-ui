@@ -7,15 +7,15 @@ import { UnauthorizedError } from '../errors.js';
 const TOKEN_MAX_AGE = 7 * 86400;
 
 /**
- * Get userId and password by userName.
+ * Get userId and password by username.
  *
- * @param userName The user name to get the user by.
+ * @param username The user name to get the user by.
  * @returns {Promise<{id: string, password: string}>} The user id and password.
  */
-const getUserIdAndPassword = (userName: string) =>
+const getUserIdAndPassword = (username: string) =>
   prisma.user.findUniqueOrThrow({
     where: {
-      email: userName,
+      email: username,
     },
     select: {
       id: true,
@@ -26,13 +26,13 @@ const getUserIdAndPassword = (userName: string) =>
 /**
  * Sign in arguments.
  *
- * @property {string} userName - The username of the user to validate the password against.
+ * @property {string} username - The username of the user to validate the password against.
  * @property {string} password - The password to validate.
  */
 @ArgsType()
 export class SignInArgs {
   @Field(() => String, { simple: true })
-  userName: string;
+  username: string;
 
   @Field(() => String, { simple: true })
   password: string;
@@ -60,10 +60,11 @@ export class AuthResolver {
    */
   @Query(() => String)
   async signIn(
-    @Args(() => SignInArgs) { userName, password }: SignInArgs,
+    @Args(() => SignInArgs) { username, password }: SignInArgs,
     @Ctx() { cookie: { auth }, jwt }: Context,
   ) {
-    const { id: userId, password: storedPassword } = await getUserIdAndPassword(userName);
+    const { id: userId, password: storedPassword } =
+      await getUserIdAndPassword(username);
 
     // Valiate password.
     const isValid = Bun.password.verifySync(password, storedPassword);
@@ -104,7 +105,10 @@ export class AuthResolver {
    * @returns {Promise<boolean>} True if valid, false if invalid.
    */
   @Query(() => Boolean)
-  async validate(@Args(() => ValidateArgs) { token }: ValidateArgs, @Ctx() { jwt }: Context) {
+  async validate(
+    @Args(() => ValidateArgs) { token }: ValidateArgs,
+    @Ctx() { jwt }: Context,
+  ) {
     if (!token) {
       return false;
     }
