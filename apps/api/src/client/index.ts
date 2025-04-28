@@ -1,4 +1,4 @@
-import { PrismaClient } from '@/prisma/client/index.js';
+import { PrismaClient } from '#app/prisma/client/index.js';
 
 /**
  * This is a HMR workaround since the module
@@ -14,7 +14,7 @@ const globalForPrisma = global as unknown as { prisma: PrismaClient };
  */
 export const prisma = globalForPrisma.prisma || new PrismaClient();
 
-if (process.env.NODE_ENV === 'development') {
+if (process.env.NODE_ENV !== 'production') {
   globalForPrisma.prisma = prisma;
 }
 

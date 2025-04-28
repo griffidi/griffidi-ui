@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "outDir": "${configDir}/build",
-    "tsBuildInfoFile": "${configDir}/build/.tsbuildinfo",
+    "outDir": "${configDir}/dist",
+    "tsBuildInfoFile": "${configDir}/dist/.tsbuildinfo",
     // "disableSourceOfProjectReferenceRedirect": true,
 
     // Enable latest features

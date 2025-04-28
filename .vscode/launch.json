@@ -6,7 +6,7 @@
       "request": "launch",
       "type": "node-terminal",
       "noDebug": false,
-      "command": "bun run dev:debug",
+      "command": "pnpm run dev:debug",
       "skipFiles": [
         "**/<node_internals>/**",
         "**/node_modules/**",
@@ -27,7 +27,7 @@
       "request": "launch",
       "type": "node-terminal",
       "noDebug": false,
-      "command": "bun run dev",
+      "command": "pnpm run dev",
       "skipFiles": [
         "**/<node_internals>/**",
         "**/node_modules/**",
@@ -63,7 +63,7 @@
       "name": "Launch demo:client (chrome)",
       "type": "pwa-chrome",
       "request": "launch",
-      "url": "http://localhost:3003/",
+      "url": "http://localhost:3006/",
       "webRoot": "${workspaceFolder}/apps/demo/app",
       "userDataDir": "${workspaceFolder}/.out/chrome/apps",
       "internalConsoleOptions": "openOnSessionStart",

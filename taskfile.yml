@@ -3,7 +3,7 @@ version: "3"
 tasks:
   install:
     aliases: [workspace]
-    desc: Initialize the projec
+    desc: Initialize the project
     cmds:
       - task: install:clean
       - task: install:workspace
@@ -12,13 +12,13 @@ tasks:
     internal: true
     desc: Clean the project
     cmds:
-      - bunx rimraf -g **/node_modules **/bun.lock **/build
+      - rimraf -g **/node_modules **/pnpm-lock.yaml **/dist
 
   install:workspace:
     desc: Install dependencies
     deps: [install:clean]
     cmds:
-      - bun install
+      - pnpm install
 
   build:
     desc: Build the project
@@ -30,14 +30,14 @@ tasks:
   build:clean:
     desc: Clean the project
     cmds:
-      - rm -rf build
+      - rm -rf dist
 
   build:ts:
     desc: Build typescript
     cmds:
-      - bun build src/**/* --root ./src --outdir build --splitting --packages external --packages external --sourcemap=inline {{.CLI_ARGS}}
+      - esbuild build src/**/* --root ./src --outdir dist --splitting --packages external --packages external --sourcemap=inline {{.CLI_ARGS}}
 
   build:typings:
     desc: Build typings
     cmds:
-      - bun tsc -p tsconfig.types.json {{.CLI_ARGS}}
+      - esbuild tsc -p tsconfig.types.json {{.CLI_ARGS}}

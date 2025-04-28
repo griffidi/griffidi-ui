@@ -1,9 +1,8 @@
 # Package Manager
-bun.lock
 node_modules
 
 # Build
-build
+dist
 
 # Apple Files
 .DS_Store

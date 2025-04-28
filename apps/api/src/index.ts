@@ -1,64 +1,82 @@
+/**
+ * This is required at the top level because it is used by `type-graphql` and the generated resolvers.
+ *
+ * @link https://typegraphql.com/docs/installation.html
+ */
+import 'reflect-metadata';
+
+import http from 'node:http';
+import { ApolloServer } from '@apollo/server';
+import { ApolloServerPluginUsageReportingDisabled } from '@apollo/server/plugin/disabled';
+import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer';
 import { InMemoryLRUCache } from '@apollo/utils.keyvaluecache';
-import { apollo } from '@elysiajs/apollo';
-import { cookie } from '@elysiajs/cookie';
-import { cors } from '@elysiajs/cors';
-import { type JWTPayloadSpec, jwt } from '@elysiajs/jwt';
-import { swagger } from '@elysiajs/swagger';
+import { koaMiddleware } from '@as-integrations/koa';
+import cors from '@koa/cors';
 import { resolvers } from '@prisma/generated/type-graphql/index.js';
-import { Elysia } from 'elysia';
+import Koa from 'koa';
+import bodyParser from 'koa-bodyparser';
 import { buildSchema } from 'type-graphql';
-import type { Context } from '@/client/context.js';
-import { prisma } from '@/client/index.js';
-import { corsConfig, isDev, jwtConfig, port } from '@/config.js';
-import { AuthResolver } from '@/resolvers/auth.js';
-import { ForbiddenError } from './errors.js';
+import type { Context } from './client/context.ts';
+import { prisma } from './client/index.ts';
+import { corsOrigin, isDev, port } from './config.ts';
+
+// import { AuthResolver } from './resolvers/auth.ts';
 
 const schema = await buildSchema({
-  resolvers: [...resolvers, AuthResolver],
+  // @ts-ignore
+  resolvers: [...resolvers],
   emitSchemaFile: './prisma/schema.graphql',
   validate: false,
 });
 
-new Elysia()
-  .use(swagger())
-  .use(cors(corsConfig))
-  .use(jwt(jwtConfig))
-  .use(cookie())
-  .use(
-    apollo<'/graphql', Context>({
-      cache: new InMemoryLRUCache(),
-      schema,
-      enablePlayground: isDev,
+// const bootstrap = async () => {
+const app = new Koa();
+const httpServer = http.createServer(app.callback());
+const server = new ApolloServer<Context>({
+  cache: new InMemoryLRUCache(),
+  schema,
+  introspection: isDev,
+  plugins: [
+    ApolloServerPluginDrainHttpServer({ httpServer }),
+    ApolloServerPluginUsageReportingDisabled(),
+  ],
+  formatError(formattedError, error) {
+    console.error(error);
 
-      context: async ({ cookie, jwt, request }) => {
-        const authorization = request.headers.get('authorization');
-        let userId: string = '';
+    return formattedError;
+  },
+});
 
-        if (authorization?.length !== 0) {
-          // Extract userId from token.
-          const token = authorization!.split(' ')[1];
-          const { sub: storedUserId } = (await jwt.verify(
-            token,
-          )) as JWTPayloadSpec;
+await server.start();
 
-          if (!storedUserId) {
-            ForbiddenError('Access Token is invalid');
-          }
+app.use(
+  cors({
+    allowMethods: ['POST', 'OPTIONS'],
+    origin: corsOrigin,
+  }),
+);
+app.use(bodyParser());
+app.use(
+  // @ts-ignore
+  koaMiddleware<Context>(server, {
+    context: async ({ ctx }) => {
+      // @ts-ignore
+      const token = ctx.headers.authorization;
+      await prisma.$connect();
 
-          userId = storedUserId!;
-        }
+      return { prisma };
+    },
+  }),
+);
 
-        return { cookie, jwt, prisma, request, userId: userId || '' };
-      },
-      formatError: (formattedError, error) => {
-        console.error(error);
-        return formattedError;
-      },
-      persistedQueries: {
-        ttl: 300, // 5 minutes (default)
-      },
-    }),
-  )
-  .listen(port, ({ hostname, port }) =>
-    console.log(`🚀 Server is running on http://${hostname}:${port}`),
-  );
+await new Promise<void>(resolve => httpServer.listen({ port }, resolve));
+
+//   if (isProd) {
+//     httpServer.listen(port);
+//   }
+
+//   return app;
+// };
+
+// const app = bootstrap();
+export const viteNodeApp = app;

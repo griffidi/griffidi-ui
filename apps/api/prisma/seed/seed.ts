@@ -1,4 +1,4 @@
-import { PrismaClient } from '@/prisma/client/index.js';
+import { PrismaClient } from '#app/prisma/client/index.js';
 import { createCustomers } from './customer.ts';
 import { createCustomerContacts } from './customer-contact.ts';
 import { createUsers } from './user.ts';

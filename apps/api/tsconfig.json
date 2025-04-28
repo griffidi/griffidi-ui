@@ -7,15 +7,20 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "esModuleInterop": true,
+    "erasableSyntaxOnly": true,
     "baseUrl": "src",
     "rootDir": ".",
     "paths": {
-      "@/*": ["./*"],
-      "@gui/core/*": ["../../packages/core/src/*"],
-      "@/prisma/client/*": ["../prisma/generated/prisma/client/*"],
-      "@/constants/*": ["./constants/*"]
+      "#app/*": ["./*"],
+      "#app/constants/*": ["./constants/*"],
+      "#app/prisma/client/*": ["../prisma/generated/prisma/client/*"],
+      "#app/prisma/type-graphql/index.ts": [
+        "../prisma/generated/type-graphql/index.ts"
+      ],
+      "#app/prisma/seed/*": ["../prisma/seed/*"],
+      "@gui/core/*": ["../../packages/core/src/*"]
     }
   },
   "include": ["src/**/*", "prisma/**/*"],
-  "exclude": ["node_modules", "dist", "./prisma/generated"]
+  "exclude": ["node_modules", "dist"]
 }

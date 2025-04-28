@@ -1,32 +1,26 @@
 {
   "name": "@gui/components",
+  "private": false,
   "version": "1.0.0",
-  "author": "Dustin Griffith",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/griffidi/griffidi-ui"
-  },
-  "private": true,
-  "license": "MIT",
-  "packageManager": "bun@1.2.9",
+  "packageManager": "pnpm@10.9.0",
   "engines": {
-    "bun": ">=1.2.9"
+    "node": ">=23.11.0"
   },
   "type": "module",
   "main": "./src/index.ts",
   "exports": {
     "./package.json": "./package.json",
     "./button/button": {
-      "types": "./build/button/button.d.ts",
-      "import": "./build/button/button.js"
+      "types": "./dist/button/button.d.ts",
+      "import": "./dist/button/button.js"
     },
     "./button/link-button": {
-      "types": "./build/button/link-button.d.ts",
-      "import": "./build/button/link-button.js"
+      "types": "./dist/button/link-button.d.ts",
+      "import": "./dist/button/link-button.js"
     },
     ".": {
-      "types": "./build/index.d.ts",
-      "import": "./build/index.js"
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
     }
   },
   "scripts": {

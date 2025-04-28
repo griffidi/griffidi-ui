@@ -1,54 +1,54 @@
 {
   "name": "@gui/api",
-  "version": "1.0.0",
-  "author": "Dustin Griffith",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/griffidi/griffidi-ui"
-  },
   "private": true,
-  "license": "MIT",
-  "packageManager": "bun@1.2.9",
+  "packageManager": "pnpm@10.9.0",
   "engines": {
-    "bun": ">=1.2.9"
+    "node": ">=23.11.0"
   },
   "type": "module",
+  "imports": {
+    "#app/*": "./src/*",
+    "#app/prisma/client/*": "./prisma/generated/prisma/client/*",
+    "#app/prisma/type-graphql/index.ts": "./prisma/generated/type-graphql/index.ts",
+    "#app/prisma/seed/*": "./prisma/seed/*"
+  },
   "scripts": {
-    "db:generate": "rm -rf prisma/dev.db prisma/img && bunx prisma generate && bunx prisma db push && bun prisma/seed/seed.ts",
-    "dev": "bun src/index.ts",
-    "dev:debug": "bun --inspect=localhost:4004 --watch src/index.ts",
-    "build": "task build"
+    "db:clean": "rm -rf prisma/dev.db prisma/generated",
+    "db:generate": "pnpx prisma generate && cd ./node_modules/@prisma/generated/type-graphql && pnpm init",
+    "db:seed": "node prisma/seed/seed.ts --tsconfig=tsconfig.json",
+    "db": "pnpm run db:clean && pnpm run db:generate && pnpx prisma db push && pnpx run db:seed",
+    "build": "task build",
+    "dev": "vite",
+    "dev:debug": "node src/index.ts --env-file=.env --watch --experimental-default-config-file --trace-warnings"
   },
   "dependencies": {
     "@apollo/server": "^4.12.0",
     "@apollo/utils.keyvaluecache": "^3.1.0",
-    "@elysiajs/apollo": "^1.2.0",
-    "@elysiajs/cookie": "^0.8.0",
-    "@elysiajs/cors": "^1.2.0",
-    "@elysiajs/jwt": "^1.2.0",
-    "@elysiajs/swagger": "^1.2.2",
+    "@as-integrations/koa": "^1.1.1",
+    "@koa/cors": "^5.0.0",
     "@prisma/client": "^6.6.0",
-    "elysia": "1.2.6",
     "graphql": "^16.10.0",
     "graphql-fields": "^2.0.3",
     "graphql-scalars": "^1.24.2",
+    "jsonwebtoken": "^9.0.2",
+    "koa": "^2.16.1",
+    "koa-bodyparser": "^4.4.1",
+    "koa-jwt": "^4.0.4",
     "reflect-metadata": "^0.2.2",
+    "tslib": "^2.8.1",
     "type-graphql": "^2.0.0-rc.2"
   },
   "devDependencies": {
     "@faker-js/faker": "^9.7.0",
-    "@types/bun": "^1.2.10",
+    "@types/jsonwebtoken": "^9.0.9",
+    "@types/koa": "^2.15.0",
+    "@types/koa-bodyparser": "^4.3.12",
+    "@types/koa__cors": "^5.0.0",
+    "@types/node": "latest",
     "prisma": "^6.6.0",
     "typegraphql-prisma": "^0.28.0",
-    "typescript": "^5.8.3"
-  },
-  "trustedDependencies": [
-    "@apollo/protobufjs",
-    "core-js",
-    "core-js-pure",
-    "yarn",
-    "@prisma/client",
-    "@prisma/engines",
-    "prisma"
-  ]
+    "typescript": "^5.8.3",
+    "vite": "^6.3.3",
+    "vite-plugin-node": "^5.0.1"
+  }
 }

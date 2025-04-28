@@ -1,0 +1,17 @@
+packages:
+  - apps/*
+  - packages/*
+
+onlyBuiltDependencies:
+  - '@apollo/protobufjs'
+  - '@carbon/icon-helpers'
+  - '@carbon/icons-react'
+  - '@prisma/client'
+  - '@prisma/engines'
+  - esbuild
+  - prisma
+
+publicHoistPattern:
+  - esbuild
+  - typescript
+  - typegraphql-prisma

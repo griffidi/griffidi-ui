@@ -1,24 +1,17 @@
 {
   "name": "@gui/demo",
-  "version": "1.0.0",
-  "author": "Dustin Griffith",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/griffidi/griffidi-ui"
-  },
   "private": true,
-  "license": "MIT",
-  "packageManager": "bun@1.2.9",
+  "packageManager": "pnpm@10.9.0",
   "engines": {
-    "bun": ">=1.2.9"
+    "node": ">=23.11.0"
   },
   "type": "module",
   "scripts": {
-    "build": "bunx react-router build",
-    "dev": "bunx react-router dev --port 3006",
-    "start": "bunx react-router-serve ./build/server/index.js",
-    "typecheck": "bunx react-router typegen && tsc",
-    "codegen": "bunx graphql-codegen --config codegen.ts"
+    "build": "pnpx react-router build",
+    "dev": "pnpx react-router dev --port 3006",
+    "start": "pnpx react-router-serve ./dist/server/index.js",
+    "typecheck": "pnpx react-router typegen && tsc",
+    "codegen": "pnpx graphql-codegen --config codegen.ts"
   },
   "dependencies": {
     "@apollo/client": "^3.13.8",
@@ -45,11 +38,12 @@
     "@graphql-typed-document-node/core": "^3.2.0",
     "@react-router/dev": "^7.5.1",
     "@tailwindcss/vite": "^4.1.4",
-    "@types/bun": "^1.2.10",
+    "@types/node": "latest",
     "@types/graphql": "^14.5.0",
     "@types/react": "^19.1.2",
     "@types/react-dom": "^19.1.2",
     "@vitejs/plugin-react": "^4.4.1",
+    "pnpm": "latest",
     "react-router-devtools": "^1.1.10",
     "tailwindcss": "^4.1.4",
     "vite": "^6.3.2",

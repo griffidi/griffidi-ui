@@ -11,10 +11,10 @@ tasks:
     internal: true
     desc: Clean the project
     cmds:
-      - rm -rf build node_modules
+      - rm -rf dist node_modules
 
   build:ts:
     desc: Build typescript
     deps: [build:clean]
     cmds:
-      - bun build app/index.ts --root=. --outdir=build --target=browser --packages=external --sourcemap=linked
+      - tsc build app/index.ts --root=. --outdir=dist --target=browser --packages=external --sourcemap=linked

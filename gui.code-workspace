@@ -15,10 +15,7 @@
     }
   ],
   "settings": {
-    "bun.runtime": "$HOME/.bun/bin/bun",
-    "bun.debugTerminal.enabled": true,
-    "bun.debugTerminal.stopOnEntry": false,
-    "npm.packageManager": "bun",
+    "pnpm.packageManager": "pnpm",
 
     "biome.rename": true,
     // "biome.projects": [
@@ -136,10 +133,10 @@
     "search.exclude": {
       "**/node_modules": true,
       "**/cdk.out": true,
-      "**/build": true,
+      "**/dist": true,
       "**/public": true,
       "CHANGELOG.md": true,
-      "bun.lock": true,
+      "pnpm-lock.yaml": true,
       "**/routeTree.gen.ts": true
     },
 
@@ -151,8 +148,8 @@
       "**/CVS": true,
       "**/.DS_Store": true,
       "**/Thumbs.db": true,
-      "**/node_modules": true,
-      "**/build": true,
+      // "**/node_modules": true,
+      "**/dist": true,
       "**/.react-router": true
     },
 
@@ -215,7 +212,6 @@
   "extensions": {
     "recommendations": [
       "biomejs.biome",
-      "oven.bun-vscode",
       "prisma.prisma-insider",
       "task.vscode-task"
     ]

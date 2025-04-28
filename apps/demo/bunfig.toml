@@ -1,5 +1,0 @@
-logLevel = "debug"
-
-[run]
-shell = "bun"
-bun = true

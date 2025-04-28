@@ -19,8 +19,6 @@ type ApolloClientOptions = {
   validateVariables?: boolean;
 };
 
-const isDev = import.meta.env.MODE === 'development';
-
 /**
  * Create Apollo links with error handling, persisted queries, and authorization.
  *
@@ -55,7 +53,7 @@ const createLinks = (token: string, uri: string) => {
 
   const persistedQueryLink = createPersistedQueryLink({
     sha256,
-    disable: () => !isDev,
+    disable: () => !import.meta.env.DEV,
     useGETForHashedQueries: true,
   });
 
