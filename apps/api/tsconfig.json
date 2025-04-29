@@ -4,10 +4,10 @@
     "../../config/tsconfig.node.json"
   ],
   "compilerOptions": {
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "esModuleInterop": true,
-    "erasableSyntaxOnly": true,
+    // "experimentalDecorators": true,
+    // "emitDecoratorMetadata": true,
+    // "esModuleInterop": true,
+    // "erasableSyntaxOnly": true,
     "baseUrl": "src",
     "rootDir": ".",
     "paths": {

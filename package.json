@@ -9,9 +9,7 @@
   },
   "type": "module",
   "scripts": {
-    "clean": "rimraf -g pnpm-lock.yaml **/node_modules **/dist",
-    "approve-builds": "pnpm approve-builds @apollo/protobufjs, @carbon/icon-helpers, @carbon/icons-react, @prisma/client, @prisma/engines, esbuild",
-    "presetup": "pnpm run clean && pnpm approve-builds",
+    "clear": "pnpm recursive exec rm -rf node_modules && rm -rf dist",
     "setup": "pnpm install",
     "lint": "pnpx biome lint"
   },

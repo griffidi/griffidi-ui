@@ -1,11 +1,11 @@
-query signIn($username: String!, $password: String!) {
-  signIn(username: $username, password: $password)
-}
+# query signin($username: String!, $password: String!) {
 
-query signOut {
-  signOut
-}
+# }
 
-query validate($token: String!) {
-  validate(token: $token)
-}
+# query signOut {
+#   signOut
+# }
+
+# query validate($token: String!) {
+#   validate(token: $token)
+# }

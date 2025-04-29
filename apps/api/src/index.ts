@@ -15,16 +15,13 @@ import cors from '@koa/cors';
 import { resolvers } from '@prisma/generated/type-graphql/index.js';
 import Koa from 'koa';
 import bodyParser from 'koa-bodyparser';
-import { buildSchema } from 'type-graphql';
+import { buildSchemaSync } from 'type-graphql';
 import type { Context } from './client/context.ts';
 import { prisma } from './client/index.ts';
 import { corsOrigin, isDev, port } from './config.ts';
 
-// import { AuthResolver } from './resolvers/auth.ts';
-
-const schema = await buildSchema({
-  // @ts-ignore
-  resolvers: [...resolvers],
+const schema = buildSchemaSync({
+  resolvers,
   emitSchemaFile: './prisma/schema.graphql',
   validate: false,
 });
