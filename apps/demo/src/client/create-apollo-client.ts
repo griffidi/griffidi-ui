@@ -4,7 +4,7 @@ import { ApolloLink } from '@apollo/client/link/core';
 import { onError } from '@apollo/client/link/error';
 import { HttpLink } from '@apollo/client/link/http';
 import { createPersistedQueryLink } from '@apollo/client/link/persisted-queries';
-import { connectApolloClientToVSCodeDevTools } from '@apollo/client-devtools-vscode';
+// import { connectApolloClientToVSCodeDevTools } from '@apollo/client-devtools-vscode';
 // import { assert } from '@gui/core';
 import { sha256 } from 'crypto-hash';
 

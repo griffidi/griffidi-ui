@@ -68,12 +68,4 @@ app.use(
 
 await new Promise<void>(resolve => httpServer.listen({ port }, resolve));
 
-//   if (isProd) {
-//     httpServer.listen(port);
-//   }
-
-//   return app;
-// };
-
-// const app = bootstrap();
 export const viteNodeApp = app;

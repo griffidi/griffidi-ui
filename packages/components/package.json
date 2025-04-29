@@ -10,17 +10,14 @@
   "main": "./src/index.ts",
   "exports": {
     "./package.json": "./package.json",
-    "./button/button": {
-      "types": "./dist/button/button.d.ts",
-      "import": "./dist/button/button.js"
+    "./button/button.tsx": {
+      "import": "./src/button/button.tsx"
     },
-    "./button/link-button": {
-      "types": "./dist/button/link-button.d.ts",
-      "import": "./dist/button/link-button.js"
+    "./button/link-button.tsx": {
+      "import": "./src/button/link-button.tsx"
     },
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
+      "import": "./src/index.ts"
     }
   },
   "scripts": {
@@ -29,7 +26,13 @@
   },
   "dependencies": {
     "@griffel/react": "^1.5.29",
-    "@gui/core": "workspace:*"
+    "@gui/core": "workspace:*",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.1.2",
+    "@types/react-dom": "^19.1.2"
   },
   "peerDependencies": {
     "typescript": "^5.8.3"

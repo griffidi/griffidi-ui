@@ -1,16 +1,16 @@
 import { useQuery } from '@apollo/client/react/hooks';
-import { SignIn } from '@/types/graphql';
+// import { SignIn } from '@/types/graphql';
 
 export const signIn = (username: string, password: string) => {
-  const { data } = useQuery(SignIn, {
-    variables: {
-      username,
-      password,
-    },
-    fetchPolicy: 'no-cache',
-  });
+  // const { data } = useQuery(SignIn, {
+  //   variables: {
+  //     username,
+  //     password,
+  //   },
+  //   fetchPolicy: 'no-cache',
+  // });
 
-  console.log('signIn', data);
+  // console.log('signIn', data);
   return true;
 };
 

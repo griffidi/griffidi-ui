@@ -17,11 +17,7 @@
     "src/**/*",
     "**/.server/**/*",
     "**/.client/**/*",
-    ".react-router/types/**/*",
-    "app",
-    "components",
-    "src/hooks",
-    "src/layout"
+    ".react-router/types/**/*"
   ],
   "exclude": ["node_modules", "dist"]
 }

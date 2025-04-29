@@ -1,11 +1,9 @@
-import { useApolloClient } from '@apollo/client/react/hooks';
 import { makeStyles } from '@griffel/react';
-import Button from '@gui/components/button/button';
+import Button from '@gui/components/button/button.tsx';
 import { useFormStatus } from 'react-dom';
 import { data, Form, redirect } from 'react-router';
 import { commitSession, getSession } from '@/app/sessions.server.ts';
 import { createApolloClient } from '@/client/create-apollo-client.ts';
-import { SignIn } from '@/types/graphql.ts';
 import type { Route } from './+types/login.ts';
 
 const useStyles = makeStyles({
@@ -87,14 +85,17 @@ const action = async ({ request }: Route.ActionArgs) => {
   const username = form.get('username')?.toString()!;
   const password = form.get('password')?.toString()!;
 
-  const { data, error } = await client.query({
-    query: SignIn,
-    variables: {
-      username,
-      password,
-    },
-    fetchPolicy: 'no-cache',
-  });
+  // const { data, error } = await client.query({
+  //   query: SignIn,
+  //   variables: {
+  //     username,
+  //     password,
+  //   },
+  //   fetchPolicy: 'no-cache',
+  // });
+
+  const data = {};
+  const error = null;
 
   if (error) {
     session.flash('error', 'Invalid username/password');

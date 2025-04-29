@@ -207,7 +207,8 @@
     // },
     "files.readonlyInclude": {
       "**/routeTree.gen.ts": true
-    }
+    },
+    "cSpell.words": ["griffel", "isbot"]
   },
   "extensions": {
     "recommendations": [
