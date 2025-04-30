@@ -11,19 +11,19 @@ import { ApolloServerPluginUsageReportingDisabled } from '@apollo/server/plugin/
 import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer';
 import { InMemoryLRUCache } from '@apollo/utils.keyvaluecache';
 import { koaMiddleware } from '@as-integrations/koa';
+import { makeExecutableSchema } from '@graphql-tools/schema';
 import cors from '@koa/cors';
-import { resolvers } from '@prisma/generated/type-graphql/index.js';
 import Koa from 'koa';
 import bodyParser from 'koa-bodyparser';
-import { buildSchemaSync } from 'type-graphql';
+import { type SignInArgs, signin } from './auth/auth.ts';
 import type { Context } from './client/context.ts';
 import { prisma } from './client/index.ts';
 import { corsOrigin, isDev, port } from './config.ts';
+import resolvers from './resolvers/auth.ts';
 
-const schema = buildSchemaSync({
+const schema = makeExecutableSchema({
   resolvers,
-  emitSchemaFile: './prisma/schema.graphql',
-  validate: false,
+  typeDefs,
 });
 
 // const bootstrap = async () => {
@@ -53,10 +53,19 @@ app.use(
   }),
 );
 app.use(bodyParser());
+
 app.use(
   // @ts-ignore
   koaMiddleware<Context>(server, {
     context: async ({ ctx }) => {
+      const { url } = ctx.request;
+
+      if (url === '/api/signin') {
+        const token = await signin(ctx.request.body as SignInArgs, prisma);
+        ctx.body = { token };
+        ctx.status = 200;
+      }
+
       // @ts-ignore
       const token = ctx.headers.authorization;
       await prisma.$connect();

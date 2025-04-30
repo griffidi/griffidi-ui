@@ -1,11 +1,11 @@
 import type { CodegenConfig } from '@graphql-codegen/cli';
 
-const config: CodegenConfig = {
+const config = {
   overwrite: true,
   debug: true,
   verbose: true,
   errorsOnly: false,
-  schema: '../api/prisma/schema.graphql',
+  schema: 'http://localhost:4003/graphql',
   documents: ['src/graphql/**/*.graphql'],
   emitLegacyCommonJSImports: false,
   ignoreNoDocuments: true,
@@ -29,12 +29,17 @@ const config: CodegenConfig = {
   },
   generates: {
     './src/types/graphql.ts': {
-      plugins: ['typescript', 'typescript-operations', 'typed-document-node'],
+      plugins: [
+        'typescript',
+        'typescript-operations',
+        'typescript-resolvers',
+        'typed-document-node',
+      ],
     },
   },
   hooks: {
     afterAllFileWrite: ['prettier --write'],
   },
-};
+} satisfies CodegenConfig;
 
 export default config;

@@ -3,6 +3,7 @@ import Button from '@gui/components/button/button.tsx';
 import { useFormStatus } from 'react-dom';
 import { data, Form, redirect } from 'react-router';
 import { commitSession, getSession } from '@/app/sessions.server.ts';
+import { signin } from '@/auth/auth.ts';
 import { createApolloClient } from '@/client/create-apollo-client.ts';
 import type { Route } from './+types/login.ts';
 
@@ -73,31 +74,13 @@ const loader = async ({ request }: Route.LoaderArgs) => {
 };
 
 const action = async ({ request }: Route.ActionArgs) => {
-  // const client = useApolloClient();
-  const client = createApolloClient({
-    name: 'demo',
-    version: '1.0.0',
-    uri: import.meta.env.VITE_GRAPHQL_API,
-    token: '',
-  });
   const session = await getSession(request.headers.get('Cookie'));
   const form = await request.formData();
   const username = form.get('username')?.toString()!;
   const password = form.get('password')?.toString()!;
+  const token = await signin(username, password);
 
-  // const { data, error } = await client.query({
-  //   query: SignIn,
-  //   variables: {
-  //     username,
-  //     password,
-  //   },
-  //   fetchPolicy: 'no-cache',
-  // });
-
-  const data = {};
-  const error = null;
-
-  if (error) {
+  if (!token) {
     session.flash('error', 'Invalid username/password');
 
     // Redirect back to the login page with errors.
@@ -108,7 +91,7 @@ const action = async ({ request }: Route.ActionArgs) => {
     });
   }
 
-  session.set('userId', data.signIn);
+  session.set('userId', token);
 
   // Login succeeded, send them to the home page.
   return redirect('/', {

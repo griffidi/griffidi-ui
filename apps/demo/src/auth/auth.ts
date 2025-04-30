@@ -1,17 +1,33 @@
-import { useQuery } from '@apollo/client/react/hooks';
-// import { SignIn } from '@/types/graphql';
-
-export const signIn = (username: string, password: string) => {
-  // const { data } = useQuery(SignIn, {
-  //   variables: {
-  //     username,
-  //     password,
-  //   },
-  //   fetchPolicy: 'no-cache',
-  // });
-
-  // console.log('signIn', data);
-  return true;
+export const signin = async (username: string, password: string) => {
+  try {
+    fetch('http://localhost:4003/api/signin', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ username, password }),
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(data => {
+        if (data) {
+          localStorage.setItem('token', data);
+          return data;
+        }
+        throw new Error('Invalid credentials');
+      })
+      .catch(error => {
+        console.error('Error during sign-in:', error);
+        return null;
+      });
+  } catch (error) {
+    console.error('Failed to sign-in', error);
+    return null;
+  }
 };
 
 export const signOut = () => {
