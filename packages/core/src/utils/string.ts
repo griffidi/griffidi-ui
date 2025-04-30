@@ -26,8 +26,9 @@ export const isEmpty = (value: string | object | Array<unknown> | unknown) => {
  * @param {string | object | Array<unknown> | unknown} value The value to check.
  * @returns {boolean} True if the value is not empty, false otherwise.
  */
-export const isNotEmpty = (value: string | object | Array<unknown>) =>
-  !isEmpty(value);
+export const isNotEmpty = (
+  value: string | object | Array<unknown> | null | undefined,
+) => !isEmpty(value);
 
 /**
  * Replace placeholders in a string with the provided arguments.

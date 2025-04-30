@@ -1,6 +1,6 @@
 import { makeStyles } from '@griffel/react';
 import { type LoaderFunctionArgs, redirect } from 'react-router';
-import { getSession } from '@/app/sessions.server.ts';
+import { useAuth } from '@/hooks/useAuth.ts';
 import type { Route } from './+types';
 
 const useStyles = makeStyles({
@@ -23,9 +23,9 @@ const useStyles = makeStyles({
 });
 
 export async function loader({ request }: LoaderFunctionArgs) {
-  const session = await getSession(request.headers.get('Cookie'));
+  const { isAuthenticated } = await useAuth(request);
 
-  if (!session.has('userId')) {
+  if (!isAuthenticated) {
     const params = new URLSearchParams();
     params.set('from', new URL(request.url).pathname);
     return redirect('/login?' + params.toString());

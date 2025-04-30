@@ -74,11 +74,12 @@ const loader = async ({ request }: Route.LoaderArgs) => {
 };
 
 const action = async ({ request }: Route.ActionArgs) => {
-  const session = await getSession(request.headers.get('Cookie'));
   const form = await request.formData();
   const username = form.get('username')?.toString()!;
   const password = form.get('password')?.toString()!;
   const token = await signin(username, password);
+
+  const session = await getSession(request.headers.get('Cookie'));
 
   if (!token) {
     session.flash('error', 'Invalid username/password');
@@ -91,7 +92,13 @@ const action = async ({ request }: Route.ActionArgs) => {
     });
   }
 
-  session.set('userId', token);
+  session.set(
+    'userId',
+    JSON.stringify({
+      username,
+      token,
+    }),
+  );
 
   // Login succeeded, send them to the home page.
   return redirect('/', {

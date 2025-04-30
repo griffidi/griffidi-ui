@@ -1,8 +1,9 @@
 import { Logout, Settings, UserAvatar, UserProfile } from '@carbon/icons-react';
 import { makeStyles } from '@griffel/react';
 import LinkButton from '@gui/components/button/link-button.tsx';
-import { Link } from 'react-router';
+import { Link, type LoaderFunctionArgs, useLoaderData } from 'react-router';
 import GuiIcon from '@/components/icons/gui';
+import { useAuth } from '@/hooks/useAuth.ts';
 
 const useStyles = makeStyles({
   nav: {
@@ -50,10 +51,14 @@ const useStyles = makeStyles({
   },
 });
 
+const loader = async ({ request }: LoaderFunctionArgs) => {
+  const { username } = await useAuth(request);
+  return { username };
+};
+
 const Header = () => {
   const styles = useStyles();
-
-  const userId = '1234567890'; // TODO: get userId from context
+  const { username } = useLoaderData<{ username: string }>();
 
   return (
     <header>
@@ -71,7 +76,7 @@ const Header = () => {
         <menu id="menu" popover="auto" className={styles.popover}>
           <li>
             <LinkButton
-              href={`/users/${userId}`}
+              href={`/users/${username}`}
               icon={<UserProfile size={16} />}
             >
               Profile
@@ -93,4 +98,5 @@ const Header = () => {
   );
 };
 
+export { loader };
 export default Header;
