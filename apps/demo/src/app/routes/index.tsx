@@ -1,6 +1,6 @@
 import { makeStyles } from '@griffel/react';
 import { type LoaderFunctionArgs, redirect } from 'react-router';
-// import { useLocalStorage } from '@/hooks/useLocalStorage.tsx';
+import { getSession } from '@/app/sessions.server.ts';
 import type { Route } from './+types';
 
 const useStyles = makeStyles({
@@ -22,11 +22,10 @@ const useStyles = makeStyles({
   },
 });
 
-export function clientLoader({ request }: LoaderFunctionArgs) {
-  // const [token] = useLocalStorage('token', null);
-  const token = window.localStorage.getItem('token');
+export async function loader({ request }: LoaderFunctionArgs) {
+  const session = await getSession(request.headers.get('Cookie'));
 
-  if (!token) {
+  if (!session.has('userId')) {
     const params = new URLSearchParams();
     params.set('from', new URL(request.url).pathname);
     return redirect('/login?' + params.toString());

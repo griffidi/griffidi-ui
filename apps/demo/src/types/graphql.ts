@@ -1,3 +1,8 @@
+import type {
+  GraphQLResolveInfo,
+  GraphQLScalarType,
+  GraphQLScalarTypeConfig,
+} from 'graphql';
 import type { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
 export type Maybe<T> = T | undefined;
 export type InputMaybe<T> = T | undefined;
@@ -19,6 +24,9 @@ export type Incremental<T> =
   | {
       [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never;
     };
+export type RequireFields<T, K extends keyof T> = Omit<T, K> & {
+  [P in K]-?: NonNullable<T[P]>;
+};
 /** All built-in and custom scalars, mapped to their actual values */
 export interface Scalars {
   ID: { input: string; output: string };
@@ -934,6 +942,7 @@ export interface Query {
   readonly groupByCustomer: ReadonlyArray<CustomerGroupBy>;
   readonly groupByCustomerContact: ReadonlyArray<CustomerContactGroupBy>;
   readonly groupByUser: ReadonlyArray<UserGroupBy>;
+  readonly signin?: Maybe<Scalars['String']['output']>;
   readonly user?: Maybe<User>;
   readonly users: ReadonlyArray<User>;
 }
@@ -1081,6 +1090,11 @@ export interface QueryGroupByUserArgs {
   skip?: InputMaybe<Scalars['Int']['input']>;
   take?: InputMaybe<Scalars['Int']['input']>;
   where?: InputMaybe<UserWhereInput>;
+}
+
+export interface QuerySigninArgs {
+  password: Scalars['String']['input'];
+  username: Scalars['String']['input'];
 }
 
 export interface QueryUserArgs {
@@ -1364,6 +1378,13 @@ export interface UserWhereUniqueInput {
   readonly role?: InputMaybe<StringFilter>;
 }
 
+export type SigninQueryVariables = Exact<{
+  username: Scalars['String']['input'];
+  password: Scalars['String']['input'];
+}>;
+
+export type SigninQuery = { readonly signin?: string | undefined };
+
 export type GetCustomersQueryVariables = Exact<{ [key: string]: never }>;
 
 export type GetCustomersQuery = {
@@ -1375,6 +1396,1269 @@ export type GetCustomersQuery = {
   }>;
 };
 
+export type WithIndex<TObject> = TObject & Record<string, any>;
+export type ResolversObject<TObject> = WithIndex<TObject>;
+
+export type ResolverTypeWrapper<T> = Promise<T> | T;
+
+export type ResolverWithResolve<TResult, TParent, TContext, TArgs> = {
+  resolve: ResolverFn<TResult, TParent, TContext, TArgs>;
+};
+export type Resolver<TResult, TParent = {}, TContext = {}, TArgs = {}> =
+  | ResolverFn<TResult, TParent, TContext, TArgs>
+  | ResolverWithResolve<TResult, TParent, TContext, TArgs>;
+
+export type ResolverFn<TResult, TParent, TContext, TArgs> = (
+  parent: TParent,
+  args: TArgs,
+  context: TContext,
+  info: GraphQLResolveInfo,
+) => Promise<TResult> | TResult;
+
+export type SubscriptionSubscribeFn<TResult, TParent, TContext, TArgs> = (
+  parent: TParent,
+  args: TArgs,
+  context: TContext,
+  info: GraphQLResolveInfo,
+) => AsyncIterable<TResult> | Promise<AsyncIterable<TResult>>;
+
+export type SubscriptionResolveFn<TResult, TParent, TContext, TArgs> = (
+  parent: TParent,
+  args: TArgs,
+  context: TContext,
+  info: GraphQLResolveInfo,
+) => TResult | Promise<TResult>;
+
+export interface SubscriptionSubscriberObject<
+  TResult,
+  TKey extends string,
+  TParent,
+  TContext,
+  TArgs,
+> {
+  subscribe: SubscriptionSubscribeFn<
+    { [key in TKey]: TResult },
+    TParent,
+    TContext,
+    TArgs
+  >;
+  resolve?: SubscriptionResolveFn<
+    TResult,
+    { [key in TKey]: TResult },
+    TContext,
+    TArgs
+  >;
+}
+
+export interface SubscriptionResolverObject<TResult, TParent, TContext, TArgs> {
+  subscribe: SubscriptionSubscribeFn<any, TParent, TContext, TArgs>;
+  resolve: SubscriptionResolveFn<TResult, any, TContext, TArgs>;
+}
+
+export type SubscriptionObject<
+  TResult,
+  TKey extends string,
+  TParent,
+  TContext,
+  TArgs,
+> =
+  | SubscriptionSubscriberObject<TResult, TKey, TParent, TContext, TArgs>
+  | SubscriptionResolverObject<TResult, TParent, TContext, TArgs>;
+
+export type SubscriptionResolver<
+  TResult,
+  TKey extends string,
+  TParent = {},
+  TContext = {},
+  TArgs = {},
+> =
+  | ((
+      ...args: any[]
+    ) => SubscriptionObject<TResult, TKey, TParent, TContext, TArgs>)
+  | SubscriptionObject<TResult, TKey, TParent, TContext, TArgs>;
+
+export type TypeResolveFn<TTypes, TParent = {}, TContext = {}> = (
+  parent: TParent,
+  context: TContext,
+  info: GraphQLResolveInfo,
+) => Maybe<TTypes> | Promise<Maybe<TTypes>>;
+
+export type IsTypeOfResolverFn<T = {}, TContext = {}> = (
+  obj: T,
+  context: TContext,
+  info: GraphQLResolveInfo,
+) => boolean | Promise<boolean>;
+
+export type NextResolverFn<T> = () => Promise<T>;
+
+export type DirectiveResolverFn<
+  TResult = {},
+  TParent = {},
+  TContext = {},
+  TArgs = {},
+> = (
+  next: NextResolverFn<TResult>,
+  parent: TParent,
+  args: TArgs,
+  context: TContext,
+  info: GraphQLResolveInfo,
+) => TResult | Promise<TResult>;
+
+/** Mapping between all available schema types and the resolvers types */
+export type ResolversTypes = ResolversObject<{
+  AffectedRowsOutput: ResolverTypeWrapper<AffectedRowsOutput>;
+  AggregateCustomer: ResolverTypeWrapper<AggregateCustomer>;
+  AggregateCustomerContact: ResolverTypeWrapper<AggregateCustomerContact>;
+  AggregateUser: ResolverTypeWrapper<AggregateUser>;
+  Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
+  CreateManyAndReturnCustomer: ResolverTypeWrapper<CreateManyAndReturnCustomer>;
+  CreateManyAndReturnCustomerContact: ResolverTypeWrapper<CreateManyAndReturnCustomerContact>;
+  CreateManyAndReturnUser: ResolverTypeWrapper<CreateManyAndReturnUser>;
+  Customer: ResolverTypeWrapper<Customer>;
+  CustomerContact: ResolverTypeWrapper<CustomerContact>;
+  CustomerContactCountAggregate: ResolverTypeWrapper<CustomerContactCountAggregate>;
+  CustomerContactCountOrderByAggregateInput: CustomerContactCountOrderByAggregateInput;
+  CustomerContactCreateInput: CustomerContactCreateInput;
+  CustomerContactCreateManyCustomerInput: CustomerContactCreateManyCustomerInput;
+  CustomerContactCreateManyCustomerInputEnvelope: CustomerContactCreateManyCustomerInputEnvelope;
+  CustomerContactCreateManyInput: CustomerContactCreateManyInput;
+  CustomerContactCreateNestedManyWithoutCustomerInput: CustomerContactCreateNestedManyWithoutCustomerInput;
+  CustomerContactCreateOrConnectWithoutCustomerInput: CustomerContactCreateOrConnectWithoutCustomerInput;
+  CustomerContactCreateWithoutCustomerInput: CustomerContactCreateWithoutCustomerInput;
+  CustomerContactGroupBy: ResolverTypeWrapper<CustomerContactGroupBy>;
+  CustomerContactListRelationFilter: CustomerContactListRelationFilter;
+  CustomerContactMaxAggregate: ResolverTypeWrapper<CustomerContactMaxAggregate>;
+  CustomerContactMaxOrderByAggregateInput: CustomerContactMaxOrderByAggregateInput;
+  CustomerContactMinAggregate: ResolverTypeWrapper<CustomerContactMinAggregate>;
+  CustomerContactMinOrderByAggregateInput: CustomerContactMinOrderByAggregateInput;
+  CustomerContactOrderByRelationAggregateInput: CustomerContactOrderByRelationAggregateInput;
+  CustomerContactOrderByWithAggregationInput: CustomerContactOrderByWithAggregationInput;
+  CustomerContactOrderByWithRelationInput: CustomerContactOrderByWithRelationInput;
+  CustomerContactScalarFieldEnum: CustomerContactScalarFieldEnum;
+  CustomerContactScalarWhereInput: CustomerContactScalarWhereInput;
+  CustomerContactScalarWhereWithAggregatesInput: CustomerContactScalarWhereWithAggregatesInput;
+  CustomerContactUpdateInput: CustomerContactUpdateInput;
+  CustomerContactUpdateManyMutationInput: CustomerContactUpdateManyMutationInput;
+  CustomerContactUpdateManyWithWhereWithoutCustomerInput: CustomerContactUpdateManyWithWhereWithoutCustomerInput;
+  CustomerContactUpdateManyWithoutCustomerNestedInput: CustomerContactUpdateManyWithoutCustomerNestedInput;
+  CustomerContactUpdateWithWhereUniqueWithoutCustomerInput: CustomerContactUpdateWithWhereUniqueWithoutCustomerInput;
+  CustomerContactUpdateWithoutCustomerInput: CustomerContactUpdateWithoutCustomerInput;
+  CustomerContactUpsertWithWhereUniqueWithoutCustomerInput: CustomerContactUpsertWithWhereUniqueWithoutCustomerInput;
+  CustomerContactWhereInput: CustomerContactWhereInput;
+  CustomerContactWhereUniqueInput: CustomerContactWhereUniqueInput;
+  CustomerCount: ResolverTypeWrapper<CustomerCount>;
+  CustomerCountAggregate: ResolverTypeWrapper<CustomerCountAggregate>;
+  CustomerCountOrderByAggregateInput: CustomerCountOrderByAggregateInput;
+  CustomerCreateInput: CustomerCreateInput;
+  CustomerCreateManyInput: CustomerCreateManyInput;
+  CustomerCreateNestedOneWithoutCustomerContactInput: CustomerCreateNestedOneWithoutCustomerContactInput;
+  CustomerCreateOrConnectWithoutCustomerContactInput: CustomerCreateOrConnectWithoutCustomerContactInput;
+  CustomerCreateWithoutCustomerContactInput: CustomerCreateWithoutCustomerContactInput;
+  CustomerGroupBy: ResolverTypeWrapper<CustomerGroupBy>;
+  CustomerMaxAggregate: ResolverTypeWrapper<CustomerMaxAggregate>;
+  CustomerMaxOrderByAggregateInput: CustomerMaxOrderByAggregateInput;
+  CustomerMinAggregate: ResolverTypeWrapper<CustomerMinAggregate>;
+  CustomerMinOrderByAggregateInput: CustomerMinOrderByAggregateInput;
+  CustomerOrderByWithAggregationInput: CustomerOrderByWithAggregationInput;
+  CustomerOrderByWithRelationInput: CustomerOrderByWithRelationInput;
+  CustomerRelationFilter: CustomerRelationFilter;
+  CustomerScalarFieldEnum: CustomerScalarFieldEnum;
+  CustomerScalarWhereWithAggregatesInput: CustomerScalarWhereWithAggregatesInput;
+  CustomerUpdateInput: CustomerUpdateInput;
+  CustomerUpdateManyMutationInput: CustomerUpdateManyMutationInput;
+  CustomerUpdateOneRequiredWithoutCustomerContactNestedInput: CustomerUpdateOneRequiredWithoutCustomerContactNestedInput;
+  CustomerUpdateToOneWithWhereWithoutCustomerContactInput: CustomerUpdateToOneWithWhereWithoutCustomerContactInput;
+  CustomerUpdateWithoutCustomerContactInput: CustomerUpdateWithoutCustomerContactInput;
+  CustomerUpsertWithoutCustomerContactInput: CustomerUpsertWithoutCustomerContactInput;
+  CustomerWhereInput: CustomerWhereInput;
+  CustomerWhereUniqueInput: CustomerWhereUniqueInput;
+  DateTimeFilter: DateTimeFilter;
+  DateTimeISO: ResolverTypeWrapper<Scalars['DateTimeISO']['output']>;
+  DateTimeWithAggregatesFilter: DateTimeWithAggregatesFilter;
+  Int: ResolverTypeWrapper<Scalars['Int']['output']>;
+  Mutation: ResolverTypeWrapper<{}>;
+  NestedDateTimeFilter: NestedDateTimeFilter;
+  NestedDateTimeWithAggregatesFilter: NestedDateTimeWithAggregatesFilter;
+  NestedIntFilter: NestedIntFilter;
+  NestedStringFilter: NestedStringFilter;
+  NestedStringWithAggregatesFilter: NestedStringWithAggregatesFilter;
+  Query: ResolverTypeWrapper<{}>;
+  SortOrder: SortOrder;
+  String: ResolverTypeWrapper<Scalars['String']['output']>;
+  StringFilter: StringFilter;
+  StringWithAggregatesFilter: StringWithAggregatesFilter;
+  User: ResolverTypeWrapper<User>;
+  UserCountAggregate: ResolverTypeWrapper<UserCountAggregate>;
+  UserCountOrderByAggregateInput: UserCountOrderByAggregateInput;
+  UserCreateInput: UserCreateInput;
+  UserCreateManyInput: UserCreateManyInput;
+  UserGroupBy: ResolverTypeWrapper<UserGroupBy>;
+  UserMaxAggregate: ResolverTypeWrapper<UserMaxAggregate>;
+  UserMaxOrderByAggregateInput: UserMaxOrderByAggregateInput;
+  UserMinAggregate: ResolverTypeWrapper<UserMinAggregate>;
+  UserMinOrderByAggregateInput: UserMinOrderByAggregateInput;
+  UserOrderByWithAggregationInput: UserOrderByWithAggregationInput;
+  UserOrderByWithRelationInput: UserOrderByWithRelationInput;
+  UserScalarFieldEnum: UserScalarFieldEnum;
+  UserScalarWhereWithAggregatesInput: UserScalarWhereWithAggregatesInput;
+  UserUpdateInput: UserUpdateInput;
+  UserUpdateManyMutationInput: UserUpdateManyMutationInput;
+  UserWhereInput: UserWhereInput;
+  UserWhereUniqueInput: UserWhereUniqueInput;
+}>;
+
+/** Mapping between all available schema types and the resolvers parents */
+export type ResolversParentTypes = ResolversObject<{
+  AffectedRowsOutput: AffectedRowsOutput;
+  AggregateCustomer: AggregateCustomer;
+  AggregateCustomerContact: AggregateCustomerContact;
+  AggregateUser: AggregateUser;
+  Boolean: Scalars['Boolean']['output'];
+  CreateManyAndReturnCustomer: CreateManyAndReturnCustomer;
+  CreateManyAndReturnCustomerContact: CreateManyAndReturnCustomerContact;
+  CreateManyAndReturnUser: CreateManyAndReturnUser;
+  Customer: Customer;
+  CustomerContact: CustomerContact;
+  CustomerContactCountAggregate: CustomerContactCountAggregate;
+  CustomerContactCountOrderByAggregateInput: CustomerContactCountOrderByAggregateInput;
+  CustomerContactCreateInput: CustomerContactCreateInput;
+  CustomerContactCreateManyCustomerInput: CustomerContactCreateManyCustomerInput;
+  CustomerContactCreateManyCustomerInputEnvelope: CustomerContactCreateManyCustomerInputEnvelope;
+  CustomerContactCreateManyInput: CustomerContactCreateManyInput;
+  CustomerContactCreateNestedManyWithoutCustomerInput: CustomerContactCreateNestedManyWithoutCustomerInput;
+  CustomerContactCreateOrConnectWithoutCustomerInput: CustomerContactCreateOrConnectWithoutCustomerInput;
+  CustomerContactCreateWithoutCustomerInput: CustomerContactCreateWithoutCustomerInput;
+  CustomerContactGroupBy: CustomerContactGroupBy;
+  CustomerContactListRelationFilter: CustomerContactListRelationFilter;
+  CustomerContactMaxAggregate: CustomerContactMaxAggregate;
+  CustomerContactMaxOrderByAggregateInput: CustomerContactMaxOrderByAggregateInput;
+  CustomerContactMinAggregate: CustomerContactMinAggregate;
+  CustomerContactMinOrderByAggregateInput: CustomerContactMinOrderByAggregateInput;
+  CustomerContactOrderByRelationAggregateInput: CustomerContactOrderByRelationAggregateInput;
+  CustomerContactOrderByWithAggregationInput: CustomerContactOrderByWithAggregationInput;
+  CustomerContactOrderByWithRelationInput: CustomerContactOrderByWithRelationInput;
+  CustomerContactScalarWhereInput: CustomerContactScalarWhereInput;
+  CustomerContactScalarWhereWithAggregatesInput: CustomerContactScalarWhereWithAggregatesInput;
+  CustomerContactUpdateInput: CustomerContactUpdateInput;
+  CustomerContactUpdateManyMutationInput: CustomerContactUpdateManyMutationInput;
+  CustomerContactUpdateManyWithWhereWithoutCustomerInput: CustomerContactUpdateManyWithWhereWithoutCustomerInput;
+  CustomerContactUpdateManyWithoutCustomerNestedInput: CustomerContactUpdateManyWithoutCustomerNestedInput;
+  CustomerContactUpdateWithWhereUniqueWithoutCustomerInput: CustomerContactUpdateWithWhereUniqueWithoutCustomerInput;
+  CustomerContactUpdateWithoutCustomerInput: CustomerContactUpdateWithoutCustomerInput;
+  CustomerContactUpsertWithWhereUniqueWithoutCustomerInput: CustomerContactUpsertWithWhereUniqueWithoutCustomerInput;
+  CustomerContactWhereInput: CustomerContactWhereInput;
+  CustomerContactWhereUniqueInput: CustomerContactWhereUniqueInput;
+  CustomerCount: CustomerCount;
+  CustomerCountAggregate: CustomerCountAggregate;
+  CustomerCountOrderByAggregateInput: CustomerCountOrderByAggregateInput;
+  CustomerCreateInput: CustomerCreateInput;
+  CustomerCreateManyInput: CustomerCreateManyInput;
+  CustomerCreateNestedOneWithoutCustomerContactInput: CustomerCreateNestedOneWithoutCustomerContactInput;
+  CustomerCreateOrConnectWithoutCustomerContactInput: CustomerCreateOrConnectWithoutCustomerContactInput;
+  CustomerCreateWithoutCustomerContactInput: CustomerCreateWithoutCustomerContactInput;
+  CustomerGroupBy: CustomerGroupBy;
+  CustomerMaxAggregate: CustomerMaxAggregate;
+  CustomerMaxOrderByAggregateInput: CustomerMaxOrderByAggregateInput;
+  CustomerMinAggregate: CustomerMinAggregate;
+  CustomerMinOrderByAggregateInput: CustomerMinOrderByAggregateInput;
+  CustomerOrderByWithAggregationInput: CustomerOrderByWithAggregationInput;
+  CustomerOrderByWithRelationInput: CustomerOrderByWithRelationInput;
+  CustomerRelationFilter: CustomerRelationFilter;
+  CustomerScalarWhereWithAggregatesInput: CustomerScalarWhereWithAggregatesInput;
+  CustomerUpdateInput: CustomerUpdateInput;
+  CustomerUpdateManyMutationInput: CustomerUpdateManyMutationInput;
+  CustomerUpdateOneRequiredWithoutCustomerContactNestedInput: CustomerUpdateOneRequiredWithoutCustomerContactNestedInput;
+  CustomerUpdateToOneWithWhereWithoutCustomerContactInput: CustomerUpdateToOneWithWhereWithoutCustomerContactInput;
+  CustomerUpdateWithoutCustomerContactInput: CustomerUpdateWithoutCustomerContactInput;
+  CustomerUpsertWithoutCustomerContactInput: CustomerUpsertWithoutCustomerContactInput;
+  CustomerWhereInput: CustomerWhereInput;
+  CustomerWhereUniqueInput: CustomerWhereUniqueInput;
+  DateTimeFilter: DateTimeFilter;
+  DateTimeISO: Scalars['DateTimeISO']['output'];
+  DateTimeWithAggregatesFilter: DateTimeWithAggregatesFilter;
+  Int: Scalars['Int']['output'];
+  Mutation: {};
+  NestedDateTimeFilter: NestedDateTimeFilter;
+  NestedDateTimeWithAggregatesFilter: NestedDateTimeWithAggregatesFilter;
+  NestedIntFilter: NestedIntFilter;
+  NestedStringFilter: NestedStringFilter;
+  NestedStringWithAggregatesFilter: NestedStringWithAggregatesFilter;
+  Query: {};
+  String: Scalars['String']['output'];
+  StringFilter: StringFilter;
+  StringWithAggregatesFilter: StringWithAggregatesFilter;
+  User: User;
+  UserCountAggregate: UserCountAggregate;
+  UserCountOrderByAggregateInput: UserCountOrderByAggregateInput;
+  UserCreateInput: UserCreateInput;
+  UserCreateManyInput: UserCreateManyInput;
+  UserGroupBy: UserGroupBy;
+  UserMaxAggregate: UserMaxAggregate;
+  UserMaxOrderByAggregateInput: UserMaxOrderByAggregateInput;
+  UserMinAggregate: UserMinAggregate;
+  UserMinOrderByAggregateInput: UserMinOrderByAggregateInput;
+  UserOrderByWithAggregationInput: UserOrderByWithAggregationInput;
+  UserOrderByWithRelationInput: UserOrderByWithRelationInput;
+  UserScalarWhereWithAggregatesInput: UserScalarWhereWithAggregatesInput;
+  UserUpdateInput: UserUpdateInput;
+  UserUpdateManyMutationInput: UserUpdateManyMutationInput;
+  UserWhereInput: UserWhereInput;
+  UserWhereUniqueInput: UserWhereUniqueInput;
+}>;
+
+export type AffectedRowsOutputResolvers<
+  ContextType = any,
+  ParentType extends
+    ResolversParentTypes['AffectedRowsOutput'] = ResolversParentTypes['AffectedRowsOutput'],
+> = ResolversObject<{
+  count?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type AggregateCustomerResolvers<
+  ContextType = any,
+  ParentType extends
+    ResolversParentTypes['AggregateCustomer'] = ResolversParentTypes['AggregateCustomer'],
+> = ResolversObject<{
+  _count?: Resolver<
+    Maybe<ResolversTypes['CustomerCountAggregate']>,
+    ParentType,
+    ContextType
+  >;
+  _max?: Resolver<
+    Maybe<ResolversTypes['CustomerMaxAggregate']>,
+    ParentType,
+    ContextType
+  >;
+  _min?: Resolver<
+    Maybe<ResolversTypes['CustomerMinAggregate']>,
+    ParentType,
+    ContextType
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type AggregateCustomerContactResolvers<
+  ContextType = any,
+  ParentType extends
+    ResolversParentTypes['AggregateCustomerContact'] = ResolversParentTypes['AggregateCustomerContact'],
+> = ResolversObject<{
+  _count?: Resolver<
+    Maybe<ResolversTypes['CustomerContactCountAggregate']>,
+    ParentType,
+    ContextType
+  >;
+  _max?: Resolver<
+    Maybe<ResolversTypes['CustomerContactMaxAggregate']>,
+    ParentType,
+    ContextType
+  >;
+  _min?: Resolver<
+    Maybe<ResolversTypes['CustomerContactMinAggregate']>,
+    ParentType,
+    ContextType
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type AggregateUserResolvers<
+  ContextType = any,
+  ParentType extends
+    ResolversParentTypes['AggregateUser'] = ResolversParentTypes['AggregateUser'],
+> = ResolversObject<{
+  _count?: Resolver<
+    Maybe<ResolversTypes['UserCountAggregate']>,
+    ParentType,
+    ContextType
+  >;
+  _max?: Resolver<
+    Maybe<ResolversTypes['UserMaxAggregate']>,
+    ParentType,
+    ContextType
+  >;
+  _min?: Resolver<
+    Maybe<ResolversTypes['UserMinAggregate']>,
+    ParentType,
+    ContextType
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type CreateManyAndReturnCustomerResolvers<
+  ContextType = any,
+  ParentType extends
+    ResolversParentTypes['CreateManyAndReturnCustomer'] = ResolversParentTypes['CreateManyAndReturnCustomer'],
+> = ResolversObject<{
+  address?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  dateCreated?: Resolver<
+    ResolversTypes['DateTimeISO'],
+    ParentType,
+    ContextType
+  >;
+  dateUpdated?: Resolver<
+    ResolversTypes['DateTimeISO'],
+    ParentType,
+    ContextType
+  >;
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  phone?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type CreateManyAndReturnCustomerContactResolvers<
+  ContextType = any,
+  ParentType extends
+    ResolversParentTypes['CreateManyAndReturnCustomerContact'] = ResolversParentTypes['CreateManyAndReturnCustomerContact'],
+> = ResolversObject<{
+  customer?: Resolver<ResolversTypes['Customer'], ParentType, ContextType>;
+  customerId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  dateCreated?: Resolver<
+    ResolversTypes['DateTimeISO'],
+    ParentType,
+    ContextType
+  >;
+  dateUpdated?: Resolver<
+    ResolversTypes['DateTimeISO'],
+    ParentType,
+    ContextType
+  >;
+  email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  firstName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  lastName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  phone?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type CreateManyAndReturnUserResolvers<
+  ContextType = any,
+  ParentType extends
+    ResolversParentTypes['CreateManyAndReturnUser'] = ResolversParentTypes['CreateManyAndReturnUser'],
+> = ResolversObject<{
+  address?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  dateCreated?: Resolver<
+    ResolversTypes['DateTimeISO'],
+    ParentType,
+    ContextType
+  >;
+  email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  firstName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  lastName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  password?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  phone?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  role?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type CustomerResolvers<
+  ContextType = any,
+  ParentType extends
+    ResolversParentTypes['Customer'] = ResolversParentTypes['Customer'],
+> = ResolversObject<{
+  CustomerContact?: Resolver<
+    ReadonlyArray<ResolversTypes['CustomerContact']>,
+    ParentType,
+    ContextType,
+    Partial<CustomerCustomerContactArgs>
+  >;
+  _count?: Resolver<
+    Maybe<ResolversTypes['CustomerCount']>,
+    ParentType,
+    ContextType
+  >;
+  address?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  dateCreated?: Resolver<
+    ResolversTypes['DateTimeISO'],
+    ParentType,
+    ContextType
+  >;
+  dateUpdated?: Resolver<
+    ResolversTypes['DateTimeISO'],
+    ParentType,
+    ContextType
+  >;
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  phone?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type CustomerContactResolvers<
+  ContextType = any,
+  ParentType extends
+    ResolversParentTypes['CustomerContact'] = ResolversParentTypes['CustomerContact'],
+> = ResolversObject<{
+  customer?: Resolver<ResolversTypes['Customer'], ParentType, ContextType>;
+  customerId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  dateCreated?: Resolver<
+    ResolversTypes['DateTimeISO'],
+    ParentType,
+    ContextType
+  >;
+  dateUpdated?: Resolver<
+    ResolversTypes['DateTimeISO'],
+    ParentType,
+    ContextType
+  >;
+  email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  firstName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  lastName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  phone?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type CustomerContactCountAggregateResolvers<
+  ContextType = any,
+  ParentType extends
+    ResolversParentTypes['CustomerContactCountAggregate'] = ResolversParentTypes['CustomerContactCountAggregate'],
+> = ResolversObject<{
+  _all?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  customerId?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  dateCreated?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  dateUpdated?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  email?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  firstName?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  lastName?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  phone?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type CustomerContactGroupByResolvers<
+  ContextType = any,
+  ParentType extends
+    ResolversParentTypes['CustomerContactGroupBy'] = ResolversParentTypes['CustomerContactGroupBy'],
+> = ResolversObject<{
+  _count?: Resolver<
+    Maybe<ResolversTypes['CustomerContactCountAggregate']>,
+    ParentType,
+    ContextType
+  >;
+  _max?: Resolver<
+    Maybe<ResolversTypes['CustomerContactMaxAggregate']>,
+    ParentType,
+    ContextType
+  >;
+  _min?: Resolver<
+    Maybe<ResolversTypes['CustomerContactMinAggregate']>,
+    ParentType,
+    ContextType
+  >;
+  customerId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  dateCreated?: Resolver<
+    ResolversTypes['DateTimeISO'],
+    ParentType,
+    ContextType
+  >;
+  dateUpdated?: Resolver<
+    ResolversTypes['DateTimeISO'],
+    ParentType,
+    ContextType
+  >;
+  email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  firstName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  lastName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  phone?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type CustomerContactMaxAggregateResolvers<
+  ContextType = any,
+  ParentType extends
+    ResolversParentTypes['CustomerContactMaxAggregate'] = ResolversParentTypes['CustomerContactMaxAggregate'],
+> = ResolversObject<{
+  customerId?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  dateCreated?: Resolver<
+    Maybe<ResolversTypes['DateTimeISO']>,
+    ParentType,
+    ContextType
+  >;
+  dateUpdated?: Resolver<
+    Maybe<ResolversTypes['DateTimeISO']>,
+    ParentType,
+    ContextType
+  >;
+  email?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  firstName?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  lastName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  phone?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type CustomerContactMinAggregateResolvers<
+  ContextType = any,
+  ParentType extends
+    ResolversParentTypes['CustomerContactMinAggregate'] = ResolversParentTypes['CustomerContactMinAggregate'],
+> = ResolversObject<{
+  customerId?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  dateCreated?: Resolver<
+    Maybe<ResolversTypes['DateTimeISO']>,
+    ParentType,
+    ContextType
+  >;
+  dateUpdated?: Resolver<
+    Maybe<ResolversTypes['DateTimeISO']>,
+    ParentType,
+    ContextType
+  >;
+  email?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  firstName?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  lastName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  phone?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type CustomerCountResolvers<
+  ContextType = any,
+  ParentType extends
+    ResolversParentTypes['CustomerCount'] = ResolversParentTypes['CustomerCount'],
+> = ResolversObject<{
+  CustomerContact?: Resolver<
+    ResolversTypes['Int'],
+    ParentType,
+    ContextType,
+    Partial<CustomerCountCustomerContactArgs>
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type CustomerCountAggregateResolvers<
+  ContextType = any,
+  ParentType extends
+    ResolversParentTypes['CustomerCountAggregate'] = ResolversParentTypes['CustomerCountAggregate'],
+> = ResolversObject<{
+  _all?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  address?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  dateCreated?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  dateUpdated?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  phone?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type CustomerGroupByResolvers<
+  ContextType = any,
+  ParentType extends
+    ResolversParentTypes['CustomerGroupBy'] = ResolversParentTypes['CustomerGroupBy'],
+> = ResolversObject<{
+  _count?: Resolver<
+    Maybe<ResolversTypes['CustomerCountAggregate']>,
+    ParentType,
+    ContextType
+  >;
+  _max?: Resolver<
+    Maybe<ResolversTypes['CustomerMaxAggregate']>,
+    ParentType,
+    ContextType
+  >;
+  _min?: Resolver<
+    Maybe<ResolversTypes['CustomerMinAggregate']>,
+    ParentType,
+    ContextType
+  >;
+  address?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  dateCreated?: Resolver<
+    ResolversTypes['DateTimeISO'],
+    ParentType,
+    ContextType
+  >;
+  dateUpdated?: Resolver<
+    ResolversTypes['DateTimeISO'],
+    ParentType,
+    ContextType
+  >;
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  phone?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type CustomerMaxAggregateResolvers<
+  ContextType = any,
+  ParentType extends
+    ResolversParentTypes['CustomerMaxAggregate'] = ResolversParentTypes['CustomerMaxAggregate'],
+> = ResolversObject<{
+  address?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  dateCreated?: Resolver<
+    Maybe<ResolversTypes['DateTimeISO']>,
+    ParentType,
+    ContextType
+  >;
+  dateUpdated?: Resolver<
+    Maybe<ResolversTypes['DateTimeISO']>,
+    ParentType,
+    ContextType
+  >;
+  id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  phone?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type CustomerMinAggregateResolvers<
+  ContextType = any,
+  ParentType extends
+    ResolversParentTypes['CustomerMinAggregate'] = ResolversParentTypes['CustomerMinAggregate'],
+> = ResolversObject<{
+  address?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  dateCreated?: Resolver<
+    Maybe<ResolversTypes['DateTimeISO']>,
+    ParentType,
+    ContextType
+  >;
+  dateUpdated?: Resolver<
+    Maybe<ResolversTypes['DateTimeISO']>,
+    ParentType,
+    ContextType
+  >;
+  id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  phone?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export interface DateTimeIsoScalarConfig
+  extends GraphQLScalarTypeConfig<ResolversTypes['DateTimeISO'], any> {
+  name: 'DateTimeISO';
+}
+
+export type MutationResolvers<
+  ContextType = any,
+  ParentType extends
+    ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation'],
+> = ResolversObject<{
+  createManyAndReturnCustomer?: Resolver<
+    ReadonlyArray<ResolversTypes['CreateManyAndReturnCustomer']>,
+    ParentType,
+    ContextType,
+    RequireFields<MutationCreateManyAndReturnCustomerArgs, 'data'>
+  >;
+  createManyAndReturnCustomerContact?: Resolver<
+    ReadonlyArray<ResolversTypes['CreateManyAndReturnCustomerContact']>,
+    ParentType,
+    ContextType,
+    RequireFields<MutationCreateManyAndReturnCustomerContactArgs, 'data'>
+  >;
+  createManyAndReturnUser?: Resolver<
+    ReadonlyArray<ResolversTypes['CreateManyAndReturnUser']>,
+    ParentType,
+    ContextType,
+    RequireFields<MutationCreateManyAndReturnUserArgs, 'data'>
+  >;
+  createManyCustomer?: Resolver<
+    ResolversTypes['AffectedRowsOutput'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationCreateManyCustomerArgs, 'data'>
+  >;
+  createManyCustomerContact?: Resolver<
+    ResolversTypes['AffectedRowsOutput'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationCreateManyCustomerContactArgs, 'data'>
+  >;
+  createManyUser?: Resolver<
+    ResolversTypes['AffectedRowsOutput'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationCreateManyUserArgs, 'data'>
+  >;
+  createOneCustomer?: Resolver<
+    ResolversTypes['Customer'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationCreateOneCustomerArgs, 'data'>
+  >;
+  createOneCustomerContact?: Resolver<
+    ResolversTypes['CustomerContact'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationCreateOneCustomerContactArgs, 'data'>
+  >;
+  createOneUser?: Resolver<
+    ResolversTypes['User'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationCreateOneUserArgs, 'data'>
+  >;
+  deleteManyCustomer?: Resolver<
+    ResolversTypes['AffectedRowsOutput'],
+    ParentType,
+    ContextType,
+    Partial<MutationDeleteManyCustomerArgs>
+  >;
+  deleteManyCustomerContact?: Resolver<
+    ResolversTypes['AffectedRowsOutput'],
+    ParentType,
+    ContextType,
+    Partial<MutationDeleteManyCustomerContactArgs>
+  >;
+  deleteManyUser?: Resolver<
+    ResolversTypes['AffectedRowsOutput'],
+    ParentType,
+    ContextType,
+    Partial<MutationDeleteManyUserArgs>
+  >;
+  deleteOneCustomer?: Resolver<
+    Maybe<ResolversTypes['Customer']>,
+    ParentType,
+    ContextType,
+    RequireFields<MutationDeleteOneCustomerArgs, 'where'>
+  >;
+  deleteOneCustomerContact?: Resolver<
+    Maybe<ResolversTypes['CustomerContact']>,
+    ParentType,
+    ContextType,
+    RequireFields<MutationDeleteOneCustomerContactArgs, 'where'>
+  >;
+  deleteOneUser?: Resolver<
+    Maybe<ResolversTypes['User']>,
+    ParentType,
+    ContextType,
+    RequireFields<MutationDeleteOneUserArgs, 'where'>
+  >;
+  updateManyCustomer?: Resolver<
+    ResolversTypes['AffectedRowsOutput'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationUpdateManyCustomerArgs, 'data'>
+  >;
+  updateManyCustomerContact?: Resolver<
+    ResolversTypes['AffectedRowsOutput'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationUpdateManyCustomerContactArgs, 'data'>
+  >;
+  updateManyUser?: Resolver<
+    ResolversTypes['AffectedRowsOutput'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationUpdateManyUserArgs, 'data'>
+  >;
+  updateOneCustomer?: Resolver<
+    Maybe<ResolversTypes['Customer']>,
+    ParentType,
+    ContextType,
+    RequireFields<MutationUpdateOneCustomerArgs, 'data' | 'where'>
+  >;
+  updateOneCustomerContact?: Resolver<
+    Maybe<ResolversTypes['CustomerContact']>,
+    ParentType,
+    ContextType,
+    RequireFields<MutationUpdateOneCustomerContactArgs, 'data' | 'where'>
+  >;
+  updateOneUser?: Resolver<
+    Maybe<ResolversTypes['User']>,
+    ParentType,
+    ContextType,
+    RequireFields<MutationUpdateOneUserArgs, 'data' | 'where'>
+  >;
+  upsertOneCustomer?: Resolver<
+    ResolversTypes['Customer'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationUpsertOneCustomerArgs, 'create' | 'update' | 'where'>
+  >;
+  upsertOneCustomerContact?: Resolver<
+    ResolversTypes['CustomerContact'],
+    ParentType,
+    ContextType,
+    RequireFields<
+      MutationUpsertOneCustomerContactArgs,
+      'create' | 'update' | 'where'
+    >
+  >;
+  upsertOneUser?: Resolver<
+    ResolversTypes['User'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationUpsertOneUserArgs, 'create' | 'update' | 'where'>
+  >;
+}>;
+
+export type QueryResolvers<
+  ContextType = any,
+  ParentType extends
+    ResolversParentTypes['Query'] = ResolversParentTypes['Query'],
+> = ResolversObject<{
+  aggregateCustomer?: Resolver<
+    ResolversTypes['AggregateCustomer'],
+    ParentType,
+    ContextType,
+    Partial<QueryAggregateCustomerArgs>
+  >;
+  aggregateCustomerContact?: Resolver<
+    ResolversTypes['AggregateCustomerContact'],
+    ParentType,
+    ContextType,
+    Partial<QueryAggregateCustomerContactArgs>
+  >;
+  aggregateUser?: Resolver<
+    ResolversTypes['AggregateUser'],
+    ParentType,
+    ContextType,
+    Partial<QueryAggregateUserArgs>
+  >;
+  customer?: Resolver<
+    Maybe<ResolversTypes['Customer']>,
+    ParentType,
+    ContextType,
+    RequireFields<QueryCustomerArgs, 'where'>
+  >;
+  customerContact?: Resolver<
+    Maybe<ResolversTypes['CustomerContact']>,
+    ParentType,
+    ContextType,
+    RequireFields<QueryCustomerContactArgs, 'where'>
+  >;
+  customerContacts?: Resolver<
+    ReadonlyArray<ResolversTypes['CustomerContact']>,
+    ParentType,
+    ContextType,
+    Partial<QueryCustomerContactsArgs>
+  >;
+  customers?: Resolver<
+    ReadonlyArray<ResolversTypes['Customer']>,
+    ParentType,
+    ContextType,
+    Partial<QueryCustomersArgs>
+  >;
+  findFirstCustomer?: Resolver<
+    Maybe<ResolversTypes['Customer']>,
+    ParentType,
+    ContextType,
+    Partial<QueryFindFirstCustomerArgs>
+  >;
+  findFirstCustomerContact?: Resolver<
+    Maybe<ResolversTypes['CustomerContact']>,
+    ParentType,
+    ContextType,
+    Partial<QueryFindFirstCustomerContactArgs>
+  >;
+  findFirstCustomerContactOrThrow?: Resolver<
+    Maybe<ResolversTypes['CustomerContact']>,
+    ParentType,
+    ContextType,
+    Partial<QueryFindFirstCustomerContactOrThrowArgs>
+  >;
+  findFirstCustomerOrThrow?: Resolver<
+    Maybe<ResolversTypes['Customer']>,
+    ParentType,
+    ContextType,
+    Partial<QueryFindFirstCustomerOrThrowArgs>
+  >;
+  findFirstUser?: Resolver<
+    Maybe<ResolversTypes['User']>,
+    ParentType,
+    ContextType,
+    Partial<QueryFindFirstUserArgs>
+  >;
+  findFirstUserOrThrow?: Resolver<
+    Maybe<ResolversTypes['User']>,
+    ParentType,
+    ContextType,
+    Partial<QueryFindFirstUserOrThrowArgs>
+  >;
+  getCustomer?: Resolver<
+    Maybe<ResolversTypes['Customer']>,
+    ParentType,
+    ContextType,
+    RequireFields<QueryGetCustomerArgs, 'where'>
+  >;
+  getCustomerContact?: Resolver<
+    Maybe<ResolversTypes['CustomerContact']>,
+    ParentType,
+    ContextType,
+    RequireFields<QueryGetCustomerContactArgs, 'where'>
+  >;
+  getUser?: Resolver<
+    Maybe<ResolversTypes['User']>,
+    ParentType,
+    ContextType,
+    RequireFields<QueryGetUserArgs, 'where'>
+  >;
+  groupByCustomer?: Resolver<
+    ReadonlyArray<ResolversTypes['CustomerGroupBy']>,
+    ParentType,
+    ContextType,
+    RequireFields<QueryGroupByCustomerArgs, 'by'>
+  >;
+  groupByCustomerContact?: Resolver<
+    ReadonlyArray<ResolversTypes['CustomerContactGroupBy']>,
+    ParentType,
+    ContextType,
+    RequireFields<QueryGroupByCustomerContactArgs, 'by'>
+  >;
+  groupByUser?: Resolver<
+    ReadonlyArray<ResolversTypes['UserGroupBy']>,
+    ParentType,
+    ContextType,
+    RequireFields<QueryGroupByUserArgs, 'by'>
+  >;
+  signin?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<QuerySigninArgs, 'password' | 'username'>
+  >;
+  user?: Resolver<
+    Maybe<ResolversTypes['User']>,
+    ParentType,
+    ContextType,
+    RequireFields<QueryUserArgs, 'where'>
+  >;
+  users?: Resolver<
+    ReadonlyArray<ResolversTypes['User']>,
+    ParentType,
+    ContextType,
+    Partial<QueryUsersArgs>
+  >;
+}>;
+
+export type UserResolvers<
+  ContextType = any,
+  ParentType extends
+    ResolversParentTypes['User'] = ResolversParentTypes['User'],
+> = ResolversObject<{
+  address?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  dateCreated?: Resolver<
+    ResolversTypes['DateTimeISO'],
+    ParentType,
+    ContextType
+  >;
+  email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  firstName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  lastName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  password?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  phone?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  role?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type UserCountAggregateResolvers<
+  ContextType = any,
+  ParentType extends
+    ResolversParentTypes['UserCountAggregate'] = ResolversParentTypes['UserCountAggregate'],
+> = ResolversObject<{
+  _all?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  address?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  dateCreated?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  email?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  firstName?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  lastName?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  password?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  phone?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  role?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type UserGroupByResolvers<
+  ContextType = any,
+  ParentType extends
+    ResolversParentTypes['UserGroupBy'] = ResolversParentTypes['UserGroupBy'],
+> = ResolversObject<{
+  _count?: Resolver<
+    Maybe<ResolversTypes['UserCountAggregate']>,
+    ParentType,
+    ContextType
+  >;
+  _max?: Resolver<
+    Maybe<ResolversTypes['UserMaxAggregate']>,
+    ParentType,
+    ContextType
+  >;
+  _min?: Resolver<
+    Maybe<ResolversTypes['UserMinAggregate']>,
+    ParentType,
+    ContextType
+  >;
+  address?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  dateCreated?: Resolver<
+    ResolversTypes['DateTimeISO'],
+    ParentType,
+    ContextType
+  >;
+  email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  firstName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  lastName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  password?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  phone?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  role?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type UserMaxAggregateResolvers<
+  ContextType = any,
+  ParentType extends
+    ResolversParentTypes['UserMaxAggregate'] = ResolversParentTypes['UserMaxAggregate'],
+> = ResolversObject<{
+  address?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  dateCreated?: Resolver<
+    Maybe<ResolversTypes['DateTimeISO']>,
+    ParentType,
+    ContextType
+  >;
+  email?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  firstName?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  lastName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  password?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  phone?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  role?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type UserMinAggregateResolvers<
+  ContextType = any,
+  ParentType extends
+    ResolversParentTypes['UserMinAggregate'] = ResolversParentTypes['UserMinAggregate'],
+> = ResolversObject<{
+  address?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  dateCreated?: Resolver<
+    Maybe<ResolversTypes['DateTimeISO']>,
+    ParentType,
+    ContextType
+  >;
+  email?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  firstName?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  lastName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  password?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  phone?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  role?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type Resolvers<ContextType = any> = ResolversObject<{
+  AffectedRowsOutput?: AffectedRowsOutputResolvers<ContextType>;
+  AggregateCustomer?: AggregateCustomerResolvers<ContextType>;
+  AggregateCustomerContact?: AggregateCustomerContactResolvers<ContextType>;
+  AggregateUser?: AggregateUserResolvers<ContextType>;
+  CreateManyAndReturnCustomer?: CreateManyAndReturnCustomerResolvers<ContextType>;
+  CreateManyAndReturnCustomerContact?: CreateManyAndReturnCustomerContactResolvers<ContextType>;
+  CreateManyAndReturnUser?: CreateManyAndReturnUserResolvers<ContextType>;
+  Customer?: CustomerResolvers<ContextType>;
+  CustomerContact?: CustomerContactResolvers<ContextType>;
+  CustomerContactCountAggregate?: CustomerContactCountAggregateResolvers<ContextType>;
+  CustomerContactGroupBy?: CustomerContactGroupByResolvers<ContextType>;
+  CustomerContactMaxAggregate?: CustomerContactMaxAggregateResolvers<ContextType>;
+  CustomerContactMinAggregate?: CustomerContactMinAggregateResolvers<ContextType>;
+  CustomerCount?: CustomerCountResolvers<ContextType>;
+  CustomerCountAggregate?: CustomerCountAggregateResolvers<ContextType>;
+  CustomerGroupBy?: CustomerGroupByResolvers<ContextType>;
+  CustomerMaxAggregate?: CustomerMaxAggregateResolvers<ContextType>;
+  CustomerMinAggregate?: CustomerMinAggregateResolvers<ContextType>;
+  DateTimeISO?: GraphQLScalarType;
+  Mutation?: MutationResolvers<ContextType>;
+  Query?: QueryResolvers<ContextType>;
+  User?: UserResolvers<ContextType>;
+  UserCountAggregate?: UserCountAggregateResolvers<ContextType>;
+  UserGroupBy?: UserGroupByResolvers<ContextType>;
+  UserMaxAggregate?: UserMaxAggregateResolvers<ContextType>;
+  UserMinAggregate?: UserMinAggregateResolvers<ContextType>;
+}>;
+
+export const Signin = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'signin' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'username' },
+          },
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'String' },
+            },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'password' },
+          },
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'String' },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'signin' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'username' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'username' },
+                },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'password' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'password' },
+                },
+              },
+            ],
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<SigninQuery, SigninQueryVariables>;
 export const GetCustomers = {
   kind: 'Document',
   definitions: [

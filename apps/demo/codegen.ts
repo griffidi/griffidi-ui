@@ -5,7 +5,7 @@ const config = {
   debug: true,
   verbose: true,
   errorsOnly: false,
-  schema: 'http://localhost:4003/graphql',
+  schema: '../api/prisma/schema.graphql',
   documents: ['src/graphql/**/*.graphql'],
   emitLegacyCommonJSImports: false,
   ignoreNoDocuments: true,

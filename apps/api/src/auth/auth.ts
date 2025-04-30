@@ -2,7 +2,7 @@ import { GraphQLError } from 'graphql';
 import jwt from 'jsonwebtoken';
 import type { PrismaClient } from '#app/prisma/client/index.js';
 import { accessTokenSecret } from '../config.ts';
-import { compareHash } from '../crypto/hash.ts';
+// import { compareHash } from '../crypto/hash.ts';
 
 export type SignInArgs = {
   username: string;
@@ -35,7 +35,7 @@ export const signin = async (
 
   if (isValid) {
     // credentials are valid, so return a JWT
-    const token = jwt.sign({ username }, accessTokenSecret, {
+    const token = jwt.sign({ username }, accessTokenSecret!, {
       expiresIn: '1h',
     });
     return token;

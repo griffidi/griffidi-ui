@@ -9,8 +9,7 @@
   },
   "type": "module",
   "scripts": {
-    "clear": "pnpm recursive exec rm -rf node_modules && rm -rf dist",
-    "setup": "pnpm install",
+    "clear": "rimraf -g pnpm-lock.yaml **/node_modules",
     "lint": "pnpx biome lint"
   },
   "devDependencies": {

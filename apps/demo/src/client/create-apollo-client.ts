@@ -19,6 +19,13 @@ type ApolloClientOptions = {
   validateVariables?: boolean;
 };
 
+export const clientConfig = {
+  uri: import.meta.env.VITE_GRAPHQL_API,
+  name: '@gui/demo',
+  version: '1.0.0',
+  token: '',
+} satisfies ApolloClientOptions;
+
 /**
  * Create Apollo links with error handling, persisted queries, and authorization.
  *

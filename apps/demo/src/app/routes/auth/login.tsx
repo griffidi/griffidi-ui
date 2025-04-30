@@ -4,7 +4,7 @@ import { useFormStatus } from 'react-dom';
 import { data, Form, redirect } from 'react-router';
 import { commitSession, getSession } from '@/app/sessions.server.ts';
 import { signin } from '@/auth/auth.ts';
-import { createApolloClient } from '@/client/create-apollo-client.ts';
+// import { createApolloClient } from '@/client/create-apollo-client.ts';
 import type { Route } from './+types/login.ts';
 
 const useStyles = makeStyles({
@@ -103,8 +103,6 @@ const action = async ({ request }: Route.ActionArgs) => {
 
 const Login = () => {
   const styles = useStyles();
-  // const [username, setUsername] = useState('');
-  // const [password, setPassword] = useState('');
 
   return (
     <Form method="post" className={styles.form}>
@@ -114,8 +112,6 @@ const Login = () => {
           type="text"
           name="username"
           className={styles.input}
-          // value={username}
-          // onChange={({ target }) => setUsername(target.value)}
           autoComplete="username"
           required
           placeholder="Enter your username"
@@ -127,8 +123,6 @@ const Login = () => {
           type="password"
           name="password"
           className={styles.input}
-          // value={password}
-          // onChange={({ target }) => setPassword(target.value)}
           autoComplete="current-password"
           required
           placeholder="Enter your password"
