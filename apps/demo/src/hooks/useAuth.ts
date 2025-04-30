@@ -1,5 +1,5 @@
-import { getSession } from '@/app/sessions.server.ts';
-import type { AuthSession } from '@/auth/auth-session.ts';
+import { getSession } from '../app/sessions.server.ts';
+import type { AuthSession } from '../auth/auth-session.ts';
 
 /**
  * This hook is used to get the auth session from the request.

@@ -1,9 +1,13 @@
 import { Logout, Settings, UserAvatar, UserProfile } from '@carbon/icons-react';
 import { makeStyles } from '@griffel/react';
 import LinkButton from '@gui/components/button/link-button.tsx';
-import { Link, type LoaderFunctionArgs, useLoaderData } from 'react-router';
+import {
+  Link,
+  type LoaderFunctionArgs,
+  redirect,
+  useLoaderData,
+} from 'react-router';
 import GuiIcon from '@/components/icons/gui';
-import { useAuth } from '@/hooks/useAuth.ts';
 
 const useStyles = makeStyles({
   nav: {
@@ -51,12 +55,20 @@ const useStyles = makeStyles({
   },
 });
 
-const loader = async ({ request }: LoaderFunctionArgs) => {
-  const { username } = await useAuth(request);
-  return { username };
-};
+export async function loader({ request }: LoaderFunctionArgs) {
+  const { useAuth } = await import('@/hooks/useAuth.ts');
+  const { isAuthenticated, username } = await useAuth(request);
 
-const Header = () => {
+  if (!isAuthenticated) {
+    const params = new URLSearchParams();
+    params.set('from', new URL(request.url).pathname);
+    return redirect('/login?' + params.toString());
+  }
+
+  return { username };
+}
+
+export default function Header() {
   const styles = useStyles();
   const { username } = useLoaderData<{ username: string }>() || {};
 
@@ -96,7 +108,4 @@ const Header = () => {
       </div>
     </header>
   );
-};
-
-export { loader };
-export default Header;
+}

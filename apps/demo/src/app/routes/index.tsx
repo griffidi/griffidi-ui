@@ -9,7 +9,7 @@ const useStyles = makeStyles({
     placeItems: 'center',
     height: '100vh',
 
-    span: {
+    '> span': {
       fontSize: '7rem',
       fontWeight: 700,
       transition: 'transform 1s ease-in-out',
