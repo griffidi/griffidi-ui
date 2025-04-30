@@ -1,4 +1,3 @@
-import { isNotEmpty } from '@gui/core';
 import { getSession } from '@/app/sessions.server.ts';
 import type { AuthSession } from '@/auth/auth-session.ts';
 
@@ -15,5 +14,5 @@ export const useAuth = async (request: Request) => {
   const { token = null, username = null } = userId
     ? (JSON.parse(userId) as AuthSession)
     : {};
-  return { token, username, isAuthenticated: isNotEmpty(token) };
+  return { token, username, isAuthenticated: !!token };
 };

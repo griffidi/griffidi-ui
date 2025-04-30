@@ -58,7 +58,7 @@ const loader = async ({ request }: LoaderFunctionArgs) => {
 
 const Header = () => {
   const styles = useStyles();
-  const { username } = useLoaderData<{ username: string }>();
+  const { username } = useLoaderData<{ username: string }>() || {};
 
   return (
     <header>

@@ -4,6 +4,7 @@ import { useFormStatus } from 'react-dom';
 import { data, Form, redirect } from 'react-router';
 import { commitSession, getSession } from '@/app/sessions.server.ts';
 import { signin } from '@/auth/auth.ts';
+import { useAuth } from '@/hooks/useAuth.ts';
 // import { createApolloClient } from '@/client/create-apollo-client.ts';
 import type { Route } from './+types/login.ts';
 
@@ -57,20 +58,13 @@ const Actions = () => {
 };
 
 const loader = async ({ request }: Route.LoaderArgs) => {
-  const session = await getSession(request.headers.get('Cookie'));
+  const { isAuthenticated } = await useAuth(request);
 
-  if (session.has('userId')) {
+  if (isAuthenticated) {
     return redirect('/');
   }
 
-  return data(
-    { error: session.get('error') },
-    {
-      headers: {
-        'Set-Cookie': await commitSession(session),
-      },
-    },
-  );
+  return null;
 };
 
 const action = async ({ request }: Route.ActionArgs) => {

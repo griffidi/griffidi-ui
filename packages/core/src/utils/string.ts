@@ -5,6 +5,10 @@
  * @returns {boolean} True if the value is empty, false otherwise.
  */
 export const isEmpty = (value: string | object | Array<unknown> | unknown) => {
+  if (value === null || value === undefined) {
+    return true;
+  }
+
   if (Array.isArray(value)) {
     return value.length === 0;
   }
@@ -17,7 +21,7 @@ export const isEmpty = (value: string | object | Array<unknown> | unknown) => {
     return value?.trim().length === 0;
   }
 
-  return value === null || value === undefined;
+  return false;
 };
 
 /**
