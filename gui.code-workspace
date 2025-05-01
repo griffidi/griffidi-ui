@@ -208,7 +208,7 @@
     "files.readonlyInclude": {
       "**/routeTree.gen.ts": true
     },
-    "cSpell.words": ["griffel", "isbot"]
+    "cSpell.words": ["griffel", "isbot", "Noto", "oklch", "Segoe"]
   },
   "extensions": {
     "recommendations": [

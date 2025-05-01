@@ -1,13 +1,11 @@
 import { Logout, Settings, UserAvatar, UserProfile } from '@carbon/icons-react';
 import { makeStyles } from '@griffel/react';
 import LinkButton from '@gui/components/button/link-button.tsx';
-import {
-  Link,
-  type LoaderFunctionArgs,
-  redirect,
-  useLoaderData,
-} from 'react-router';
+import { useContext } from 'react';
+import { Link, useOutletContext, useRouteLoaderData } from 'react-router';
+import { AuthContext } from '@/auth/auth-context.tsx';
 import GuiIcon from '@/components/icons/gui';
+import type { Auth } from '@/hooks/useAuth.ts';
 
 const useStyles = makeStyles({
   nav: {
@@ -55,22 +53,9 @@ const useStyles = makeStyles({
   },
 });
 
-export async function loader({ request }: LoaderFunctionArgs) {
-  const { useAuth } = await import('@/hooks/useAuth.ts');
-  const { isAuthenticated, username } = await useAuth(request);
-
-  if (!isAuthenticated) {
-    const params = new URLSearchParams();
-    params.set('from', new URL(request.url).pathname);
-    return redirect('/login?' + params.toString());
-  }
-
-  return { username };
-}
-
 export default function Header() {
   const styles = useStyles();
-  const { username } = useLoaderData<{ username: string }>() || {};
+  const { isAuthenticated, username } = useContext(AuthContext)!;
 
   return (
     <header>
@@ -78,10 +63,14 @@ export default function Header() {
         <Link to="/">
           <GuiIcon className="w-6 h-6" />
         </Link>
-        <Link to="/users">Users</Link>
-        <Link to="/customers">Customers</Link>
+        <Link to="/users" hidden={!isAuthenticated}>
+          Users
+        </Link>
+        <Link to="/customers" hidden={!isAuthenticated}>
+          Customers
+        </Link>
       </nav>
-      <div>
+      <div hidden={!isAuthenticated}>
         <button popoverTarget="menu">
           <UserAvatar size={24} />
         </button>

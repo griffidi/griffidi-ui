@@ -3,24 +3,25 @@ import { StrictMode } from 'react';
 import {
   isRouteErrorResponse,
   Links,
+  type LoaderFunctionArgs,
   Meta,
   Outlet,
+  redirect,
   Scripts,
   ScrollRestoration,
+  useLoaderData,
 } from 'react-router';
-import { createApolloClient } from '@/client/create-apollo-client.ts';
+import { AuthProvider } from '@/auth/auth-context.tsx';
+import {
+  clientConfig,
+  createApolloClient,
+} from '@/client/create-apollo-client.ts';
+import { useAuth } from '@/hooks/useAuth.ts';
 import Footer from '@/layout/footer';
 import Header from '@/layout/header';
 import styles from '@/styles/styles.css?url';
 import type { Route } from './+types/root';
 import appStyles from './app.css?url';
-
-const client = createApolloClient({
-  name: '@gui/demo',
-  version: '1.0.0',
-  uri: import.meta.env.VITE_GRAPHQL_API,
-  token: '',
-});
 
 export const links: Route.LinksFunction = () => [
   {
@@ -48,6 +49,13 @@ export const links: Route.LinksFunction = () => [
   },
 ];
 
+const client = createApolloClient(clientConfig);
+
+export const loader = async ({ request }: LoaderFunctionArgs) => {
+  const { isAuthenticated, username } = await useAuth(request);
+  return { isAuthenticated, username };
+};
+
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
@@ -69,13 +77,17 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
+  const auth = useLoaderData<typeof loader>() || {};
+
   return (
     <>
-      <Header />
-      <main>
-        <Outlet />
-      </main>
-      <Footer />
+      <AuthProvider value={auth}>
+        <Header />
+        <main className="w-screen h-screen py-16 px-[2rem]">
+          <Outlet />
+        </main>
+        <Footer />
+      </AuthProvider>
     </>
   );
 }

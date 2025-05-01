@@ -1,7 +1,23 @@
 :root {
-  --gui-color-primary: var(--color-blue-700);
+  --gui-color-primary: var(--color-blue-500);
   --gui-color-primary-lighter: oklch(54.1% 0.281 293.009);
   --gui-color-secondary: var(--color-violet-800);
+
+  --gui-color-gradient-brand: linear-gradient(
+    90deg,
+    var(--color-blue-700) 0%,
+    var(--color-violet-800) 100%
+  );
+  --gui-color-gradient-brand-reverse: linear-gradient(
+    90deg,
+    var(--color-violet-800) 0%,
+    var(--color-blue-700) 100%
+  );
+
+  --gui-text-color: var(--color-slate-950);
+  --gui-text-disabled-color: var(--color-slate-600);
+  --gui-text-fill-background-color: var(--color-slate-300);
+  --gui-text-fill-color: var(--color-slate-700);
 
   --app-header-height: 60px;
 }

@@ -7,7 +7,7 @@ const useStyles = makeStyles({
   homeContainer: {
     display: 'grid',
     placeItems: 'center',
-    height: '100vh',
+    height: '100%',
 
     '> span': {
       fontSize: '7rem',
@@ -22,7 +22,7 @@ const useStyles = makeStyles({
   },
 });
 
-export async function loader({ request }: LoaderFunctionArgs) {
+export const loader = async ({ request }: LoaderFunctionArgs) => {
   const { isAuthenticated } = await useAuth(request);
 
   if (!isAuthenticated) {
@@ -31,17 +31,17 @@ export async function loader({ request }: LoaderFunctionArgs) {
     return redirect('/login?' + params.toString());
   }
 
-  return null;
-}
+  return { isAuthenticated };
+};
 
-export function meta({}: Route.MetaArgs) {
+export const meta = ({}: Route.MetaArgs) => {
   return [
     { title: 'New React Router App' },
     { name: 'description', content: 'Welcome to React Router!' },
   ];
-}
+};
 
-export default function HomePage() {
+export default function Home() {
   const styles = useStyles();
 
   return (

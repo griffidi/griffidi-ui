@@ -10,7 +10,7 @@
       "skipFiles": [
         "**/<node_internals>/**",
         "**/node_modules/**",
-        "!**/node_modules/@mui/**"
+        "!**/node_modules/@gui/**"
       ],
       "sourceMaps": true,
       "smartStep": true,

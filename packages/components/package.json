@@ -16,6 +16,12 @@
     "./button/link-button.tsx": {
       "import": "./src/button/link-button.tsx"
     },
+    "./card/*.tsx": {
+      "import": "./src/card/*.tsx"
+    },
+    "./table/*.tsx": {
+      "import": "./src/table/*.tsx"
+    },
     ".": {
       "import": "./src/index.ts"
     }

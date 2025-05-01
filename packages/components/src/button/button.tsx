@@ -2,14 +2,19 @@ import { makeStyles } from '@griffel/react';
 
 const useStyles = makeStyles({
   button: {
+    '--_background-color':
+      'var(--gui-button-background-color, var(--color-blue-500))',
+
     padding: '0.3rem 1.5rem',
     borderRadius: 'var(--radius-sm)',
-    backgroundColor: 'var(--color-blue-500)',
+    backgroundColor: 'var(--_background-color)',
     color: '#fff',
     border: 'none',
     cursor: 'pointer',
+
     '&:hover': {
-      backgroundColor: 'var(--color-blue-600)',
+      backgroundColor:
+        'color-mix(in oklab, var(--_background-color) 90%, black)',
     },
   },
 });
