@@ -2,7 +2,7 @@ import { makeStyles } from '@griffel/react';
 import type { JSX } from 'react/jsx-runtime';
 
 type LinkButtonProps = {
-  children: React.ReactElement | React.ReactElement[];
+  children: React.ReactElement | React.ReactElement[] | string;
   icon: JSX.Element;
   href: string;
 };
