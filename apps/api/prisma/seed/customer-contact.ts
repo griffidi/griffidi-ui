@@ -28,6 +28,10 @@ export const createCustomerContacts = async (prisma: PrismaClient) => {
           firstName: faker.person.firstName(),
           lastName: faker.person.lastName(),
           email: faker.internet.email(),
+          streetAddress: faker.location.streetAddress(),
+          city: faker.location.city(),
+          state: faker.location.state(),
+          zip: faker.location.zipCode(),
           phone: faker.phone.number(),
         },
       });

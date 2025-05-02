@@ -9,7 +9,10 @@ export const createCustomers = async (prisma: PrismaClient) => {
       data: {
         id: faker.string.uuid(),
         name: faker.company.name(),
-        address: faker.lorem.words(5),
+        streetAddress: faker.location.streetAddress(),
+        city: faker.location.city(),
+        state: faker.location.state({ abbreviated: true }),
+        zip: faker.location.zipCode(),
         phone: faker.phone.number(),
       },
     });
