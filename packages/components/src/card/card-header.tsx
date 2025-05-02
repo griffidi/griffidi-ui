@@ -22,7 +22,9 @@ const useStyles = makeStyles({
   },
 });
 
-const CardHeader: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+const CardHeader: React.FC<{
+  children: React.ReactElement | React.ReactElement[];
+}> = ({ children }) => {
   const classes = useStyles();
 
   return <div className={classes.header}>{children}</div>;

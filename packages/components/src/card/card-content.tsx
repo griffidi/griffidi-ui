@@ -19,7 +19,9 @@ const useStyles = makeStyles({
   },
 });
 
-const CardContent: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+const CardContent: React.FC<{
+  children: React.ReactElement | React.ReactElement[];
+}> = ({ children }) => {
   const classes = useStyles();
 
   return <div className={classes.content}>{children}</div>;

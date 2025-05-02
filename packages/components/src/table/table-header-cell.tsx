@@ -13,12 +13,12 @@ const useStyles = makeStyles({
   },
 });
 
-const TableHeaderCell: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => {
-  const styles = useStyles();
+const TableHeaderCell: React.FC<{
+  children: React.ReactElement | React.ReactElement[] | string;
+}> = ({ children }) => {
+  const classes = useStyles();
 
-  return <div className={styles.cell}>{children}</div>;
+  return <div className={classes.cell}>{children}</div>;
 };
 
 export default TableHeaderCell;

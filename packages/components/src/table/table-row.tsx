@@ -3,11 +3,11 @@ import { makeStyles } from '@griffel/react';
 const useStyles = makeStyles({
   row: {
     display: 'table-row',
-    overflow: 'hidden',
+    width: '100%',
   },
 });
 
-const TableHeaderRow: React.FC<{
+const TableRow: React.FC<{
   children: React.ReactElement | React.ReactElement[];
 }> = ({ children }) => {
   const classes = useStyles();
@@ -15,4 +15,4 @@ const TableHeaderRow: React.FC<{
   return <div className={classes.row}>{children}</div>;
 };
 
-export default TableHeaderRow;
+export default TableRow;

@@ -1,13 +1,17 @@
 import { makeStyles } from '@griffel/react';
+import sharedStyles from './table-cell-shared.css.ts';
 
 const useStyles = makeStyles({
+  sharedStyles,
   cell: {
     display: 'table-cell',
     overflow: 'hidden',
   },
 });
 
-const TableCell: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+const TableCell: React.FC<{
+  children: React.ReactElement | React.ReactElement[] | string;
+}> = ({ children }) => {
   const classes = useStyles();
 
   return <div className={classes.cell}>{children}</div>;

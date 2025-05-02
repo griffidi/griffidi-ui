@@ -22,10 +22,10 @@ const useStyles = makeStyles({
 const Button: React.FC<
   React.ButtonHTMLAttributes<HTMLButtonElement>
 > = props => {
-  const styles = useStyles();
+  const classes = useStyles();
 
   return (
-    <button {...props} className={styles.button}>
+    <button {...props} className={classes.button}>
       {props.children}
     </button>
   );

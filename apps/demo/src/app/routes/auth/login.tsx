@@ -105,11 +105,11 @@ const action = async ({ request }: Route.ActionArgs) => {
 };
 
 const Login = () => {
-  const styles = useStyles();
+  const classes = useStyles();
 
   return (
-    <div className={styles.container}>
-      <Form method="post" className={styles.form}>
+    <div className={classes.container}>
+      <Form method="post" className={classes.form}>
         <header>
           <span className="brand-text-color">Login</span>
         </header>
@@ -118,7 +118,7 @@ const Login = () => {
             id="username"
             type="text"
             name="username"
-            className={styles.input}
+            className={classes.input}
             autoComplete="username"
             required
             placeholder="Enter your username"
@@ -129,13 +129,13 @@ const Login = () => {
             id="password"
             type="password"
             name="password"
-            className={styles.input}
+            className={classes.input}
             autoComplete="current-password"
             required
             placeholder="Enter your password"
           />
         </div>
-        <footer className={styles.actions}>
+        <footer className={classes.actions}>
           <Actions />
         </footer>
       </Form>

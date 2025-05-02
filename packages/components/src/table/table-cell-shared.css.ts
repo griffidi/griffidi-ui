@@ -1,20 +1,17 @@
-import { type GriffelStyle, shorthands } from '@griffel/react';
+import { type GriffelStyle } from '@griffel/react';
 
-export const styles = {
-  '--gui-table-cell-padding-inline': '16px;',
-  '--gui-table-cell-padding-block': '12px',
-
-  '--_container-min-width': 'var(--gui-table-cell-min-width, 100px)',
-  '--_container-padding-inline': 'var(--gui-table-cell-padding-inline)',
-  '--_container-padding-block': 'var(--gui-table-cell-padding-block)',
+export default {
+  '--_min-width': 'var(--gui-table-cell-min-width, 100px)',
+  '--_padding-inline': 'var(--gui-table-cell-padding-inline, 16px)',
+  '--_padding-block': 'var(--gui-table-cell-padding-block, 12px)',
 
   display: 'table-cell',
-  paddingInline: 'var(--_container-padding-inline)',
-  paddingBlock: 'var(--_container-padding-block)',
+  paddingInline: 'var(--_padding-inline)',
+  paddingBlock: 'var(--_padding-block)',
   verticalAlign: 'middle',
-  minInlineSize: 'var(--_container-min-width)',
+  minInlineSize: 'var(--_min-width)',
 
   'cell:not(:last-child)': {
-    borderRight: '1px solid var(--mui-color-border)',
+    borderRight: '1px solid var(--gui-color-border)',
   },
 } satisfies GriffelStyle;

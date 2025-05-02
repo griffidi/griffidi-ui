@@ -1,22 +1,15 @@
 import { useQuery } from '@apollo/client/react/hooks';
 import { makeStyles } from '@griffel/react';
-import Card from '@gui/components/card/index.tsx';
 import ProgressSpinner from '@gui/components/progress-spinner/progress-spinner.tsx';
+import Table from '@gui/components/table/index.tsx';
 import { type LoaderFunctionArgs, redirect } from 'react-router';
 import ErrorMessage from '@/components/error/error-message.tsx';
 import { useAuth } from '@/hooks/useAuth.ts';
-import { GetCustomers } from '@/types/graphql';
+import { type Customer, GetCustomers } from '@/types/graphql';
 
 const useStyles = makeStyles({
-  container: {
-    '--gui-card-header-background-color': 'var(--gui-color-secondary)',
-    '--gui-card-header-color': 'var(--gui-color-text)',
-    '--gui-card-content-background-color': 'var(--color-slate-800)',
-    '--gui-card-content-color': 'var(--gui-color-text)',
-
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
-    gap: '16px',
+  table: {
+    margin: '0 auto',
   },
 
   title: {
@@ -46,26 +39,34 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 
 const Customers = () => {
   const classes = useStyles();
-  const { loading, error, data } = useQuery(GetCustomers);
+  const {
+    loading,
+    error,
+    data: { customers = [] } = { customers: [] as Customer[] },
+  } = useQuery(GetCustomers);
 
   if (loading) return <ProgressSpinner />;
   if (error) return <ErrorMessage message={error.message} />;
 
   return (
-    <div className={classes.container}>
-      {data?.customers.map(({ id, name, city, state }) => (
-        <Card.Root key={id}>
-          <Card.Header>
-            <span className={classes.title}>{name}</span>
-          </Card.Header>
-          <Card.Content>
-            <span className={classes.content}>
-              {city}, {state}
-            </span>
-          </Card.Content>
-        </Card.Root>
-      ))}
-    </div>
+    <Table.Root className={classes.table}>
+      <Table.HeaderRow>
+        <Table.HeaderCell>Id</Table.HeaderCell>
+        <Table.HeaderCell>Name</Table.HeaderCell>
+        <Table.HeaderCell>City</Table.HeaderCell>
+        <Table.HeaderCell>State</Table.HeaderCell>
+      </Table.HeaderRow>
+      <div>
+        {customers.map(({ id, name, city, state }) => (
+          <Table.Row key={id}>
+            <Table.Cell>{id}</Table.Cell>
+            <Table.Cell>{name}</Table.Cell>
+            <Table.Cell>{city}</Table.Cell>
+            <Table.Cell>{state}</Table.Cell>
+          </Table.Row>
+        ))}
+      </div>
+    </Table.Root>
   );
 };
 

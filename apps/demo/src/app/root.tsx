@@ -56,7 +56,11 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   return { isAuthenticated, username };
 };
 
-export function Layout({ children }: { children: React.ReactNode }) {
+export function Layout({
+  children,
+}: {
+  children: React.ReactElement | React.ReactElement[];
+}) {
   return (
     <html lang="en">
       <head>

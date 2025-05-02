@@ -7,6 +7,10 @@ import { AuthContext } from '@/auth/auth-context.tsx';
 import GuiIcon from '@/components/icons/gui';
 
 const useStyles = makeStyles({
+  header: {
+    background: 'var(--gui-color-background)',
+  },
+
   nav: {
     display: 'flex',
     gap: '1rem',
@@ -53,12 +57,12 @@ const useStyles = makeStyles({
 });
 
 export default function Header() {
-  const styles = useStyles();
+  const classes = useStyles();
   const { isAuthenticated, username } = useContext(AuthContext)!;
 
   return (
-    <header>
-      <nav className={styles.nav}>
+    <header className={classes.header}>
+      <nav className={classes.nav}>
         <Link to="/">
           <GuiIcon className="w-6 h-6" />
         </Link>
@@ -73,7 +77,7 @@ export default function Header() {
         <button popoverTarget="menu">
           <UserAvatar size={24} />
         </button>
-        <menu id="menu" popover="auto" className={styles.popover}>
+        <menu id="menu" popover="auto" className={classes.popover}>
           <li>
             <LinkButton
               href={`/users/${username}`}

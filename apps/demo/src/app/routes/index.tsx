@@ -42,10 +42,10 @@ export const meta = ({}: Route.MetaArgs) => {
 };
 
 export default function Home() {
-  const styles = useStyles();
+  const classes = useStyles();
 
   return (
-    <div className={styles.homeContainer}>
+    <div className={classes.homeContainer}>
       <span className="brand-text-color">ghost UI</span>
     </div>
   );

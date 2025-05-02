@@ -2,15 +2,30 @@ import { makeStyles } from '@griffel/react';
 
 const useStyles = makeStyles({
   table: {
+    '--_background-color':
+      'var(--gui-table-background-color, var(--gui-color-background))',
+    '--_color': 'var(--gui-table-color, var(--gui-color-text))',
+
     display: 'table',
     overflow: 'hidden',
+    backgroundColor: 'var(--_background-color)',
+    color: 'var(--_color)',
+    border: '1px solid var(--gui-color-border)',
+    borderRadius: 'var(--radius-lg)',
   },
 });
 
-const Table: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+const Table: React.FC<{
+  children: React.ReactElement | React.ReactElement[];
+  className?: string | undefined;
+}> = ({ children, className }) => {
   const classes = useStyles();
 
-  return <div className={classes.table}>{children}</div>;
+  return (
+    <div className={`${classes.table}${className ? ` ${className}` : ''}`}>
+      {children}
+    </div>
+  );
 };
 
 export default Table;
