@@ -61,6 +61,7 @@ const Actions = () => {
 const loader = async ({ request }: Route.LoaderArgs) => {
   const { isAuthenticated } = await useAuth(request);
 
+  console.log(`login loader: ${isAuthenticated}`);
   if (isAuthenticated) {
     return redirect('/');
   }

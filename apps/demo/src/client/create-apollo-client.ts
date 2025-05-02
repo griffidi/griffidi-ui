@@ -107,7 +107,7 @@ export const createApolloClient = ({
     cache,
   });
 
-  // if (isDev) {
+  // if (import.meta.env.DEV) {
   //   const { onCleanup } = connectApolloClientToVSCodeDevTools(
   //     client,
   //     'ws://localhost:7095',

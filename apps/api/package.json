@@ -15,7 +15,7 @@
   "scripts": {
     "db:clean": "rm -rf prisma/dev.db prisma/generated",
     "db:generate": "pnpx prisma generate && cd ./node_modules/@prisma/generated/type-graphql && pnpm init",
-    "db:seed": "node prisma/seed/seed.ts --tsconfig=tsconfig.json",
+    "db:seed": "node --loader ts-node/esm prisma/seed/seed.ts --tsconfig=tsconfig.json",
     "db": "pnpm run db:clean && pnpm run db:generate && pnpx prisma db push && pnpx run db:seed",
     "build": "task build",
     "dev": "node --loader ts-node/esm --watch --env-file=.env --experimental-default-config-file --no-warnings=ExperimentalWarning src/index.ts"

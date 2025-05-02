@@ -3,6 +3,14 @@
   --gui-color-primary-lighter: oklch(54.1% 0.281 293.009);
   --gui-color-secondary: var(--color-violet-800);
 
+  --gui-color-background: var(--color-gray-950);
+  --gui-color-text: var(--color-slate-50);
+
+  @media (prefers-color-scheme: light) {
+    --gui-color-background: var(--color-white);
+    --gui-color-text: var(--color-slate-950);
+  }
+
   --gui-color-gradient-brand: linear-gradient(
     90deg,
     var(--color-blue-700) 0%,

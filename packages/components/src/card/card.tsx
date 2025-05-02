@@ -5,7 +5,7 @@ const useStyles = makeStyles({
     display: 'flex',
     flexDirection: 'column',
     backgroundColor: '',
-    borderRadius: '8px',
+    borderRadius: 'var(--radius-lg)',
     padding: '16px',
     boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
   },

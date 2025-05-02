@@ -3,6 +3,11 @@ query getCustomers {
     id
     name
     phone
-    address
+    streetAddress
+    city
+    state
+    zip
+    dateCreated
+    dateUpdated
   }
 }

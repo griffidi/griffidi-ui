@@ -61,15 +61,19 @@ export interface AggregateUser {
 }
 
 export interface CreateManyAndReturnCustomer {
-  readonly address: Scalars['String']['output'];
+  readonly city: Scalars['String']['output'];
   readonly dateCreated: Scalars['DateTimeISO']['output'];
   readonly dateUpdated: Scalars['DateTimeISO']['output'];
   readonly id: Scalars['String']['output'];
   readonly name: Scalars['String']['output'];
   readonly phone: Scalars['String']['output'];
+  readonly state: Scalars['String']['output'];
+  readonly streetAddress: Scalars['String']['output'];
+  readonly zip: Scalars['String']['output'];
 }
 
 export interface CreateManyAndReturnCustomerContact {
+  readonly city: Scalars['String']['output'];
   readonly customer: Customer;
   readonly customerId: Scalars['String']['output'];
   readonly dateCreated: Scalars['DateTimeISO']['output'];
@@ -79,6 +83,9 @@ export interface CreateManyAndReturnCustomerContact {
   readonly id: Scalars['String']['output'];
   readonly lastName: Scalars['String']['output'];
   readonly phone: Scalars['String']['output'];
+  readonly state: Scalars['String']['output'];
+  readonly streetAddress: Scalars['String']['output'];
+  readonly zip: Scalars['String']['output'];
 }
 
 export interface CreateManyAndReturnUser {
@@ -96,12 +103,15 @@ export interface CreateManyAndReturnUser {
 export interface Customer {
   readonly CustomerContact: ReadonlyArray<CustomerContact>;
   readonly _count?: Maybe<CustomerCount>;
-  readonly address: Scalars['String']['output'];
+  readonly city: Scalars['String']['output'];
   readonly dateCreated: Scalars['DateTimeISO']['output'];
   readonly dateUpdated: Scalars['DateTimeISO']['output'];
   readonly id: Scalars['String']['output'];
   readonly name: Scalars['String']['output'];
   readonly phone: Scalars['String']['output'];
+  readonly state: Scalars['String']['output'];
+  readonly streetAddress: Scalars['String']['output'];
+  readonly zip: Scalars['String']['output'];
 }
 
 export interface CustomerCustomerContactArgs {
@@ -114,6 +124,7 @@ export interface CustomerCustomerContactArgs {
 }
 
 export interface CustomerContact {
+  readonly city: Scalars['String']['output'];
   readonly customer: Customer;
   readonly customerId: Scalars['String']['output'];
   readonly dateCreated: Scalars['DateTimeISO']['output'];
@@ -123,10 +134,14 @@ export interface CustomerContact {
   readonly id: Scalars['String']['output'];
   readonly lastName: Scalars['String']['output'];
   readonly phone: Scalars['String']['output'];
+  readonly state: Scalars['String']['output'];
+  readonly streetAddress: Scalars['String']['output'];
+  readonly zip: Scalars['String']['output'];
 }
 
 export interface CustomerContactCountAggregate {
   readonly _all: Scalars['Int']['output'];
+  readonly city: Scalars['Int']['output'];
   readonly customerId: Scalars['Int']['output'];
   readonly dateCreated: Scalars['Int']['output'];
   readonly dateUpdated: Scalars['Int']['output'];
@@ -135,9 +150,13 @@ export interface CustomerContactCountAggregate {
   readonly id: Scalars['Int']['output'];
   readonly lastName: Scalars['Int']['output'];
   readonly phone: Scalars['Int']['output'];
+  readonly state: Scalars['Int']['output'];
+  readonly streetAddress: Scalars['Int']['output'];
+  readonly zip: Scalars['Int']['output'];
 }
 
 export interface CustomerContactCountOrderByAggregateInput {
+  readonly city?: InputMaybe<SortOrder>;
   readonly customerId?: InputMaybe<SortOrder>;
   readonly dateCreated?: InputMaybe<SortOrder>;
   readonly dateUpdated?: InputMaybe<SortOrder>;
@@ -146,9 +165,13 @@ export interface CustomerContactCountOrderByAggregateInput {
   readonly id?: InputMaybe<SortOrder>;
   readonly lastName?: InputMaybe<SortOrder>;
   readonly phone?: InputMaybe<SortOrder>;
+  readonly state?: InputMaybe<SortOrder>;
+  readonly streetAddress?: InputMaybe<SortOrder>;
+  readonly zip?: InputMaybe<SortOrder>;
 }
 
 export interface CustomerContactCreateInput {
+  readonly city: Scalars['String']['input'];
   readonly customer: CustomerCreateNestedOneWithoutCustomerContactInput;
   readonly dateCreated?: InputMaybe<Scalars['DateTimeISO']['input']>;
   readonly dateUpdated?: InputMaybe<Scalars['DateTimeISO']['input']>;
@@ -157,9 +180,13 @@ export interface CustomerContactCreateInput {
   readonly id?: InputMaybe<Scalars['String']['input']>;
   readonly lastName: Scalars['String']['input'];
   readonly phone: Scalars['String']['input'];
+  readonly state: Scalars['String']['input'];
+  readonly streetAddress: Scalars['String']['input'];
+  readonly zip: Scalars['String']['input'];
 }
 
 export interface CustomerContactCreateManyCustomerInput {
+  readonly city: Scalars['String']['input'];
   readonly dateCreated?: InputMaybe<Scalars['DateTimeISO']['input']>;
   readonly dateUpdated?: InputMaybe<Scalars['DateTimeISO']['input']>;
   readonly email: Scalars['String']['input'];
@@ -167,6 +194,9 @@ export interface CustomerContactCreateManyCustomerInput {
   readonly id?: InputMaybe<Scalars['String']['input']>;
   readonly lastName: Scalars['String']['input'];
   readonly phone: Scalars['String']['input'];
+  readonly state: Scalars['String']['input'];
+  readonly streetAddress: Scalars['String']['input'];
+  readonly zip: Scalars['String']['input'];
 }
 
 export interface CustomerContactCreateManyCustomerInputEnvelope {
@@ -174,6 +204,7 @@ export interface CustomerContactCreateManyCustomerInputEnvelope {
 }
 
 export interface CustomerContactCreateManyInput {
+  readonly city: Scalars['String']['input'];
   readonly customerId: Scalars['String']['input'];
   readonly dateCreated?: InputMaybe<Scalars['DateTimeISO']['input']>;
   readonly dateUpdated?: InputMaybe<Scalars['DateTimeISO']['input']>;
@@ -182,6 +213,9 @@ export interface CustomerContactCreateManyInput {
   readonly id?: InputMaybe<Scalars['String']['input']>;
   readonly lastName: Scalars['String']['input'];
   readonly phone: Scalars['String']['input'];
+  readonly state: Scalars['String']['input'];
+  readonly streetAddress: Scalars['String']['input'];
+  readonly zip: Scalars['String']['input'];
 }
 
 export interface CustomerContactCreateNestedManyWithoutCustomerInput {
@@ -201,6 +235,7 @@ export interface CustomerContactCreateOrConnectWithoutCustomerInput {
 }
 
 export interface CustomerContactCreateWithoutCustomerInput {
+  readonly city: Scalars['String']['input'];
   readonly dateCreated?: InputMaybe<Scalars['DateTimeISO']['input']>;
   readonly dateUpdated?: InputMaybe<Scalars['DateTimeISO']['input']>;
   readonly email: Scalars['String']['input'];
@@ -208,12 +243,16 @@ export interface CustomerContactCreateWithoutCustomerInput {
   readonly id?: InputMaybe<Scalars['String']['input']>;
   readonly lastName: Scalars['String']['input'];
   readonly phone: Scalars['String']['input'];
+  readonly state: Scalars['String']['input'];
+  readonly streetAddress: Scalars['String']['input'];
+  readonly zip: Scalars['String']['input'];
 }
 
 export interface CustomerContactGroupBy {
   readonly _count?: Maybe<CustomerContactCountAggregate>;
   readonly _max?: Maybe<CustomerContactMaxAggregate>;
   readonly _min?: Maybe<CustomerContactMinAggregate>;
+  readonly city: Scalars['String']['output'];
   readonly customerId: Scalars['String']['output'];
   readonly dateCreated: Scalars['DateTimeISO']['output'];
   readonly dateUpdated: Scalars['DateTimeISO']['output'];
@@ -222,6 +261,9 @@ export interface CustomerContactGroupBy {
   readonly id: Scalars['String']['output'];
   readonly lastName: Scalars['String']['output'];
   readonly phone: Scalars['String']['output'];
+  readonly state: Scalars['String']['output'];
+  readonly streetAddress: Scalars['String']['output'];
+  readonly zip: Scalars['String']['output'];
 }
 
 export interface CustomerContactListRelationFilter {
@@ -231,6 +273,7 @@ export interface CustomerContactListRelationFilter {
 }
 
 export interface CustomerContactMaxAggregate {
+  readonly city?: Maybe<Scalars['String']['output']>;
   readonly customerId?: Maybe<Scalars['String']['output']>;
   readonly dateCreated?: Maybe<Scalars['DateTimeISO']['output']>;
   readonly dateUpdated?: Maybe<Scalars['DateTimeISO']['output']>;
@@ -239,9 +282,13 @@ export interface CustomerContactMaxAggregate {
   readonly id?: Maybe<Scalars['String']['output']>;
   readonly lastName?: Maybe<Scalars['String']['output']>;
   readonly phone?: Maybe<Scalars['String']['output']>;
+  readonly state?: Maybe<Scalars['String']['output']>;
+  readonly streetAddress?: Maybe<Scalars['String']['output']>;
+  readonly zip?: Maybe<Scalars['String']['output']>;
 }
 
 export interface CustomerContactMaxOrderByAggregateInput {
+  readonly city?: InputMaybe<SortOrder>;
   readonly customerId?: InputMaybe<SortOrder>;
   readonly dateCreated?: InputMaybe<SortOrder>;
   readonly dateUpdated?: InputMaybe<SortOrder>;
@@ -250,9 +297,13 @@ export interface CustomerContactMaxOrderByAggregateInput {
   readonly id?: InputMaybe<SortOrder>;
   readonly lastName?: InputMaybe<SortOrder>;
   readonly phone?: InputMaybe<SortOrder>;
+  readonly state?: InputMaybe<SortOrder>;
+  readonly streetAddress?: InputMaybe<SortOrder>;
+  readonly zip?: InputMaybe<SortOrder>;
 }
 
 export interface CustomerContactMinAggregate {
+  readonly city?: Maybe<Scalars['String']['output']>;
   readonly customerId?: Maybe<Scalars['String']['output']>;
   readonly dateCreated?: Maybe<Scalars['DateTimeISO']['output']>;
   readonly dateUpdated?: Maybe<Scalars['DateTimeISO']['output']>;
@@ -261,9 +312,13 @@ export interface CustomerContactMinAggregate {
   readonly id?: Maybe<Scalars['String']['output']>;
   readonly lastName?: Maybe<Scalars['String']['output']>;
   readonly phone?: Maybe<Scalars['String']['output']>;
+  readonly state?: Maybe<Scalars['String']['output']>;
+  readonly streetAddress?: Maybe<Scalars['String']['output']>;
+  readonly zip?: Maybe<Scalars['String']['output']>;
 }
 
 export interface CustomerContactMinOrderByAggregateInput {
+  readonly city?: InputMaybe<SortOrder>;
   readonly customerId?: InputMaybe<SortOrder>;
   readonly dateCreated?: InputMaybe<SortOrder>;
   readonly dateUpdated?: InputMaybe<SortOrder>;
@@ -272,6 +327,9 @@ export interface CustomerContactMinOrderByAggregateInput {
   readonly id?: InputMaybe<SortOrder>;
   readonly lastName?: InputMaybe<SortOrder>;
   readonly phone?: InputMaybe<SortOrder>;
+  readonly state?: InputMaybe<SortOrder>;
+  readonly streetAddress?: InputMaybe<SortOrder>;
+  readonly zip?: InputMaybe<SortOrder>;
 }
 
 export interface CustomerContactOrderByRelationAggregateInput {
@@ -282,6 +340,7 @@ export interface CustomerContactOrderByWithAggregationInput {
   readonly _count?: InputMaybe<CustomerContactCountOrderByAggregateInput>;
   readonly _max?: InputMaybe<CustomerContactMaxOrderByAggregateInput>;
   readonly _min?: InputMaybe<CustomerContactMinOrderByAggregateInput>;
+  readonly city?: InputMaybe<SortOrder>;
   readonly customerId?: InputMaybe<SortOrder>;
   readonly dateCreated?: InputMaybe<SortOrder>;
   readonly dateUpdated?: InputMaybe<SortOrder>;
@@ -290,9 +349,13 @@ export interface CustomerContactOrderByWithAggregationInput {
   readonly id?: InputMaybe<SortOrder>;
   readonly lastName?: InputMaybe<SortOrder>;
   readonly phone?: InputMaybe<SortOrder>;
+  readonly state?: InputMaybe<SortOrder>;
+  readonly streetAddress?: InputMaybe<SortOrder>;
+  readonly zip?: InputMaybe<SortOrder>;
 }
 
 export interface CustomerContactOrderByWithRelationInput {
+  readonly city?: InputMaybe<SortOrder>;
   readonly customer?: InputMaybe<CustomerOrderByWithRelationInput>;
   readonly customerId?: InputMaybe<SortOrder>;
   readonly dateCreated?: InputMaybe<SortOrder>;
@@ -302,23 +365,31 @@ export interface CustomerContactOrderByWithRelationInput {
   readonly id?: InputMaybe<SortOrder>;
   readonly lastName?: InputMaybe<SortOrder>;
   readonly phone?: InputMaybe<SortOrder>;
+  readonly state?: InputMaybe<SortOrder>;
+  readonly streetAddress?: InputMaybe<SortOrder>;
+  readonly zip?: InputMaybe<SortOrder>;
 }
 
 export enum CustomerContactScalarFieldEnum {
-  CustomerId = 0,
-  DateCreated = 1,
-  DateUpdated = 2,
-  Email = 3,
-  FirstName = 4,
-  Id = 5,
-  LastName = 6,
-  Phone = 7,
+  City = 0,
+  CustomerId = 1,
+  DateCreated = 2,
+  DateUpdated = 3,
+  Email = 4,
+  FirstName = 5,
+  Id = 6,
+  LastName = 7,
+  Phone = 8,
+  State = 9,
+  StreetAddress = 10,
+  Zip = 11,
 }
 
 export interface CustomerContactScalarWhereInput {
   readonly AND?: InputMaybe<ReadonlyArray<CustomerContactScalarWhereInput>>;
   readonly NOT?: InputMaybe<ReadonlyArray<CustomerContactScalarWhereInput>>;
   readonly OR?: InputMaybe<ReadonlyArray<CustomerContactScalarWhereInput>>;
+  readonly city?: InputMaybe<StringFilter>;
   readonly customerId?: InputMaybe<StringFilter>;
   readonly dateCreated?: InputMaybe<DateTimeFilter>;
   readonly dateUpdated?: InputMaybe<DateTimeFilter>;
@@ -327,6 +398,9 @@ export interface CustomerContactScalarWhereInput {
   readonly id?: InputMaybe<StringFilter>;
   readonly lastName?: InputMaybe<StringFilter>;
   readonly phone?: InputMaybe<StringFilter>;
+  readonly state?: InputMaybe<StringFilter>;
+  readonly streetAddress?: InputMaybe<StringFilter>;
+  readonly zip?: InputMaybe<StringFilter>;
 }
 
 export interface CustomerContactScalarWhereWithAggregatesInput {
@@ -339,6 +413,7 @@ export interface CustomerContactScalarWhereWithAggregatesInput {
   readonly OR?: InputMaybe<
     ReadonlyArray<CustomerContactScalarWhereWithAggregatesInput>
   >;
+  readonly city?: InputMaybe<StringWithAggregatesFilter>;
   readonly customerId?: InputMaybe<StringWithAggregatesFilter>;
   readonly dateCreated?: InputMaybe<DateTimeWithAggregatesFilter>;
   readonly dateUpdated?: InputMaybe<DateTimeWithAggregatesFilter>;
@@ -347,9 +422,13 @@ export interface CustomerContactScalarWhereWithAggregatesInput {
   readonly id?: InputMaybe<StringWithAggregatesFilter>;
   readonly lastName?: InputMaybe<StringWithAggregatesFilter>;
   readonly phone?: InputMaybe<StringWithAggregatesFilter>;
+  readonly state?: InputMaybe<StringWithAggregatesFilter>;
+  readonly streetAddress?: InputMaybe<StringWithAggregatesFilter>;
+  readonly zip?: InputMaybe<StringWithAggregatesFilter>;
 }
 
 export interface CustomerContactUpdateInput {
+  readonly city?: InputMaybe<Scalars['String']['input']>;
   readonly customer?: InputMaybe<CustomerUpdateOneRequiredWithoutCustomerContactNestedInput>;
   readonly dateCreated?: InputMaybe<Scalars['DateTimeISO']['input']>;
   readonly dateUpdated?: InputMaybe<Scalars['DateTimeISO']['input']>;
@@ -358,9 +437,13 @@ export interface CustomerContactUpdateInput {
   readonly id?: InputMaybe<Scalars['String']['input']>;
   readonly lastName?: InputMaybe<Scalars['String']['input']>;
   readonly phone?: InputMaybe<Scalars['String']['input']>;
+  readonly state?: InputMaybe<Scalars['String']['input']>;
+  readonly streetAddress?: InputMaybe<Scalars['String']['input']>;
+  readonly zip?: InputMaybe<Scalars['String']['input']>;
 }
 
 export interface CustomerContactUpdateManyMutationInput {
+  readonly city?: InputMaybe<Scalars['String']['input']>;
   readonly dateCreated?: InputMaybe<Scalars['DateTimeISO']['input']>;
   readonly dateUpdated?: InputMaybe<Scalars['DateTimeISO']['input']>;
   readonly email?: InputMaybe<Scalars['String']['input']>;
@@ -368,6 +451,9 @@ export interface CustomerContactUpdateManyMutationInput {
   readonly id?: InputMaybe<Scalars['String']['input']>;
   readonly lastName?: InputMaybe<Scalars['String']['input']>;
   readonly phone?: InputMaybe<Scalars['String']['input']>;
+  readonly state?: InputMaybe<Scalars['String']['input']>;
+  readonly streetAddress?: InputMaybe<Scalars['String']['input']>;
+  readonly zip?: InputMaybe<Scalars['String']['input']>;
 }
 
 export interface CustomerContactUpdateManyWithWhereWithoutCustomerInput {
@@ -409,6 +495,7 @@ export interface CustomerContactUpdateWithWhereUniqueWithoutCustomerInput {
 }
 
 export interface CustomerContactUpdateWithoutCustomerInput {
+  readonly city?: InputMaybe<Scalars['String']['input']>;
   readonly dateCreated?: InputMaybe<Scalars['DateTimeISO']['input']>;
   readonly dateUpdated?: InputMaybe<Scalars['DateTimeISO']['input']>;
   readonly email?: InputMaybe<Scalars['String']['input']>;
@@ -416,6 +503,9 @@ export interface CustomerContactUpdateWithoutCustomerInput {
   readonly id?: InputMaybe<Scalars['String']['input']>;
   readonly lastName?: InputMaybe<Scalars['String']['input']>;
   readonly phone?: InputMaybe<Scalars['String']['input']>;
+  readonly state?: InputMaybe<Scalars['String']['input']>;
+  readonly streetAddress?: InputMaybe<Scalars['String']['input']>;
+  readonly zip?: InputMaybe<Scalars['String']['input']>;
 }
 
 export interface CustomerContactUpsertWithWhereUniqueWithoutCustomerInput {
@@ -428,6 +518,7 @@ export interface CustomerContactWhereInput {
   readonly AND?: InputMaybe<ReadonlyArray<CustomerContactWhereInput>>;
   readonly NOT?: InputMaybe<ReadonlyArray<CustomerContactWhereInput>>;
   readonly OR?: InputMaybe<ReadonlyArray<CustomerContactWhereInput>>;
+  readonly city?: InputMaybe<StringFilter>;
   readonly customer?: InputMaybe<CustomerRelationFilter>;
   readonly customerId?: InputMaybe<StringFilter>;
   readonly dateCreated?: InputMaybe<DateTimeFilter>;
@@ -437,12 +528,16 @@ export interface CustomerContactWhereInput {
   readonly id?: InputMaybe<StringFilter>;
   readonly lastName?: InputMaybe<StringFilter>;
   readonly phone?: InputMaybe<StringFilter>;
+  readonly state?: InputMaybe<StringFilter>;
+  readonly streetAddress?: InputMaybe<StringFilter>;
+  readonly zip?: InputMaybe<StringFilter>;
 }
 
 export interface CustomerContactWhereUniqueInput {
   readonly AND?: InputMaybe<ReadonlyArray<CustomerContactWhereInput>>;
   readonly NOT?: InputMaybe<ReadonlyArray<CustomerContactWhereInput>>;
   readonly OR?: InputMaybe<ReadonlyArray<CustomerContactWhereInput>>;
+  readonly city?: InputMaybe<StringFilter>;
   readonly customer?: InputMaybe<CustomerRelationFilter>;
   readonly customerId?: InputMaybe<StringFilter>;
   readonly dateCreated?: InputMaybe<DateTimeFilter>;
@@ -452,6 +547,9 @@ export interface CustomerContactWhereUniqueInput {
   readonly id?: InputMaybe<Scalars['String']['input']>;
   readonly lastName?: InputMaybe<StringFilter>;
   readonly phone?: InputMaybe<StringFilter>;
+  readonly state?: InputMaybe<StringFilter>;
+  readonly streetAddress?: InputMaybe<StringFilter>;
+  readonly zip?: InputMaybe<StringFilter>;
 }
 
 export interface CustomerCount {
@@ -464,40 +562,52 @@ export interface CustomerCountCustomerContactArgs {
 
 export interface CustomerCountAggregate {
   readonly _all: Scalars['Int']['output'];
-  readonly address: Scalars['Int']['output'];
+  readonly city: Scalars['Int']['output'];
   readonly dateCreated: Scalars['Int']['output'];
   readonly dateUpdated: Scalars['Int']['output'];
   readonly id: Scalars['Int']['output'];
   readonly name: Scalars['Int']['output'];
   readonly phone: Scalars['Int']['output'];
+  readonly state: Scalars['Int']['output'];
+  readonly streetAddress: Scalars['Int']['output'];
+  readonly zip: Scalars['Int']['output'];
 }
 
 export interface CustomerCountOrderByAggregateInput {
-  readonly address?: InputMaybe<SortOrder>;
+  readonly city?: InputMaybe<SortOrder>;
   readonly dateCreated?: InputMaybe<SortOrder>;
   readonly dateUpdated?: InputMaybe<SortOrder>;
   readonly id?: InputMaybe<SortOrder>;
   readonly name?: InputMaybe<SortOrder>;
   readonly phone?: InputMaybe<SortOrder>;
+  readonly state?: InputMaybe<SortOrder>;
+  readonly streetAddress?: InputMaybe<SortOrder>;
+  readonly zip?: InputMaybe<SortOrder>;
 }
 
 export interface CustomerCreateInput {
   readonly CustomerContact?: InputMaybe<CustomerContactCreateNestedManyWithoutCustomerInput>;
-  readonly address: Scalars['String']['input'];
+  readonly city: Scalars['String']['input'];
   readonly dateCreated?: InputMaybe<Scalars['DateTimeISO']['input']>;
   readonly dateUpdated?: InputMaybe<Scalars['DateTimeISO']['input']>;
   readonly id?: InputMaybe<Scalars['String']['input']>;
   readonly name: Scalars['String']['input'];
   readonly phone: Scalars['String']['input'];
+  readonly state: Scalars['String']['input'];
+  readonly streetAddress: Scalars['String']['input'];
+  readonly zip: Scalars['String']['input'];
 }
 
 export interface CustomerCreateManyInput {
-  readonly address: Scalars['String']['input'];
+  readonly city: Scalars['String']['input'];
   readonly dateCreated?: InputMaybe<Scalars['DateTimeISO']['input']>;
   readonly dateUpdated?: InputMaybe<Scalars['DateTimeISO']['input']>;
   readonly id?: InputMaybe<Scalars['String']['input']>;
   readonly name: Scalars['String']['input'];
   readonly phone: Scalars['String']['input'];
+  readonly state: Scalars['String']['input'];
+  readonly streetAddress: Scalars['String']['input'];
+  readonly zip: Scalars['String']['input'];
 }
 
 export interface CustomerCreateNestedOneWithoutCustomerContactInput {
@@ -512,82 +622,106 @@ export interface CustomerCreateOrConnectWithoutCustomerContactInput {
 }
 
 export interface CustomerCreateWithoutCustomerContactInput {
-  readonly address: Scalars['String']['input'];
+  readonly city: Scalars['String']['input'];
   readonly dateCreated?: InputMaybe<Scalars['DateTimeISO']['input']>;
   readonly dateUpdated?: InputMaybe<Scalars['DateTimeISO']['input']>;
   readonly id?: InputMaybe<Scalars['String']['input']>;
   readonly name: Scalars['String']['input'];
   readonly phone: Scalars['String']['input'];
+  readonly state: Scalars['String']['input'];
+  readonly streetAddress: Scalars['String']['input'];
+  readonly zip: Scalars['String']['input'];
 }
 
 export interface CustomerGroupBy {
   readonly _count?: Maybe<CustomerCountAggregate>;
   readonly _max?: Maybe<CustomerMaxAggregate>;
   readonly _min?: Maybe<CustomerMinAggregate>;
-  readonly address: Scalars['String']['output'];
+  readonly city: Scalars['String']['output'];
   readonly dateCreated: Scalars['DateTimeISO']['output'];
   readonly dateUpdated: Scalars['DateTimeISO']['output'];
   readonly id: Scalars['String']['output'];
   readonly name: Scalars['String']['output'];
   readonly phone: Scalars['String']['output'];
+  readonly state: Scalars['String']['output'];
+  readonly streetAddress: Scalars['String']['output'];
+  readonly zip: Scalars['String']['output'];
 }
 
 export interface CustomerMaxAggregate {
-  readonly address?: Maybe<Scalars['String']['output']>;
+  readonly city?: Maybe<Scalars['String']['output']>;
   readonly dateCreated?: Maybe<Scalars['DateTimeISO']['output']>;
   readonly dateUpdated?: Maybe<Scalars['DateTimeISO']['output']>;
   readonly id?: Maybe<Scalars['String']['output']>;
   readonly name?: Maybe<Scalars['String']['output']>;
   readonly phone?: Maybe<Scalars['String']['output']>;
+  readonly state?: Maybe<Scalars['String']['output']>;
+  readonly streetAddress?: Maybe<Scalars['String']['output']>;
+  readonly zip?: Maybe<Scalars['String']['output']>;
 }
 
 export interface CustomerMaxOrderByAggregateInput {
-  readonly address?: InputMaybe<SortOrder>;
+  readonly city?: InputMaybe<SortOrder>;
   readonly dateCreated?: InputMaybe<SortOrder>;
   readonly dateUpdated?: InputMaybe<SortOrder>;
   readonly id?: InputMaybe<SortOrder>;
   readonly name?: InputMaybe<SortOrder>;
   readonly phone?: InputMaybe<SortOrder>;
+  readonly state?: InputMaybe<SortOrder>;
+  readonly streetAddress?: InputMaybe<SortOrder>;
+  readonly zip?: InputMaybe<SortOrder>;
 }
 
 export interface CustomerMinAggregate {
-  readonly address?: Maybe<Scalars['String']['output']>;
+  readonly city?: Maybe<Scalars['String']['output']>;
   readonly dateCreated?: Maybe<Scalars['DateTimeISO']['output']>;
   readonly dateUpdated?: Maybe<Scalars['DateTimeISO']['output']>;
   readonly id?: Maybe<Scalars['String']['output']>;
   readonly name?: Maybe<Scalars['String']['output']>;
   readonly phone?: Maybe<Scalars['String']['output']>;
+  readonly state?: Maybe<Scalars['String']['output']>;
+  readonly streetAddress?: Maybe<Scalars['String']['output']>;
+  readonly zip?: Maybe<Scalars['String']['output']>;
 }
 
 export interface CustomerMinOrderByAggregateInput {
-  readonly address?: InputMaybe<SortOrder>;
+  readonly city?: InputMaybe<SortOrder>;
   readonly dateCreated?: InputMaybe<SortOrder>;
   readonly dateUpdated?: InputMaybe<SortOrder>;
   readonly id?: InputMaybe<SortOrder>;
   readonly name?: InputMaybe<SortOrder>;
   readonly phone?: InputMaybe<SortOrder>;
+  readonly state?: InputMaybe<SortOrder>;
+  readonly streetAddress?: InputMaybe<SortOrder>;
+  readonly zip?: InputMaybe<SortOrder>;
 }
 
 export interface CustomerOrderByWithAggregationInput {
   readonly _count?: InputMaybe<CustomerCountOrderByAggregateInput>;
   readonly _max?: InputMaybe<CustomerMaxOrderByAggregateInput>;
   readonly _min?: InputMaybe<CustomerMinOrderByAggregateInput>;
-  readonly address?: InputMaybe<SortOrder>;
+  readonly city?: InputMaybe<SortOrder>;
   readonly dateCreated?: InputMaybe<SortOrder>;
   readonly dateUpdated?: InputMaybe<SortOrder>;
   readonly id?: InputMaybe<SortOrder>;
   readonly name?: InputMaybe<SortOrder>;
   readonly phone?: InputMaybe<SortOrder>;
+  readonly state?: InputMaybe<SortOrder>;
+  readonly streetAddress?: InputMaybe<SortOrder>;
+  readonly zip?: InputMaybe<SortOrder>;
 }
 
 export interface CustomerOrderByWithRelationInput {
   readonly CustomerContact?: InputMaybe<CustomerContactOrderByRelationAggregateInput>;
-  readonly address?: InputMaybe<SortOrder>;
+  readonly city?: InputMaybe<SortOrder>;
   readonly dateCreated?: InputMaybe<SortOrder>;
   readonly dateUpdated?: InputMaybe<SortOrder>;
   readonly id?: InputMaybe<SortOrder>;
   readonly name?: InputMaybe<SortOrder>;
   readonly phone?: InputMaybe<SortOrder>;
+  readonly state?: InputMaybe<SortOrder>;
+  readonly streetAddress?: InputMaybe<SortOrder>;
+  readonly zip?: InputMaybe<SortOrder>;
 }
 
 export interface CustomerRelationFilter {
@@ -596,12 +730,15 @@ export interface CustomerRelationFilter {
 }
 
 export enum CustomerScalarFieldEnum {
-  Address = 0,
+  City = 0,
   DateCreated = 1,
   DateUpdated = 2,
   Id = 3,
   Name = 4,
   Phone = 5,
+  State = 6,
+  StreetAddress = 7,
+  Zip = 8,
 }
 
 export interface CustomerScalarWhereWithAggregatesInput {
@@ -614,31 +751,40 @@ export interface CustomerScalarWhereWithAggregatesInput {
   readonly OR?: InputMaybe<
     ReadonlyArray<CustomerScalarWhereWithAggregatesInput>
   >;
-  readonly address?: InputMaybe<StringWithAggregatesFilter>;
+  readonly city?: InputMaybe<StringWithAggregatesFilter>;
   readonly dateCreated?: InputMaybe<DateTimeWithAggregatesFilter>;
   readonly dateUpdated?: InputMaybe<DateTimeWithAggregatesFilter>;
   readonly id?: InputMaybe<StringWithAggregatesFilter>;
   readonly name?: InputMaybe<StringWithAggregatesFilter>;
   readonly phone?: InputMaybe<StringWithAggregatesFilter>;
+  readonly state?: InputMaybe<StringWithAggregatesFilter>;
+  readonly streetAddress?: InputMaybe<StringWithAggregatesFilter>;
+  readonly zip?: InputMaybe<StringWithAggregatesFilter>;
 }
 
 export interface CustomerUpdateInput {
   readonly CustomerContact?: InputMaybe<CustomerContactUpdateManyWithoutCustomerNestedInput>;
-  readonly address?: InputMaybe<Scalars['String']['input']>;
+  readonly city?: InputMaybe<Scalars['String']['input']>;
   readonly dateCreated?: InputMaybe<Scalars['DateTimeISO']['input']>;
   readonly dateUpdated?: InputMaybe<Scalars['DateTimeISO']['input']>;
   readonly id?: InputMaybe<Scalars['String']['input']>;
   readonly name?: InputMaybe<Scalars['String']['input']>;
   readonly phone?: InputMaybe<Scalars['String']['input']>;
+  readonly state?: InputMaybe<Scalars['String']['input']>;
+  readonly streetAddress?: InputMaybe<Scalars['String']['input']>;
+  readonly zip?: InputMaybe<Scalars['String']['input']>;
 }
 
 export interface CustomerUpdateManyMutationInput {
-  readonly address?: InputMaybe<Scalars['String']['input']>;
+  readonly city?: InputMaybe<Scalars['String']['input']>;
   readonly dateCreated?: InputMaybe<Scalars['DateTimeISO']['input']>;
   readonly dateUpdated?: InputMaybe<Scalars['DateTimeISO']['input']>;
   readonly id?: InputMaybe<Scalars['String']['input']>;
   readonly name?: InputMaybe<Scalars['String']['input']>;
   readonly phone?: InputMaybe<Scalars['String']['input']>;
+  readonly state?: InputMaybe<Scalars['String']['input']>;
+  readonly streetAddress?: InputMaybe<Scalars['String']['input']>;
+  readonly zip?: InputMaybe<Scalars['String']['input']>;
 }
 
 export interface CustomerUpdateOneRequiredWithoutCustomerContactNestedInput {
@@ -655,12 +801,15 @@ export interface CustomerUpdateToOneWithWhereWithoutCustomerContactInput {
 }
 
 export interface CustomerUpdateWithoutCustomerContactInput {
-  readonly address?: InputMaybe<Scalars['String']['input']>;
+  readonly city?: InputMaybe<Scalars['String']['input']>;
   readonly dateCreated?: InputMaybe<Scalars['DateTimeISO']['input']>;
   readonly dateUpdated?: InputMaybe<Scalars['DateTimeISO']['input']>;
   readonly id?: InputMaybe<Scalars['String']['input']>;
   readonly name?: InputMaybe<Scalars['String']['input']>;
   readonly phone?: InputMaybe<Scalars['String']['input']>;
+  readonly state?: InputMaybe<Scalars['String']['input']>;
+  readonly streetAddress?: InputMaybe<Scalars['String']['input']>;
+  readonly zip?: InputMaybe<Scalars['String']['input']>;
 }
 
 export interface CustomerUpsertWithoutCustomerContactInput {
@@ -674,12 +823,15 @@ export interface CustomerWhereInput {
   readonly CustomerContact?: InputMaybe<CustomerContactListRelationFilter>;
   readonly NOT?: InputMaybe<ReadonlyArray<CustomerWhereInput>>;
   readonly OR?: InputMaybe<ReadonlyArray<CustomerWhereInput>>;
-  readonly address?: InputMaybe<StringFilter>;
+  readonly city?: InputMaybe<StringFilter>;
   readonly dateCreated?: InputMaybe<DateTimeFilter>;
   readonly dateUpdated?: InputMaybe<DateTimeFilter>;
   readonly id?: InputMaybe<StringFilter>;
   readonly name?: InputMaybe<StringFilter>;
   readonly phone?: InputMaybe<StringFilter>;
+  readonly state?: InputMaybe<StringFilter>;
+  readonly streetAddress?: InputMaybe<StringFilter>;
+  readonly zip?: InputMaybe<StringFilter>;
 }
 
 export interface CustomerWhereUniqueInput {
@@ -687,12 +839,15 @@ export interface CustomerWhereUniqueInput {
   readonly CustomerContact?: InputMaybe<CustomerContactListRelationFilter>;
   readonly NOT?: InputMaybe<ReadonlyArray<CustomerWhereInput>>;
   readonly OR?: InputMaybe<ReadonlyArray<CustomerWhereInput>>;
-  readonly address?: InputMaybe<StringFilter>;
+  readonly city?: InputMaybe<StringFilter>;
   readonly dateCreated?: InputMaybe<DateTimeFilter>;
   readonly dateUpdated?: InputMaybe<DateTimeFilter>;
   readonly id?: InputMaybe<Scalars['String']['input']>;
   readonly name?: InputMaybe<StringFilter>;
   readonly phone?: InputMaybe<StringFilter>;
+  readonly state?: InputMaybe<StringFilter>;
+  readonly streetAddress?: InputMaybe<StringFilter>;
+  readonly zip?: InputMaybe<StringFilter>;
 }
 
 export interface DateTimeFilter {
@@ -1385,6 +1540,28 @@ export type SigninQueryVariables = Exact<{
 
 export type SigninQuery = { readonly signin?: string | undefined };
 
+export type GetCustomerContactsQueryVariables = Exact<{
+  customerId: Scalars['String']['input'];
+}>;
+
+export type GetCustomerContactsQuery = {
+  readonly customerContact?:
+    | {
+        readonly id: string;
+        readonly firstName: string;
+        readonly lastName: string;
+        readonly streetAddress: string;
+        readonly city: string;
+        readonly state: string;
+        readonly zip: string;
+        readonly phone: string;
+        readonly email: string;
+        readonly dateCreated: unknown;
+        readonly dateUpdated: unknown;
+      }
+    | undefined;
+};
+
 export type GetCustomersQueryVariables = Exact<{ [key: string]: never }>;
 
 export type GetCustomersQuery = {
@@ -1392,7 +1569,12 @@ export type GetCustomersQuery = {
     readonly id: string;
     readonly name: string;
     readonly phone: string;
-    readonly address: string;
+    readonly streetAddress: string;
+    readonly city: string;
+    readonly state: string;
+    readonly zip: string;
+    readonly dateCreated: unknown;
+    readonly dateUpdated: unknown;
   }>;
 };
 
@@ -1789,7 +1971,7 @@ export type CreateManyAndReturnCustomerResolvers<
   ParentType extends
     ResolversParentTypes['CreateManyAndReturnCustomer'] = ResolversParentTypes['CreateManyAndReturnCustomer'],
 > = ResolversObject<{
-  address?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  city?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   dateCreated?: Resolver<
     ResolversTypes['DateTimeISO'],
     ParentType,
@@ -1803,6 +1985,9 @@ export type CreateManyAndReturnCustomerResolvers<
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   phone?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  state?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  streetAddress?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  zip?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -1811,6 +1996,7 @@ export type CreateManyAndReturnCustomerContactResolvers<
   ParentType extends
     ResolversParentTypes['CreateManyAndReturnCustomerContact'] = ResolversParentTypes['CreateManyAndReturnCustomerContact'],
 > = ResolversObject<{
+  city?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   customer?: Resolver<ResolversTypes['Customer'], ParentType, ContextType>;
   customerId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   dateCreated?: Resolver<
@@ -1828,6 +2014,9 @@ export type CreateManyAndReturnCustomerContactResolvers<
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   lastName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   phone?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  state?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  streetAddress?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  zip?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -1868,7 +2057,7 @@ export type CustomerResolvers<
     ParentType,
     ContextType
   >;
-  address?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  city?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   dateCreated?: Resolver<
     ResolversTypes['DateTimeISO'],
     ParentType,
@@ -1882,6 +2071,9 @@ export type CustomerResolvers<
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   phone?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  state?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  streetAddress?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  zip?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -1890,6 +2082,7 @@ export type CustomerContactResolvers<
   ParentType extends
     ResolversParentTypes['CustomerContact'] = ResolversParentTypes['CustomerContact'],
 > = ResolversObject<{
+  city?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   customer?: Resolver<ResolversTypes['Customer'], ParentType, ContextType>;
   customerId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   dateCreated?: Resolver<
@@ -1907,6 +2100,9 @@ export type CustomerContactResolvers<
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   lastName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   phone?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  state?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  streetAddress?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  zip?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -1916,6 +2112,7 @@ export type CustomerContactCountAggregateResolvers<
     ResolversParentTypes['CustomerContactCountAggregate'] = ResolversParentTypes['CustomerContactCountAggregate'],
 > = ResolversObject<{
   _all?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  city?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   customerId?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   dateCreated?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   dateUpdated?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
@@ -1924,6 +2121,9 @@ export type CustomerContactCountAggregateResolvers<
   id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   lastName?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   phone?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  state?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  streetAddress?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  zip?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -1947,6 +2147,7 @@ export type CustomerContactGroupByResolvers<
     ParentType,
     ContextType
   >;
+  city?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   customerId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   dateCreated?: Resolver<
     ResolversTypes['DateTimeISO'],
@@ -1963,6 +2164,9 @@ export type CustomerContactGroupByResolvers<
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   lastName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   phone?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  state?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  streetAddress?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  zip?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -1971,6 +2175,7 @@ export type CustomerContactMaxAggregateResolvers<
   ParentType extends
     ResolversParentTypes['CustomerContactMaxAggregate'] = ResolversParentTypes['CustomerContactMaxAggregate'],
 > = ResolversObject<{
+  city?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   customerId?: Resolver<
     Maybe<ResolversTypes['String']>,
     ParentType,
@@ -1995,6 +2200,13 @@ export type CustomerContactMaxAggregateResolvers<
   id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   lastName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   phone?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  state?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  streetAddress?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  zip?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -2003,6 +2215,7 @@ export type CustomerContactMinAggregateResolvers<
   ParentType extends
     ResolversParentTypes['CustomerContactMinAggregate'] = ResolversParentTypes['CustomerContactMinAggregate'],
 > = ResolversObject<{
+  city?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   customerId?: Resolver<
     Maybe<ResolversTypes['String']>,
     ParentType,
@@ -2027,6 +2240,13 @@ export type CustomerContactMinAggregateResolvers<
   id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   lastName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   phone?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  state?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  streetAddress?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  zip?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -2050,12 +2270,15 @@ export type CustomerCountAggregateResolvers<
     ResolversParentTypes['CustomerCountAggregate'] = ResolversParentTypes['CustomerCountAggregate'],
 > = ResolversObject<{
   _all?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
-  address?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  city?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   dateCreated?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   dateUpdated?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   phone?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  state?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  streetAddress?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  zip?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -2079,7 +2302,7 @@ export type CustomerGroupByResolvers<
     ParentType,
     ContextType
   >;
-  address?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  city?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   dateCreated?: Resolver<
     ResolversTypes['DateTimeISO'],
     ParentType,
@@ -2093,6 +2316,9 @@ export type CustomerGroupByResolvers<
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   phone?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  state?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  streetAddress?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  zip?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -2101,7 +2327,7 @@ export type CustomerMaxAggregateResolvers<
   ParentType extends
     ResolversParentTypes['CustomerMaxAggregate'] = ResolversParentTypes['CustomerMaxAggregate'],
 > = ResolversObject<{
-  address?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  city?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   dateCreated?: Resolver<
     Maybe<ResolversTypes['DateTimeISO']>,
     ParentType,
@@ -2115,6 +2341,13 @@ export type CustomerMaxAggregateResolvers<
   id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   phone?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  state?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  streetAddress?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  zip?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -2123,7 +2356,7 @@ export type CustomerMinAggregateResolvers<
   ParentType extends
     ResolversParentTypes['CustomerMinAggregate'] = ResolversParentTypes['CustomerMinAggregate'],
 > = ResolversObject<{
-  address?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  city?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   dateCreated?: Resolver<
     Maybe<ResolversTypes['DateTimeISO']>,
     ParentType,
@@ -2137,6 +2370,13 @@ export type CustomerMinAggregateResolvers<
   id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   phone?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  state?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  streetAddress?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  zip?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -2659,6 +2899,91 @@ export const Signin = {
     },
   ],
 } as unknown as DocumentNode<SigninQuery, SigninQueryVariables>;
+export const GetCustomerContacts = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'getCustomerContacts' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'customerId' },
+          },
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'String' },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'customerContact' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'where' },
+                value: {
+                  kind: 'ObjectValue',
+                  fields: [
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'customerId' },
+                      value: {
+                        kind: 'ObjectValue',
+                        fields: [
+                          {
+                            kind: 'ObjectField',
+                            name: { kind: 'Name', value: 'equals' },
+                            value: {
+                              kind: 'Variable',
+                              name: { kind: 'Name', value: 'customerId' },
+                            },
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'firstName' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'lastName' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'streetAddress' },
+                },
+                { kind: 'Field', name: { kind: 'Name', value: 'city' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'state' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'zip' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'phone' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'email' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'dateCreated' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'dateUpdated' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  GetCustomerContactsQuery,
+  GetCustomerContactsQueryVariables
+>;
 export const GetCustomers = {
   kind: 'Document',
   definitions: [
@@ -2678,7 +3003,15 @@ export const GetCustomers = {
                 { kind: 'Field', name: { kind: 'Name', value: 'id' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'name' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'phone' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'address' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'streetAddress' },
+                },
+                { kind: 'Field', name: { kind: 'Name', value: 'city' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'state' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'zip' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'dateCreated' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'dateUpdated' } },
               ],
             },
           },

@@ -2,10 +2,9 @@ import { Logout, Settings, UserAvatar, UserProfile } from '@carbon/icons-react';
 import { makeStyles } from '@griffel/react';
 import LinkButton from '@gui/components/button/link-button.tsx';
 import { useContext } from 'react';
-import { Link, useOutletContext, useRouteLoaderData } from 'react-router';
+import { Link } from 'react-router';
 import { AuthContext } from '@/auth/auth-context.tsx';
 import GuiIcon from '@/components/icons/gui';
-import type { Auth } from '@/hooks/useAuth.ts';
 
 const useStyles = makeStyles({
   nav: {

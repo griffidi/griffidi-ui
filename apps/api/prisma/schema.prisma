@@ -47,7 +47,10 @@ model User {
 model Customer {
   id              String            @id @default(uuid())
   name            String
-  address         String
+  streetAddress   String
+  city            String
+  state           String
+  zip             String
   phone           String
   dateCreated     DateTime          @default(now())
   dateUpdated     DateTime          @updatedAt
@@ -55,13 +58,17 @@ model Customer {
 }
 
 model CustomerContact {
-  id          String   @id @default(uuid())
-  customerId  String
-  firstName   String
-  lastName    String
-  email       String
-  phone       String
-  dateCreated DateTime @default(now())
-  dateUpdated DateTime @updatedAt
-  customer    Customer @relation(fields: [customerId], references: [id])
+  id            String   @id @default(uuid())
+  customerId    String
+  firstName     String
+  lastName      String
+  email         String
+  streetAddress String
+  city          String
+  state         String
+  zip           String
+  phone         String
+  dateCreated   DateTime @default(now())
+  dateUpdated   DateTime @updatedAt
+  customer      Customer @relation(fields: [customerId], references: [id])
 }

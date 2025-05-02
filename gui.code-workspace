@@ -123,6 +123,11 @@
 
     "css.hover.documentation": false,
     "css.hover.references": false,
+
+    "[css]": {
+      "editor.defaultFormatter": "biomejs.biome"
+    },
+
     "html.hover.references": false,
     "html.hover.documentation": false,
     "html.autoClosingTags": false,
@@ -154,7 +159,7 @@
     },
 
     "files.associations": {
-      "*.css": "tailwindcss"
+      "*.css": "css"
     },
 
     "editor.quickSuggestions": {
@@ -197,6 +202,8 @@
     // https://github.com/apollographql/vscode-graphql/blob/main/sampleWorkspace/sampleWorkspace.code-workspace
     "apollographql.devTools.showPanel": "detect",
     "apollographql.devTools.serverPort": 7095,
+
+    "prisma.schemaPath": "packages/api/prisma/schema.prisma",
 
     // Project specific settings
     "files.watcherExclude": {

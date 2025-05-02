@@ -1,12 +1,12 @@
 import { ApolloProvider } from '@apollo/client/react/context';
-import { StrictMode } from 'react';
+import { createDOMRenderer, RendererProvider } from '@griffel/react';
+import { StrictMode, useMemo } from 'react';
 import {
   isRouteErrorResponse,
   Links,
   type LoaderFunctionArgs,
   Meta,
   Outlet,
-  redirect,
   Scripts,
   ScrollRestoration,
   useLoaderData,
@@ -80,7 +80,7 @@ export default function App() {
   const auth = useLoaderData<typeof loader>() || {};
 
   return (
-    <>
+    <RendererProvider renderer={createDOMRenderer()}>
       <AuthProvider value={auth}>
         <Header />
         <main className="w-screen h-screen py-16 px-[2rem]">
@@ -88,7 +88,7 @@ export default function App() {
         </main>
         <Footer />
       </AuthProvider>
-    </>
+    </RendererProvider>
   );
 }
 
