@@ -159,7 +159,7 @@
     },
 
     "files.associations": {
-      "*.css": "css"
+      "*.css": "tailwindcss"
     },
 
     "editor.quickSuggestions": {
@@ -171,6 +171,8 @@
     "tailwindCSS.includeLanguages": {
       "plaintext": "html"
     },
+
+    "tailwindcss"
 
     "workbench.editor.labelFormat": "medium",
 

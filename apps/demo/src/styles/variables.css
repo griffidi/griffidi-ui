@@ -30,4 +30,8 @@
   --gui-text-fill-color: var(--color-slate-700);
 
   --app-header-height: 60px;
+
+  /* border radius */
+  --radius-xl: 12px;
+  --radius-2xl: 16px;
 }

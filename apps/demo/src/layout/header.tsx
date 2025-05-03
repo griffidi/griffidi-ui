@@ -1,6 +1,7 @@
 import { Logout, Settings, UserAvatar, UserProfile } from '@carbon/icons-react';
 import { makeStyles } from '@griffel/react';
 import LinkButton from '@gui/components/button/link-button.tsx';
+import CommandPalette from '@gui/components/command-palette/command-palette.tsx';
 import { useContext } from 'react';
 import { Link } from 'react-router';
 import { AuthContext } from '@/auth/auth-context.tsx';
@@ -27,6 +28,12 @@ const useStyles = makeStyles({
         color: 'var(--color-blue-500)',
       },
     },
+  },
+
+  rightSide: {
+    display: 'flex',
+    gap: '1rem',
+    alignItems: 'center',
   },
 
   popover: {
@@ -73,7 +80,8 @@ export default function Header() {
           Customers
         </Link>
       </nav>
-      <div hidden={!isAuthenticated}>
+      <div className={classes.rightSide} hidden={!isAuthenticated}>
+        <CommandPalette />
         <button popoverTarget="menu">
           <UserAvatar size={24} />
         </button>
