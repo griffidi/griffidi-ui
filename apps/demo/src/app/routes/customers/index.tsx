@@ -6,23 +6,9 @@ import { type LoaderFunctionArgs, redirect } from 'react-router';
 import ErrorMessage from '@/components/error/error-message.tsx';
 import { useAuth } from '@/hooks/useAuth.ts';
 import { type Customer, GetCustomers } from '@/types/graphql';
+import styles from './customers.css.ts';
 
-const useStyles = makeStyles({
-  table: {
-    margin: '0 auto',
-  },
-
-  title: {
-    color: 'var(--gui-color-text)',
-    fontSize: '1.2rem',
-    fontWeight: '400',
-  },
-
-  content: {
-    color: 'var(--gui-color-text)',
-    fontSize: '0.9rem',
-  },
-});
+const useStyles = makeStyles(styles);
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const { isAuthenticated } = await useAuth(request);
@@ -56,16 +42,14 @@ const Customers = () => {
         <Table.HeaderCell>City</Table.HeaderCell>
         <Table.HeaderCell>State</Table.HeaderCell>
       </Table.HeaderRow>
-      <div>
-        {customers.map(({ id, name, city, state }) => (
-          <Table.Row key={id}>
-            <Table.Cell>{id}</Table.Cell>
-            <Table.Cell>{name}</Table.Cell>
-            <Table.Cell>{city}</Table.Cell>
-            <Table.Cell>{state}</Table.Cell>
-          </Table.Row>
-        ))}
-      </div>
+      {customers.map(({ id, name, city, state }) => (
+        <Table.Row key={id}>
+          <Table.Cell>{id}</Table.Cell>
+          <Table.Cell>{name}</Table.Cell>
+          <Table.Cell>{city}</Table.Cell>
+          <Table.Cell>{state}</Table.Cell>
+        </Table.Row>
+      ))}
     </Table.Root>
   );
 };

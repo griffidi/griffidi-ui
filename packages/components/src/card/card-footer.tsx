@@ -5,10 +5,10 @@ const useStyles = makeStyles({
     display: 'flex',
     alignItems: 'center',
     padding: '16px',
-    borderTop: '1px solid var(--mui-color-border)',
+    borderTop: '1px solid var(--gui-color-border)',
     background:
-      'var(--mui-card-footer-background-color, var(--mui-color-background))',
-    color: 'var(--mui-card-footer-color, var(--mui-color-text))',
+      'var(--gui-card-footer-background-color, var(--gui-color-background))',
+    color: 'var(--gui-card-footer-color, var(--gui-color-text))',
   },
 });
 

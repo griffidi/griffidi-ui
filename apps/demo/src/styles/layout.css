@@ -17,6 +17,7 @@ body {
     align-items: center;
     width: 100vw;
     padding-inline: 1.25rem;
+    background: 'var(--gui-color-background)',
   }
 
   & > header {

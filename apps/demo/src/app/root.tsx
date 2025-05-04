@@ -87,7 +87,7 @@ export default function App() {
     <RendererProvider renderer={createDOMRenderer()}>
       <AuthProvider value={auth}>
         <Header />
-        <main className="w-screen h-screen py-16 px-[2rem]">
+        <main className="w-screen h-screen py-24 px-[2rem]">
           <Outlet />
         </main>
         <Footer />

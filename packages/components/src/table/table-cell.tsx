@@ -2,8 +2,8 @@ import { makeStyles } from '@griffel/react';
 import sharedStyles from './table-cell-shared.css.ts';
 
 const useStyles = makeStyles({
-  sharedStyles,
   cell: {
+    ...sharedStyles.cell,
     display: 'table-cell',
     overflow: 'hidden',
   },

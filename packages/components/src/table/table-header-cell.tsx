@@ -1,15 +1,16 @@
 import { makeStyles } from '@griffel/react';
+import sharedStyles from './table-cell-shared.css.ts';
 
 const useStyles = makeStyles({
   cell: {
+    ...sharedStyles.cell,
     '--_table-header-cell-background-color':
-      'var(--mui-table-header-cell-background-color, var(--mui-color-background))',
-    '--_container-padding-block':
-      'calc(var(--mui-table-cell-padding-block) - 3px)',
+      'var(--gui-table-header-cell-background-color, var(--gui-color-background))',
+    '--padding-block': '4px',
 
     background: 'var(--_table-header-cell-background-color)',
-    borderBottom: '1px solid var(--mui-color-border)',
-    paddingBlock: 'var(--_container-padding-block)',
+    borderBottom: '1px solid var(--gui-color-border)',
+    paddingBlock: 'var(--padding-block)',
   },
 });
 

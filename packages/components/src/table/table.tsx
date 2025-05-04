@@ -11,19 +11,19 @@ const useStyles = makeStyles({
     backgroundColor: 'var(--_background-color)',
     color: 'var(--_color)',
     border: '1px solid var(--gui-color-border)',
-    borderRadius: 'var(--radius-lg)',
+    borderRadius: 'var(--radius-xl)',
   },
 });
 
 const Table: React.FC<{
-  children: React.ReactElement | React.ReactElement[];
+  children: React.ReactElement | React.ReactElement[] | unknown;
   className?: string | undefined;
 }> = ({ children, className }) => {
   const classes = useStyles();
 
   return (
     <div className={`${classes.table}${className ? ` ${className}` : ''}`}>
-      {children}
+      {children as React.ReactElement[]}
     </div>
   );
 };

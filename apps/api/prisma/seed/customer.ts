@@ -18,7 +18,7 @@ export const createCustomers = async (prisma: PrismaClient) => {
     });
 
   console.log('Adding customers...');
-  Array.from({ length: 10 }).forEach(async () => await createCustomer());
+  Array.from({ length: 120 }).forEach(async () => await createCustomer());
 
   console.groupEnd();
 };
