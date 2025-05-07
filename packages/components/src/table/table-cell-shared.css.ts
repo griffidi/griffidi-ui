@@ -1,4 +1,4 @@
-import { type GriffelStyle } from '@griffel/react';
+import type { CssStyles } from '../types/css.ts';
 
 export default {
   cell: {
@@ -16,4 +16,4 @@ export default {
   'cell:not(:last-child)': {
     borderRight: '1px solid var(--gui-color-border)',
   },
-} satisfies Record<string | number, GriffelStyle>;
+} satisfies CssStyles;

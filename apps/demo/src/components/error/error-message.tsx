@@ -1,6 +1,6 @@
 import { makeStyles } from '@griffel/react';
 
-const useStyles = makeStyles({
+const useClasses = makeStyles({
   error: {
     color: 'var(--color-red-500)',
     fontSize: '16px',
@@ -21,7 +21,7 @@ type ErrorMessageProps = {
  * @returns {JSX.Element}
  */
 const ErrorMessage: React.FC<ErrorMessageProps> = ({ message }) => {
-  const classes = useStyles();
+  const classes = useClasses();
 
   return <div className={classes.error}>{message}</div>;
 };

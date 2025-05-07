@@ -1,7 +1,7 @@
 import { makeStyles } from '@griffel/react';
 import sharedStyles from './table-cell-shared.css.ts';
 
-const useStyles = makeStyles({
+const useClasses = makeStyles({
   cell: {
     ...sharedStyles.cell,
     '--_table-header-cell-background-color':
@@ -17,7 +17,7 @@ const useStyles = makeStyles({
 const TableHeaderCell: React.FC<{
   children: React.ReactElement | React.ReactElement[] | string;
 }> = ({ children }) => {
-  const classes = useStyles();
+  const classes = useClasses();
 
   return <div className={classes.cell}>{children}</div>;
 };

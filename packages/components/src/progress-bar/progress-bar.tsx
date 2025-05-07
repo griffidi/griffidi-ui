@@ -1,6 +1,6 @@
 import { makeStyles } from '@griffel/react';
 
-const useStyles = makeStyles({
+const useClasses = makeStyles({
   progress: {
     width: '100%',
     height: '4px',
@@ -42,7 +42,7 @@ type ProgressBarProps = {
  * @returns {JSX.Element}
  */
 export const ProgressBar: React.FC<ProgressBarProps> = ({ progress }) => {
-  const classes = useStyles();
+  const classes = useClasses();
 
   return (
     <div className={classes.progressContainer}>

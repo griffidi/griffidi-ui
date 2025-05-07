@@ -22,8 +22,17 @@
     "./command-palette/command-palette.tsx": {
       "import": "./src/command-palette/command-palette.tsx"
     },
+    "./command-palette/*.ts": {
+      "import": "./src/command-palette/*.ts"
+    },
     "./dialog/dialog.tsx": {
       "import": "./src/dialog/dialog.tsx"
+    },
+    "./list/*.tsx": {
+      "import": "./src/list/*.tsx"
+    },
+    "./list/*.ts": {
+      "import": "./src/list/*.ts"
     },
     "./progress-bard/*.tsx": {
       "import": "./src/progress-bar/*.tsx"
@@ -33,6 +42,9 @@
     },
     "./table/*.tsx": {
       "import": "./src/table/*.tsx"
+    },
+    "./types/*.ts": {
+      "import": "./src/types/*.ts"
     },
     ".": {
       "import": "./src/index.ts"

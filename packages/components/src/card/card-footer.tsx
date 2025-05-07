@@ -1,6 +1,6 @@
 import { makeStyles } from '@griffel/react';
 
-const useStyles = makeStyles({
+const useClasses = makeStyles({
   footer: {
     display: 'flex',
     alignItems: 'center',
@@ -15,7 +15,7 @@ const useStyles = makeStyles({
 const CardFooter: React.FC<{
   children: React.ReactElement | React.ReactElement[];
 }> = ({ children }) => {
-  const classes = useStyles();
+  const classes = useClasses();
 
   return <div className={classes.footer}>{children}</div>;
 };

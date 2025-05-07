@@ -1,6 +1,6 @@
 import { makeStyles } from '@griffel/react';
 
-const useStyles = makeStyles({
+const useClasses = makeStyles({
   button: {
     '--_background-color':
       'var(--gui-button-background-color, var(--color-blue-500))',
@@ -22,7 +22,7 @@ const useStyles = makeStyles({
 const Button: React.FC<
   React.ButtonHTMLAttributes<HTMLButtonElement>
 > = props => {
-  const classes = useStyles();
+  const classes = useClasses();
 
   return (
     <button {...props} className={classes.button}>

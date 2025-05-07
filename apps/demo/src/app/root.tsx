@@ -1,6 +1,6 @@
 import { ApolloProvider } from '@apollo/client/react/context';
 import { createDOMRenderer, RendererProvider } from '@griffel/react';
-import { StrictMode, useMemo } from 'react';
+import { StrictMode } from 'react';
 import {
   isRouteErrorResponse,
   Links,
@@ -66,6 +66,7 @@ export function Layout({
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="color-scheme" content="dark light" />
         <Meta />
         <Links />
       </head>

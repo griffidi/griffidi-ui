@@ -32,7 +32,6 @@ const config = {
       plugins: [
         'typescript',
         'typescript-operations',
-        'typescript-resolvers',
         'typed-document-node',
       ],
     },

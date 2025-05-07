@@ -3,15 +3,10 @@
   --gui-color-primary-lighter: oklch(54.1% 0.281 293.009);
   --gui-color-secondary: var(--color-violet-800);
 
-  --gui-color-background: var(--color-gray-950);
+  --gui-color-background: var(--color-gray-800;);
   --gui-color-text: var(--color-slate-50);
 
   --gui-color-border: var(--color-slate-700);
-
-  @media (prefers-color-scheme: light) {
-    --gui-color-background: var(--color-white);
-    --gui-color-text: var(--color-slate-950);
-  }
 
   --gui-color-gradient-brand: linear-gradient(
     90deg,
@@ -28,10 +23,18 @@
   --gui-text-disabled-color: var(--color-slate-600);
   --gui-text-fill-background-color: var(--color-slate-300);
   --gui-text-fill-color: var(--color-slate-700);
+  --gui-color-text-weak: var(--color-slate-400);
+  --gui-color-text-strong: var(--color-slate-900);
 
   --app-header-height: 60px;
 
   /* border radius */
   --radius-xl: 12px;
   --radius-2xl: 16px;
+
+  @media (prefers-color-scheme: light) {
+    --gui-color-background: var(--color-white);
+    --gui-color-text: var(--color-slate-950);
+  }
 }
+

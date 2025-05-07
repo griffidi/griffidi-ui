@@ -3,7 +3,7 @@ import { type LoaderFunctionArgs, redirect } from 'react-router';
 import { useAuth } from '@/hooks/useAuth.ts';
 import type { Route } from './+types';
 
-const useStyles = makeStyles({
+const useClasses = makeStyles({
   homeContainer: {
     display: 'grid',
     placeItems: 'center',
@@ -14,10 +14,10 @@ const useStyles = makeStyles({
       fontWeight: 700,
       transition: 'transform 1s ease-in-out',
 
-      '&:hover': {
-        transform: 'scale(2)',
-        transition: 'transform 0.3s ease-in-out',
-      },
+      // '&:hover': {
+      //   transform: 'scale(2)',
+      //   transition: 'transform 0.3s ease-in-out',
+      // },
     },
   },
 });
@@ -42,7 +42,7 @@ export const meta = ({}: Route.MetaArgs) => {
 };
 
 export default function Home() {
-  const classes = useStyles();
+  const classes = useClasses();
 
   return (
     <div className={classes.homeContainer}>

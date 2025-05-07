@@ -20,9 +20,10 @@ import type { Context } from './client/context.ts';
 import { prisma } from './client/index.ts';
 import { corsOrigin, isDev, port } from './config.ts';
 import { AuthResolver } from './resolvers/auth.ts';
+import { SearchResolver } from './resolvers/search.ts';
 
 const schema = buildSchemaSync({
-  resolvers: [...resolvers, AuthResolver],
+  resolvers: [...resolvers, AuthResolver, SearchResolver],
   validate: false,
   emitSchemaFile: './prisma/schema.graphql',
 });

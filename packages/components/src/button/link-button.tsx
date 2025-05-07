@@ -7,7 +7,7 @@ type LinkButtonProps = {
   href: string;
 };
 
-const useStyles = makeStyles({
+const useClasses = makeStyles({
   linkButton: {
     display: 'flex',
     gap: '0.8rem',
@@ -16,7 +16,7 @@ const useStyles = makeStyles({
 });
 
 const LinkButton: React.FC<LinkButtonProps> = ({ children, icon, href }) => {
-  const styles = useStyles();
+  const styles = useClasses();
 
   return (
     <a className={styles.linkButton} href={href}>

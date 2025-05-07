@@ -8,7 +8,7 @@ import { useAuth } from '@/hooks/useAuth.ts';
 import { type Customer, GetCustomers } from '@/types/graphql';
 import styles from './customers.css.ts';
 
-const useStyles = makeStyles(styles);
+const useClasses = makeStyles(styles);
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const { isAuthenticated } = await useAuth(request);
@@ -24,7 +24,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 };
 
 const Customers = () => {
-  const classes = useStyles();
+  const classes = useClasses();
   const {
     loading,
     error,

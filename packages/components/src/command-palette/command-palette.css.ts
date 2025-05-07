@@ -1,4 +1,4 @@
-import type { GriffelStyle } from '@griffel/react';
+import type { CssStyles } from '../types/css.ts';
 
 export default {
   searchTrigger: {
@@ -9,22 +9,21 @@ export default {
     fontSize: '0.8rem',
     color: 'var(--color-gray-400)',
     fontWeight: 500,
-    border: '1px solid var(--color-gray-500)',
-    borderRadius: 'var(--radius-md)',
-    padding: '0.3rem 0.4rem',
+    border: '1px solid var(--gui-color-border)',
+    borderRadius: '8px',
+    padding: '0.4rem 0.6rem',
     width: '200px',
     cursor: 'pointer',
 
     '> span': {
       display: 'flex',
       alignItems: 'center',
-      gap: '0.5rem',
+      gap: '0.4rem',
 
       '> span': {
         display: 'grid',
         placeContent: 'center',
-        color: 'var(--color-gray-500)',
-        border: '1px solid var(--color-gray-500)',
+        border: '1px solid var(--gui-color-border)',
         borderRadius: 'var(--radius-sm)',
         padding: '0 0.4rem',
         fontSize: '0.7rem',
@@ -32,7 +31,7 @@ export default {
     },
   },
 
-  search: {
+  searchInput: {
     display: 'flex',
     gap: '0.5rem',
     alignItems: 'center',
@@ -43,4 +42,12 @@ export default {
       border: 'none',
     },
   },
-} satisfies GriffelStyle;
+
+  searchResults: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '1px',
+    overflowY: 'auto',
+    marginTop: '10px',
+  },
+} satisfies CssStyles;
