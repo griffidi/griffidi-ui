@@ -12,6 +12,12 @@ const useClasses = makeStyles({
     display: 'flex',
     gap: '0.8rem',
     alignItems: 'center',
+    fontSize: '0.9rem',
+    fontWeight: '400',
+
+    '&:hover': {
+      color: 'var(--gui-color-primary)',
+    },
   },
 });
 

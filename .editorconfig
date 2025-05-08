@@ -12,7 +12,7 @@ quote_type = single
 
 [*.{css,html,js,md,ts,yml,tsx,jsx}]
 indent_size = 2
-max_line_length = 80
+max_line_length = 100
 tab_width = 2
 
 [*.{html,js,md,ts,tsx,jsx}]
@@ -32,4 +32,4 @@ block_comment = *
 block_comment_end = */
 
 [*.json]
-max_line_length = 80
+max_line_length = 100

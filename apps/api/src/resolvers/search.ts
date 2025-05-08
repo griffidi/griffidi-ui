@@ -1,13 +1,4 @@
-import { GraphQLError } from 'graphql';
-import {
-  Args,
-  ArgsType,
-  Ctx,
-  Field,
-  ObjectType,
-  Query,
-  Resolver,
-} from 'type-graphql';
+import { Args, ArgsType, Ctx, Field, ObjectType, Query, Resolver } from 'type-graphql';
 import type { Context } from '../client/context.ts';
 import { SearchResultType } from '../constants/search-result-type.ts';
 
@@ -39,30 +30,115 @@ export class SearchResolver {
     @Args(() => SearchArgs) { query }: SearchArgs,
     @Ctx() { prisma }: Context,
   ): Promise<SearchResult[] | null> {
-    const customerQuery = prisma.customer.findMany({
-      where: {
-        name: {
-          contains: query,
-        },
-      },
-      select: {
-        id: true,
-        name: true,
-        city: true,
-        state: true,
-      },
-    });
+    const [users, customers, customerContacts] = await Promise.all([
+      getUsers(query, prisma),
+      getCustomers(query, prisma),
+      getCustomerContacts(query, prisma),
+    ]);
 
-    const customer = await customerQuery;
-    if (!customer) {
-      throw new GraphQLError('Customer not found');
-    }
-    const searchResults = customer.map(customer => ({
-      id: customer.id,
-      type: SearchResultType.customer,
-      name: customer.name,
-      description: `${customer.city}, ${customer.state}`,
-    }));
-    return searchResults;
+    const results = [...users, ...customers, ...customerContacts];
+
+    return results.length > 0 ? results : null;
   }
 }
+
+const getCustomers = async (query: string, prisma: Context['prisma']): Promise<SearchResult[]> => {
+  const customers = await prisma.customer.findMany({
+    where: {
+      name: {
+        contains: query,
+      },
+    },
+    select: {
+      id: true,
+      name: true,
+      city: true,
+      state: true,
+    },
+  });
+
+  return customers.map(customer => ({
+    id: customer.id,
+    type: SearchResultType.customer,
+    name: customer.name,
+    description: `${customer.city}, ${customer.state}`,
+  }));
+};
+
+const getCustomerContacts = async (
+  query: string,
+  prisma: Context['prisma'],
+): Promise<SearchResult[]> => {
+  const customContacts = await prisma.customerContact.findMany({
+    where: {
+      OR: [
+        {
+          firstName: {
+            contains: query,
+          },
+        },
+        {
+          lastName: {
+            contains: query,
+          },
+        },
+        {
+          email: {
+            contains: query,
+          },
+        },
+        {
+          phone: {
+            contains: query,
+          },
+        },
+      ],
+    },
+    select: {
+      id: true,
+      firstName: true,
+      lastName: true,
+      city: true,
+      state: true,
+    },
+  });
+  return customContacts.map(contact => ({
+    id: contact.id,
+    type: SearchResultType.customerContact,
+    name: `${contact.firstName} ${contact.lastName}`,
+    description: `${contact.city}, ${contact.state}`,
+  }));
+};
+
+const getUsers = async (query: string, prisma: Context['prisma']): Promise<SearchResult[]> => {
+  const users = await prisma.user.findMany({
+    where: {
+      OR: [
+        {
+          firstName: {
+            contains: query,
+          },
+        },
+        {
+          lastName: {
+            contains: query,
+          },
+        },
+      ],
+    },
+    select: {
+      id: true,
+      firstName: true,
+      lastName: true,
+      city: true,
+      state: true,
+    },
+  });
+
+  return users.map(user => ({
+    id: user.id,
+    type: SearchResultType.user,
+    name: `${user.firstName} ${user.lastName}`,
+    description: `${user.city}, ${user.state}`,
+  }));
+};

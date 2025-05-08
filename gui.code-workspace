@@ -50,7 +50,7 @@
     "editor.suggestSelection": "first",
     "editor.roundedSelection": true,
     "workbench.commandPalette.experimental.suggestCommands": true,
-    "editor.rulers": [80],
+    "editor.rulers": [100],
     "editor.experimentalEditContextEnabled": true,
     "editor.experimentalWhitespaceRendering": "font",
     "editor.renderWhitespace": "none",

@@ -31,13 +31,13 @@ const ListItem: FC<ListItemProps & HTMLAttributes<HTMLLIElement>> = ({
       onClick={handleClick}
       {...props}
     >
-      {icon && <div className={classes.icon}>{icon}</div>}
       <div className={classes.content}>
         <div className={classes.name}>{name}</div>
         {description && (
           <div className={classes.description}>{description}</div>
         )}
       </div>
+      {icon && <div className={classes.icon}>{icon}</div>}
     </li>
   );
 };

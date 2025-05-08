@@ -26,15 +26,18 @@ generator typegraphql {
 }
 
 model User {
-  id          String   @id @default(uuid())
-  firstName   String
-  lastName    String
-  email       String   @unique
-  address     String
-  phone       String
-  password    String
-  role        String
-  dateCreated DateTime @default(now())
+  id            String   @id @default(uuid())
+  firstName     String
+  lastName      String
+  email         String   @unique
+  streetAddress String
+  city          String
+  state         String
+  zip           String
+  phone         String
+  password      String
+  role          String
+  dateCreated   DateTime @default(now())
 }
 
 // enum Role {

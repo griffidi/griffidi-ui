@@ -3,7 +3,9 @@
   --gui-color-primary-lighter: oklch(54.1% 0.281 293.009);
   --gui-color-secondary: var(--color-violet-800);
 
-  --gui-color-background: var(--color-gray-800;);
+  --gui-color-background: var(--color-gray-800);
+  --gui-color-background-darker: color-mix(in oklab, var(--gui-color-background) 90%, black);
+  --gui-color-background-lighter: color-mix(in oklab, var(--gui-color-background) 90%, black);
   --gui-color-text: var(--color-slate-50);
 
   --gui-color-border: var(--color-slate-700);

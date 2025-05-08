@@ -10,8 +10,7 @@ export default {
     gap: '1rem',
 
     '> a:hover': {
-      textDecoration: 'underline',
-      textUnderlineOffset: '6px',
+      color: 'var(--gui-color-primary)',
     },
 
     '> a svg[data-icon="gui-icon"]': {
@@ -36,9 +35,9 @@ export default {
     visibility: 'hidden',
     paddingBlock: '0.5rem',
     paddingInline: '0.8rem 1.5rem',
-    inset: '0 1rem auto auto',
-    background: 'var(--color-gray-950)',
-    border: '1px solid var(--color-gray-400)',
+    inset: '2px 20px auto auto',
+    background: 'var(--gui-color-background-darker)',
+    border: '1px solid var(--gui-color-border)',
     borderRadius: 'var(--radius-lg)',
     boxShadow: 'var(--shadow-lg)',
     zIndex: 900,

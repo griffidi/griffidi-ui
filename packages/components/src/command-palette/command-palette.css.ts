@@ -29,12 +29,20 @@ export default {
         fontSize: '0.7rem',
       },
     },
+
+    '&:hover': {
+      border: '1px solid var(--gui-color-primary)',
+    },
   },
 
   searchInput: {
     display: 'flex',
     gap: '0.5rem',
     alignItems: 'center',
+
+    '& svg:has(+ input:focus)': {
+      color: 'var(--gui-color-primary)',
+    },
 
     '& input': {
       width: '100%',
@@ -49,5 +57,7 @@ export default {
     gap: '1px',
     overflowY: 'auto',
     marginTop: '10px',
+    willChange: 'height',
+    transition: 'height 2s ease-in-out 0.2s',
   },
 } satisfies CssStyles;

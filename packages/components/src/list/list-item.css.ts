@@ -24,6 +24,10 @@ export default {
 
     '&:hover': {
       border: 'var(--_border-width) solid var(--gui-color-border)',
+
+      '& svg': {
+        opacity: 1,
+      },
     },
   },
 
@@ -60,12 +64,15 @@ export default {
   },
 
   icon: {
+    display: 'flex',
     marginLeft: 'auto',
     fontSize: '20px',
 
     '& svg': {
       width: '20px',
       height: '20px',
+      color: 'var(--gui-color-text-weak)',
+      opacity: 0,
     },
   },
 } satisfies CssStyles;

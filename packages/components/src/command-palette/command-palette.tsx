@@ -1,4 +1,4 @@
-import { Search } from '@carbon/icons-react';
+import { Launch, Search } from '@carbon/icons-react';
 import { makeStyles } from '@griffel/react';
 import { useDebounce } from '@gui/core';
 import { type FC, useEffect, useState } from 'react';
@@ -74,7 +74,12 @@ const SearchResults: FC<{
       onSelectedChange={onSelectedChange}
     >
       {results?.map(result => (
-        <ListItem key={result.id} height={`${NAV_ITEM_HEIGHT}px`} {...result} />
+        <ListItem
+          key={result.id}
+          height={`${NAV_ITEM_HEIGHT}px`}
+          icon={<Launch />}
+          {...result}
+        />
       ))}
     </List>
   );

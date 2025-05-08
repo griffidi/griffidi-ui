@@ -54,7 +54,7 @@ type CreateManyAndReturnCustomerContact {
 }
 
 type CreateManyAndReturnUser {
-  address: String!
+  city: String!
   dateCreated: DateTimeISO!
   email: String!
   firstName: String!
@@ -63,6 +63,9 @@ type CreateManyAndReturnUser {
   password: String!
   phone: String!
   role: String!
+  state: String!
+  streetAddress: String!
+  zip: String!
 }
 
 type Customer {
@@ -966,7 +969,7 @@ input StringWithAggregatesFilter {
 }
 
 type User {
-  address: String!
+  city: String!
   dateCreated: DateTimeISO!
   email: String!
   firstName: String!
@@ -975,11 +978,14 @@ type User {
   password: String!
   phone: String!
   role: String!
+  state: String!
+  streetAddress: String!
+  zip: String!
 }
 
 type UserCountAggregate {
   _all: Int!
-  address: Int!
+  city: Int!
   dateCreated: Int!
   email: Int!
   firstName: Int!
@@ -988,10 +994,13 @@ type UserCountAggregate {
   password: Int!
   phone: Int!
   role: Int!
+  state: Int!
+  streetAddress: Int!
+  zip: Int!
 }
 
 input UserCountOrderByAggregateInput {
-  address: SortOrder
+  city: SortOrder
   dateCreated: SortOrder
   email: SortOrder
   firstName: SortOrder
@@ -1000,10 +1009,13 @@ input UserCountOrderByAggregateInput {
   password: SortOrder
   phone: SortOrder
   role: SortOrder
+  state: SortOrder
+  streetAddress: SortOrder
+  zip: SortOrder
 }
 
 input UserCreateInput {
-  address: String!
+  city: String!
   dateCreated: DateTimeISO
   email: String!
   firstName: String!
@@ -1012,10 +1024,13 @@ input UserCreateInput {
   password: String!
   phone: String!
   role: String!
+  state: String!
+  streetAddress: String!
+  zip: String!
 }
 
 input UserCreateManyInput {
-  address: String!
+  city: String!
   dateCreated: DateTimeISO
   email: String!
   firstName: String!
@@ -1024,13 +1039,16 @@ input UserCreateManyInput {
   password: String!
   phone: String!
   role: String!
+  state: String!
+  streetAddress: String!
+  zip: String!
 }
 
 type UserGroupBy {
   _count: UserCountAggregate
   _max: UserMaxAggregate
   _min: UserMinAggregate
-  address: String!
+  city: String!
   dateCreated: DateTimeISO!
   email: String!
   firstName: String!
@@ -1039,10 +1057,13 @@ type UserGroupBy {
   password: String!
   phone: String!
   role: String!
+  state: String!
+  streetAddress: String!
+  zip: String!
 }
 
 type UserMaxAggregate {
-  address: String
+  city: String
   dateCreated: DateTimeISO
   email: String
   firstName: String
@@ -1051,10 +1072,13 @@ type UserMaxAggregate {
   password: String
   phone: String
   role: String
+  state: String
+  streetAddress: String
+  zip: String
 }
 
 input UserMaxOrderByAggregateInput {
-  address: SortOrder
+  city: SortOrder
   dateCreated: SortOrder
   email: SortOrder
   firstName: SortOrder
@@ -1063,10 +1087,13 @@ input UserMaxOrderByAggregateInput {
   password: SortOrder
   phone: SortOrder
   role: SortOrder
+  state: SortOrder
+  streetAddress: SortOrder
+  zip: SortOrder
 }
 
 type UserMinAggregate {
-  address: String
+  city: String
   dateCreated: DateTimeISO
   email: String
   firstName: String
@@ -1075,10 +1102,13 @@ type UserMinAggregate {
   password: String
   phone: String
   role: String
+  state: String
+  streetAddress: String
+  zip: String
 }
 
 input UserMinOrderByAggregateInput {
-  address: SortOrder
+  city: SortOrder
   dateCreated: SortOrder
   email: SortOrder
   firstName: SortOrder
@@ -1087,13 +1117,16 @@ input UserMinOrderByAggregateInput {
   password: SortOrder
   phone: SortOrder
   role: SortOrder
+  state: SortOrder
+  streetAddress: SortOrder
+  zip: SortOrder
 }
 
 input UserOrderByWithAggregationInput {
   _count: UserCountOrderByAggregateInput
   _max: UserMaxOrderByAggregateInput
   _min: UserMinOrderByAggregateInput
-  address: SortOrder
+  city: SortOrder
   dateCreated: SortOrder
   email: SortOrder
   firstName: SortOrder
@@ -1102,10 +1135,13 @@ input UserOrderByWithAggregationInput {
   password: SortOrder
   phone: SortOrder
   role: SortOrder
+  state: SortOrder
+  streetAddress: SortOrder
+  zip: SortOrder
 }
 
 input UserOrderByWithRelationInput {
-  address: SortOrder
+  city: SortOrder
   dateCreated: SortOrder
   email: SortOrder
   firstName: SortOrder
@@ -1114,10 +1150,13 @@ input UserOrderByWithRelationInput {
   password: SortOrder
   phone: SortOrder
   role: SortOrder
+  state: SortOrder
+  streetAddress: SortOrder
+  zip: SortOrder
 }
 
 enum UserScalarFieldEnum {
-  address
+  city
   dateCreated
   email
   firstName
@@ -1126,13 +1165,16 @@ enum UserScalarFieldEnum {
   password
   phone
   role
+  state
+  streetAddress
+  zip
 }
 
 input UserScalarWhereWithAggregatesInput {
   AND: [UserScalarWhereWithAggregatesInput!]
   NOT: [UserScalarWhereWithAggregatesInput!]
   OR: [UserScalarWhereWithAggregatesInput!]
-  address: StringWithAggregatesFilter
+  city: StringWithAggregatesFilter
   dateCreated: DateTimeWithAggregatesFilter
   email: StringWithAggregatesFilter
   firstName: StringWithAggregatesFilter
@@ -1141,10 +1183,13 @@ input UserScalarWhereWithAggregatesInput {
   password: StringWithAggregatesFilter
   phone: StringWithAggregatesFilter
   role: StringWithAggregatesFilter
+  state: StringWithAggregatesFilter
+  streetAddress: StringWithAggregatesFilter
+  zip: StringWithAggregatesFilter
 }
 
 input UserUpdateInput {
-  address: String
+  city: String
   dateCreated: DateTimeISO
   email: String
   firstName: String
@@ -1153,10 +1198,13 @@ input UserUpdateInput {
   password: String
   phone: String
   role: String
+  state: String
+  streetAddress: String
+  zip: String
 }
 
 input UserUpdateManyMutationInput {
-  address: String
+  city: String
   dateCreated: DateTimeISO
   email: String
   firstName: String
@@ -1165,13 +1213,16 @@ input UserUpdateManyMutationInput {
   password: String
   phone: String
   role: String
+  state: String
+  streetAddress: String
+  zip: String
 }
 
 input UserWhereInput {
   AND: [UserWhereInput!]
   NOT: [UserWhereInput!]
   OR: [UserWhereInput!]
-  address: StringFilter
+  city: StringFilter
   dateCreated: DateTimeFilter
   email: StringFilter
   firstName: StringFilter
@@ -1180,13 +1231,16 @@ input UserWhereInput {
   password: StringFilter
   phone: StringFilter
   role: StringFilter
+  state: StringFilter
+  streetAddress: StringFilter
+  zip: StringFilter
 }
 
 input UserWhereUniqueInput {
   AND: [UserWhereInput!]
   NOT: [UserWhereInput!]
   OR: [UserWhereInput!]
-  address: StringFilter
+  city: StringFilter
   dateCreated: DateTimeFilter
   email: String
   firstName: StringFilter
@@ -1195,4 +1249,7 @@ input UserWhereUniqueInput {
   password: StringFilter
   phone: StringFilter
   role: StringFilter
+  state: StringFilter
+  streetAddress: StringFilter
+  zip: StringFilter
 }

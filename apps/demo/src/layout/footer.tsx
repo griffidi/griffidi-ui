@@ -1,6 +1,13 @@
+import { makeStyles } from '@griffel/react';
+import styles from './footer.css.ts';
+
+const useClasses = makeStyles(styles);
+
 const Footer = () => {
+  const classes = useClasses();
+
   return (
-    <footer>
+    <footer className={classes.footer}>
       {/* <a
         className="github"
         href="https://github.com/djarekg/haunted-ui"

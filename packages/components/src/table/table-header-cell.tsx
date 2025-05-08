@@ -11,6 +11,9 @@ const useClasses = makeStyles({
     background: 'var(--_table-header-cell-background-color)',
     borderBottom: '1px solid var(--gui-color-border)',
     paddingBlock: 'var(--padding-block)',
+    color: 'var(--gui-color-primary)',
+    fontSize: '1.1rem',
+    fontWeight: '700',
   },
 });
 
