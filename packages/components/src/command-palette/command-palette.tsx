@@ -12,7 +12,7 @@ const NAV_ITEM_HEIGHT = 52;
 
 export type CommandPaletteResultTypeMap = Record<
   string | number,
-  { cssColorVar: string; icon: ReactNode }
+  { iconColorCssVar: string; icon: ReactNode }
 >;
 
 type CommandPaletteProps = {

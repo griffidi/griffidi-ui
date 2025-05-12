@@ -41,10 +41,13 @@ const SearchResults: FC<SearchResultsProps> = ({
     return null;
   }
 
-  const icon = resultTypeIconMap[results[0].type]?.icon ?? undefined;
-
   const renderItem = ({ index, style }: { index: number; style: React.CSSProperties }) => {
-    const { id, name, description } = results[index];
+    const item = results[index];
+    const { id, name, description, type } = item;
+    const { icon, iconColorCssVar } = resultTypeIconMap[type] ?? {
+      icon: null,
+      iconColorCssVar: '',
+    };
 
     return (
       <ListItem
@@ -52,7 +55,10 @@ const SearchResults: FC<SearchResultsProps> = ({
         name={name}
         description={description}
         icon={icon}
-        style={style}
+        style={{
+          ...style,
+          color: iconColorCssVar,
+        }}
         onClick={() => onSelectedChange({ id })}
       />
     );

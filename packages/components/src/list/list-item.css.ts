@@ -12,6 +12,7 @@ export default {
   item: {
     display: 'flex',
     alignItems: 'center',
+    gap: '12px',
     paddingInline: '16px',
     background: 'var(--_background-color)',
     borderRadius: 'var(--radius-lg)',
@@ -55,12 +56,11 @@ export default {
     width: '100%',
     color: 'var(--gui-color-text-weak)',
     fontSize: '0.6rem',
-    marginLeft: '8px',
   },
 
   icon: {
     display: 'flex',
-    marginLeft: 'auto',
+    // marginLeft: 'auto',
     fontSize: '20px',
 
     '& svg': {

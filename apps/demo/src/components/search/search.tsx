@@ -1,5 +1,5 @@
 import { useApolloClient } from '@apollo/client/react/hooks';
-import { Collaborate, Customer, User } from '@carbon/icons-react';
+import { Customer, Identification, User } from '@carbon/icons-react';
 import type { CommandItem } from '@gui/components/command-palette/command-item.ts';
 import CommandPalette, {
   type CommandPaletteResultTypeMap,
@@ -11,15 +11,15 @@ import { GetSearchResults } from '@/types/graphql.ts';
 const resultTypeMap = {
   1: {
     icon: <User />,
-    cssColorVar: '--gui-color-primary',
+    iconColorCssVar: '--gui-color-primary',
   },
   2: {
     icon: <Customer />,
-    cssColorVar: '--gui-color-secondary',
+    iconColorCssVar: '--gui-color-secondary',
   },
   3: {
-    icon: <Collaborate />,
-    cssColorVar: '--gui-color-tertiary',
+    icon: <Identification />,
+    iconColorCssVar: '--gui-color-tertiary',
   },
 } satisfies CommandPaletteResultTypeMap;
 
