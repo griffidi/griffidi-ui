@@ -3,7 +3,7 @@ import { useEffect, useRef } from 'react';
 import styles from './dialog.css.ts';
 import type { DialogPosition } from './dialog-position.ts';
 
-const useClasses = makeStyles(styles);
+const useStyles = makeStyles(styles);
 
 type DialogProps = {
   children?: React.ReactElement | React.ReactElement[] | undefined;
@@ -24,7 +24,7 @@ const Dialog: React.FC<DialogProps> = ({
   position = { top: '200px', right: '0', bottom: '0', left: '0' },
   onClose,
 }) => {
-  const classes = useClasses();
+  const classes = useStyles();
   const role = type === 'alert' ? 'alertdialog' : 'dialog';
   const dialogRef = useRef<HTMLDialogElement>(null);
 
@@ -52,11 +52,7 @@ const Dialog: React.FC<DialogProps> = ({
 
   const Scrim = () => {
     return (
-      <div
-        className={classes.scrim}
-        hidden={open ? undefined : true}
-        onClick={handleScrimClick}
-      />
+      <div className={classes.scrim} hidden={open ? undefined : true} onClick={handleScrimClick} />
     );
   };
 

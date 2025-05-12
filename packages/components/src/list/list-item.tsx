@@ -2,7 +2,7 @@ import { makeStyles } from '@griffel/react';
 import type { FC, HTMLAttributes } from 'react';
 import styles from './list-item.css.ts';
 
-const useClasses = makeStyles(styles);
+const useStyles = makeStyles(styles);
 
 type ListItemProps = {
   name?: string;
@@ -18,7 +18,7 @@ const ListItem: FC<ListItemProps & HTMLAttributes<HTMLElement>> = ({
   onClick,
   ...props
 }) => {
-  const classes = useClasses();
+  const classes = useStyles();
   const handleClick = () => onClick?.();
 
   return (

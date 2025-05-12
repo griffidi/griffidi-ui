@@ -1,6 +1,6 @@
 import { makeStyles } from '@griffel/react';
 
-const useClasses = makeStyles({
+const useStyles = makeStyles({
   row: {
     display: 'table-row',
     width: '100%',
@@ -10,7 +10,7 @@ const useClasses = makeStyles({
 const TableRow: React.FC<{
   children: React.ReactElement | React.ReactElement[];
 }> = ({ children }) => {
-  const classes = useClasses();
+  const classes = useStyles();
 
   return <div className={classes.row}>{children}</div>;
 };

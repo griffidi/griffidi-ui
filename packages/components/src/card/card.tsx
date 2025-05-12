@@ -1,6 +1,6 @@
 import { makeStyles } from '@griffel/react';
 
-const useClasses = makeStyles({
+const useStyles = makeStyles({
   card: {
     display: 'flex',
     flexDirection: 'column',
@@ -14,7 +14,7 @@ const useClasses = makeStyles({
 const Card: React.FC<{
   children: React.ReactElement | React.ReactElement[];
 }> = ({ children }) => {
-  const classes = useClasses();
+  const classes = useStyles();
 
   return <div className={classes.card}>{children}</div>;
 };

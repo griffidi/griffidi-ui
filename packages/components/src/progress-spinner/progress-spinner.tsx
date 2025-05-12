@@ -1,6 +1,6 @@
 import { makeStyles } from '@griffel/react';
 
-const useClasses = makeStyles({
+const useStyles = makeStyles({
   spinner: {
     width: '24px',
     height: '24px',
@@ -21,7 +21,7 @@ type ProgressSpinnerProps = {
  * @returns {JSX.Element}
  */
 const ProgressSpinner: React.FC<ProgressSpinnerProps> = ({ size = 24 }) => {
-  const classes = useClasses();
+  const classes = useStyles();
 
   return (
     <div

@@ -3,7 +3,7 @@ import { type FC } from 'react';
 import VirtualListTiny, { type ItemInfo } from 'react-tiny-virtual-list';
 import styles from './list.css.ts';
 
-const useClasses = makeStyles(styles);
+const useStyles = makeStyles(styles);
 
 type ListProps = {
   height: number;
@@ -13,7 +13,7 @@ type ListProps = {
 };
 
 const VirtualList: FC<ListProps> = ({ height, itemCount = 0, itemSize = 40, renderItem }) => {
-  const classes = useClasses();
+  const classes = useStyles();
 
   return (
     <VirtualListTiny

@@ -3,7 +3,7 @@ import { makeStyles } from '@griffel/react';
 import type { FC } from 'react';
 import styles from './search-trigger.css.ts';
 
-const useClasses = makeStyles(styles);
+const useStyles = makeStyles(styles);
 
 type SearchTriggerProps = {
   onClick: () => void;
@@ -17,7 +17,7 @@ type SearchTriggerProps = {
  * @param { onClick } onClick - The function to call when the user clicks on the trigger.
  */
 const SearchTrigger: FC<SearchTriggerProps> = ({ onClick }) => {
-  const classes = useClasses();
+  const classes = useStyles();
 
   return (
     <div className={classes.searchTrigger} onClick={onClick}>

@@ -8,10 +8,10 @@ import GuiIcon from '@/components/icons/gui';
 import Search from '@/components/search/search.tsx';
 import styles from './header.css.ts';
 
-const useClasses = makeStyles(styles);
+const useStyles = makeStyles(styles);
 
 export default function Header() {
-  const classes = useClasses();
+  const classes = useStyles();
   const { isAuthenticated, username } = useContext(AuthContext)!;
 
   return (
@@ -34,10 +34,7 @@ export default function Header() {
         </button>
         <menu id="menu" popover="auto" className={classes.popover}>
           <li>
-            <LinkButton
-              href={`/users/${username}`}
-              icon={<UserProfile size={16} />}
-            >
+            <LinkButton href={`/users/${username}`} icon={<UserProfile size={16} />}>
               Profile
             </LinkButton>
           </li>

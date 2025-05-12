@@ -3,7 +3,7 @@ import { type FC, type HTMLAttributes } from 'react';
 import type { Item } from './item.ts';
 import styles from './list.css.ts';
 
-const useClasses = makeStyles(styles);
+const useStyles = makeStyles(styles);
 
 type ListProps = {
   children: React.ReactNode[];
@@ -17,7 +17,7 @@ const List: FC<ListProps & HTMLAttributes<HTMLUListElement>> = ({
   className,
   ...props
 }) => {
-  const classes = useClasses();
+  const classes = useStyles();
 
   const handleClick = (e: React.MouseEvent) => {
     const item = (

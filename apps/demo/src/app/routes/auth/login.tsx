@@ -7,7 +7,7 @@ import { signin } from '@/auth/auth.ts';
 import { useAuth } from '@/hooks/useAuth.ts';
 import type { Route } from './+types/login.ts';
 
-const useClasses = makeStyles({
+const useStyles = makeStyles({
   container: {
     display: 'grid',
     placeItems: 'center',
@@ -105,7 +105,7 @@ const action = async ({ request }: Route.ActionArgs) => {
 };
 
 const Login = () => {
-  const classes = useClasses();
+  const classes = useStyles();
 
   return (
     <div className={classes.container}>

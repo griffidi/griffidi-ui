@@ -1,10 +1,10 @@
 import { makeStyles } from '@griffel/react';
 import styles from './footer.css.ts';
 
-const useClasses = makeStyles(styles);
+const useStyles = makeStyles(styles);
 
 const Footer = () => {
-  const classes = useClasses();
+  const classes = useStyles();
 
   return (
     <footer className={classes.footer}>
@@ -30,9 +30,7 @@ const Footer = () => {
         </svg>
       </a> */}
       <div></div>
-      <span>
-        &copy; {new Date().getFullYear()} djarekg. All rights reserved.
-      </span>
+      <span>&copy; {new Date().getFullYear()} djarekg. All rights reserved.</span>
     </footer>
   );
 };

@@ -1,9 +1,8 @@
 import { makeStyles } from '@griffel/react';
 
-const useClasses = makeStyles({
+const useStyles = makeStyles({
   button: {
-    '--_background-color':
-      'var(--gui-button-background-color, var(--color-blue-500))',
+    '--_background-color': 'var(--gui-button-background-color, var(--color-blue-500))',
 
     padding: '0.3rem 1.5rem',
     borderRadius: 'var(--radius-sm)',
@@ -13,16 +12,13 @@ const useClasses = makeStyles({
     cursor: 'pointer',
 
     '&:hover': {
-      backgroundColor:
-        'color-mix(in oklab, var(--_background-color) 90%, black)',
+      backgroundColor: 'color-mix(in oklab, var(--_background-color) 90%, black)',
     },
   },
 });
 
-const Button: React.FC<
-  React.ButtonHTMLAttributes<HTMLButtonElement>
-> = props => {
-  const classes = useClasses();
+const Button: React.FC<React.ButtonHTMLAttributes<HTMLButtonElement>> = props => {
+  const classes = useStyles();
 
   return (
     <button {...props} className={classes.button}>

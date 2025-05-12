@@ -4,7 +4,7 @@ import { useDebounce } from '@gui/core';
 import { type FC, useEffect, useRef, useState } from 'react';
 import styles from './search-input.css.ts';
 
-const useClasses = makeStyles(styles);
+const useStyles = makeStyles(styles);
 
 type SearchInputProps = {
   open: boolean;
@@ -18,7 +18,7 @@ type SearchInputProps = {
  * @param { onChange } onChange - The function to call when the user types in the input.
  */
 const SearchInput: FC<SearchInputProps> = ({ open, onChange }) => {
-  const classes = useClasses();
+  const classes = useStyles();
   const inputRef = useRef<HTMLInputElement>(null);
   const [value, setValue] = useState('');
   const debouncedValue = useDebounce(value, 400);

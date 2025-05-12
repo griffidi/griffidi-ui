@@ -1,9 +1,8 @@
 import { makeStyles } from '@griffel/react';
 
-const useClasses = makeStyles({
+const useStyles = makeStyles({
   content: {
-    '--_background-color':
-      'var(--gui-card-content-background-color, var(--gui-color-background))',
+    '--_background-color': 'var(--gui-card-content-background-color, var(--gui-color-background))',
     '--_color': 'var(--gui-card-content-color, var(--gui-color-text))',
 
     display: 'flex',
@@ -22,7 +21,7 @@ const useClasses = makeStyles({
 const CardContent: React.FC<{
   children: React.ReactElement | React.ReactElement[];
 }> = ({ children }) => {
-  const classes = useClasses();
+  const classes = useStyles();
 
   return <div className={classes.content}>{children}</div>;
 };

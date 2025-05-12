@@ -1,9 +1,8 @@
 import { makeStyles } from '@griffel/react';
 
-const useClasses = makeStyles({
+const useStyles = makeStyles({
   table: {
-    '--_background-color':
-      'var(--gui-table-background-color, var(--gui-color-background))',
+    '--_background-color': 'var(--gui-table-background-color, var(--gui-color-background))',
     '--_color': 'var(--gui-table-color, var(--gui-color-text))',
 
     display: 'table',
@@ -19,7 +18,7 @@ const Table: React.FC<{
   children: React.ReactElement | React.ReactElement[] | unknown;
   className?: string | undefined;
 }> = ({ children, className }) => {
-  const classes = useClasses();
+  const classes = useStyles();
 
   return (
     <div className={`${classes.table}${className ? ` ${className}` : ''}`}>
