@@ -1,9 +1,27 @@
 import { useApolloClient } from '@apollo/client/react/hooks';
+import { Collaborate, Customer, User } from '@carbon/icons-react';
 import type { CommandItem } from '@gui/components/command-palette/command-item.ts';
-import CommandPalette from '@gui/components/command-palette/command-palette.tsx';
+import CommandPalette, {
+  type CommandPaletteResultTypeMap,
+} from '@gui/components/command-palette/command-palette.tsx';
 import type { Item } from '@gui/components/list/item.ts';
 import { useState, useTransition } from 'react';
 import { GetSearchResults } from '@/types/graphql.ts';
+
+const resultTypeMap = {
+  1: {
+    icon: <User />,
+    cssColorVar: '--gui-color-primary',
+  },
+  2: {
+    icon: <Customer />,
+    cssColorVar: '--gui-color-secondary',
+  },
+  3: {
+    icon: <Collaborate />,
+    cssColorVar: '--gui-color-tertiary',
+  },
+} satisfies CommandPaletteResultTypeMap;
 
 const Search = () => {
   const client = useApolloClient();
@@ -13,7 +31,7 @@ const Search = () => {
   // On search, query search and set results.
   const handleSearch = (searchTerm: string) => {
     startTransition(async () => {
-      if (!searchTerm) {
+      if (!searchTerm || searchTerm.length < 3) {
         setResults([]);
         return;
       }
@@ -44,6 +62,7 @@ const Search = () => {
       <CommandPalette
         isSearching={isPending}
         results={results}
+        resultTypeMap={resultTypeMap}
         onSearch={handleSearch}
         onClose={() => setResults([])}
         onSelectedChange={handleSelectedChanged}

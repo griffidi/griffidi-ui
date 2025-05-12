@@ -30,17 +30,13 @@ const List: FC<ListProps & HTMLAttributes<HTMLUListElement>> = ({
       const id = item.id;
 
       if (id) {
-        onSelectedChange?.({ id, item });
+        onSelectedChange?.({ id });
       }
     }
   };
 
   return (
-    <ul
-      className={`${classes.list} ${className}`}
-      onClick={handleClick}
-      {...props}
-    >
+    <ul className={`${classes.list} ${className}`} onClick={handleClick} {...props}>
       {children}
     </ul>
   );

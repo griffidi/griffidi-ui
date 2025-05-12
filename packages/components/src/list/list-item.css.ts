@@ -4,8 +4,7 @@ export default {
   root: {
     '--_background-color':
       'var(--gui-navigation-item-background-color, var(--gui-color-background))',
-    '--_on_border-color':
-      'var(--gui-navigation-item-on-border-color, var(--gui-color-border))',
+    '--_on_border-color': 'var(--gui-navigation-item-on-border-color, var(--gui-color-border))',
     '--_border-width': 'var(--gui-navigation-item-border-width, 1px)',
     '--_color': 'var(--gui-navigation-item-color, var(--gui-color-text))',
   },
@@ -24,10 +23,6 @@ export default {
 
     '&:hover': {
       border: 'var(--_border-width) solid var(--gui-color-border)',
-
-      '& svg': {
-        opacity: 1,
-      },
     },
   },
 
@@ -72,7 +67,6 @@ export default {
       width: '20px',
       height: '20px',
       color: 'var(--gui-color-text-weak)',
-      opacity: 0,
     },
   },
 } satisfies CssStyles;

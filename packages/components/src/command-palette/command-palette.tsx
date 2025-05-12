@@ -1,114 +1,56 @@
-import { Launch, Search } from '@carbon/icons-react';
-import { makeStyles } from '@griffel/react';
-import { useDebounce } from '@gui/core';
-import { type FC, useEffect, useState } from 'react';
+import { type FC, type ReactNode, useEffect, useState } from 'react';
 import Dialog from '../dialog/dialog.tsx';
 import type { Item } from '../list/item.ts';
-import List from '../list/list.tsx';
-import ListItem from '../list/list-item.tsx';
-import ProgressSpinner from '../progress-spinner/progress-spinner.tsx';
 import type { CommandItem } from './command-item.ts';
-import styles from './command-palette.css.ts';
+import SearchInput from './search/search-input.tsx';
+import SearchResults from './search/search-result.tsx';
+import SearchTrigger from './search/search-trigger.tsx';
 
 const DEFAULT_DIALOG_HEIGHT = 26;
 const NAV_ITEM_GAP = 8;
 const NAV_ITEM_HEIGHT = 52;
-const MAX_VISIBLE_ITEMS = 5;
 
-const useClasses = makeStyles(styles);
-
-const SearchTrigger: FC<{ onClick: () => void }> = ({ onClick }) => {
-  const classes = useClasses();
-
-  return (
-    <div className={classes.searchTrigger} onClick={onClick}>
-      <Search />
-      <span>
-        type <span>/</span> to search
-      </span>
-    </div>
-  );
-};
-
-const SearchInput: FC<{ value: string; onChange: (e: string) => void }> = ({
-  value,
-  onChange,
-}) => {
-  const classes = useClasses();
-
-  return (
-    <div className={classes.searchInput}>
-      <Search />
-      <input
-        // biome-ignore lint/a11y/noAutofocus: we want to focus the input when the dialog opens
-        autoFocus
-        placeholder="type to search..."
-        type="text"
-        value={value}
-        onChange={e => onChange(e.target.value)}
-      />
-    </div>
-  );
-};
-
-const SearchResults: FC<{
-  height: string;
-  isSearching: boolean;
-  results: CommandItem[];
-  onSelectedChange: (item: Item) => void;
-}> = ({ height, isSearching, results, onSelectedChange }) => {
-  const classes = useClasses();
-
-  if (isSearching) {
-    return <ProgressSpinner />;
-  }
-
-  if (results.length === 0) {
-    return null;
-  }
-
-  return (
-    <List
-      className={classes.searchResults}
-      style={{ height }}
-      onSelectedChange={onSelectedChange}
-    >
-      {results?.map(result => (
-        <ListItem
-          key={result.id}
-          height={`${NAV_ITEM_HEIGHT}px`}
-          icon={<Launch />}
-          {...result}
-        />
-      ))}
-    </List>
-  );
-};
+export type CommandPaletteResultTypeMap = Record<
+  string | number,
+  { cssColorVar: string; icon: ReactNode }
+>;
 
 type CommandPaletteProps = {
   isSearching?: boolean;
   results: CommandItem[];
-  searchDelay?: number;
-  onSearch?: (searchTerm: string) => void;
+  resultTypeMap: CommandPaletteResultTypeMap;
+  visibleResults?: number;
+  onSearch: (value: string) => void;
   onClose?: () => void;
   onSelectedChange?: (item: Item) => void;
 };
 
+/**
+ * This is the command palette. It is a dialog that allows the user to input search terms
+ * and display results in a list. The user can also select an item from the list that will
+ * trigger an action.
+ *
+ * @param { isSearching } isSearching - Whether or not the search is in progress.
+ * @param { results } results - The results to display.
+ * @param { resultTypeIconMap } resultTypeIconMap - The map of result types to icons.
+ * @param { visibleResults } visibleResults - The number of results to display at once.
+ * @param { onSearch } onSearch - The function to call when the user types in the input.
+ * @param { onClose } onClose - The function to call when the user closes the dialog.
+ * @param { onSelectedChange } onSelectedChange - The function to call when the user selects an item.
+ */
 const CommandPalette: FC<CommandPaletteProps> = ({
   isSearching = false,
   results,
-  searchDelay = 500,
+  resultTypeMap,
+  visibleResults = 7,
   onSearch,
   onClose,
   onSelectedChange,
 }) => {
   const [open, setOpen] = useState(false);
-  const [searchTerm, setSearchTerm] = useState('');
-  const debouncedSearchTerm = useDebounce(searchTerm, searchDelay);
-  const [resultsHeight, setResultsHeight] = useState(
-    `${DEFAULT_DIALOG_HEIGHT}px`,
-  );
+  const [resultsHeight, setResultsHeight] = useState(DEFAULT_DIALOG_HEIGHT);
 
+  // Listen for the '/' key to open the command palette.
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === '/') {
@@ -124,26 +66,20 @@ const CommandPalette: FC<CommandPaletteProps> = ({
     };
   }, []);
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: adding event handler `onSearch` to the dependency array causes infinite loop
-  useEffect(() => {
-    if (onSearch) {
-      onSearch(debouncedSearchTerm);
-    }
-  }, [debouncedSearchTerm]);
-
+  // Calculate the results height.
   useEffect(() => {
     if (open) {
-      const count =
-        results.length > MAX_VISIBLE_ITEMS ? MAX_VISIBLE_ITEMS : results.length;
+      const len = results?.length || 0;
+      const count = len > visibleResults ? visibleResults : len;
       const height = count * NAV_ITEM_HEIGHT + NAV_ITEM_GAP;
-      setResultsHeight(`${height}px`);
+      setResultsHeight(height);
     }
-  }, [results, open]);
+  }, [results, open, visibleResults]);
 
+  // Lets reset everything when closing.
   const handleClose = () => {
-    setSearchTerm('');
     setOpen(false);
-    setResultsHeight(`${DEFAULT_DIALOG_HEIGHT}px`);
+    setResultsHeight(DEFAULT_DIALOG_HEIGHT);
     onClose?.();
   };
 
@@ -162,11 +98,12 @@ const CommandPalette: FC<CommandPaletteProps> = ({
         position={{ top: '100px', right: '0', bottom: '0', left: '0' }}
         onClose={handleClose}
       >
-        <SearchInput value={searchTerm} onChange={setSearchTerm} />
+        <SearchInput open={open} onChange={onSearch} />
         <SearchResults
           height={resultsHeight}
           isSearching={isSearching}
           results={results}
+          resultTypeIconMap={resultTypeMap}
           onSelectedChange={handleSelectedChanged}
         />
       </Dialog>

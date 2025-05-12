@@ -1,24 +1,15 @@
 import type { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
 export type Maybe<T> = T | undefined;
 export type InputMaybe<T> = T | undefined;
-export type Exact<T extends { [key: string]: unknown }> = {
-  [K in keyof T]: T[K];
+export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = {
+  [_ in K]?: never;
 };
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
-  [SubKey in K]?: Maybe<T[SubKey]>;
-};
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
-  [SubKey in K]: Maybe<T[SubKey]>;
-};
-export type MakeEmpty<
-  T extends { [key: string]: unknown },
-  K extends keyof T,
-> = { [_ in K]?: never };
 export type Incremental<T> =
   | T
-  | {
-      [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never;
-    };
+  | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
 /** All built-in and custom scalars, mapped to their actual values */
 export interface Scalars {
   ID: { input: string; output: string };
@@ -81,7 +72,7 @@ export interface CreateManyAndReturnCustomerContact {
 }
 
 export interface CreateManyAndReturnUser {
-  readonly address: Scalars['String']['output'];
+  readonly city: Scalars['String']['output'];
   readonly dateCreated: Scalars['DateTimeISO']['output'];
   readonly email: Scalars['String']['output'];
   readonly firstName: Scalars['String']['output'];
@@ -90,6 +81,9 @@ export interface CreateManyAndReturnUser {
   readonly password: Scalars['String']['output'];
   readonly phone: Scalars['String']['output'];
   readonly role: Scalars['String']['output'];
+  readonly state: Scalars['String']['output'];
+  readonly streetAddress: Scalars['String']['output'];
+  readonly zip: Scalars['String']['output'];
 }
 
 export interface Customer {
@@ -215,9 +209,7 @@ export interface CustomerContactCreateNestedManyWithoutCustomerInput {
   readonly connectOrCreate?: InputMaybe<
     ReadonlyArray<CustomerContactCreateOrConnectWithoutCustomerInput>
   >;
-  readonly create?: InputMaybe<
-    ReadonlyArray<CustomerContactCreateWithoutCustomerInput>
-  >;
+  readonly create?: InputMaybe<ReadonlyArray<CustomerContactCreateWithoutCustomerInput>>;
   readonly createMany?: InputMaybe<CustomerContactCreateManyCustomerInputEnvelope>;
 }
 
@@ -396,15 +388,9 @@ export interface CustomerContactScalarWhereInput {
 }
 
 export interface CustomerContactScalarWhereWithAggregatesInput {
-  readonly AND?: InputMaybe<
-    ReadonlyArray<CustomerContactScalarWhereWithAggregatesInput>
-  >;
-  readonly NOT?: InputMaybe<
-    ReadonlyArray<CustomerContactScalarWhereWithAggregatesInput>
-  >;
-  readonly OR?: InputMaybe<
-    ReadonlyArray<CustomerContactScalarWhereWithAggregatesInput>
-  >;
+  readonly AND?: InputMaybe<ReadonlyArray<CustomerContactScalarWhereWithAggregatesInput>>;
+  readonly NOT?: InputMaybe<ReadonlyArray<CustomerContactScalarWhereWithAggregatesInput>>;
+  readonly OR?: InputMaybe<ReadonlyArray<CustomerContactScalarWhereWithAggregatesInput>>;
   readonly city?: InputMaybe<StringWithAggregatesFilter>;
   readonly customerId?: InputMaybe<StringWithAggregatesFilter>;
   readonly dateCreated?: InputMaybe<DateTimeWithAggregatesFilter>;
@@ -458,17 +444,11 @@ export interface CustomerContactUpdateManyWithoutCustomerNestedInput {
   readonly connectOrCreate?: InputMaybe<
     ReadonlyArray<CustomerContactCreateOrConnectWithoutCustomerInput>
   >;
-  readonly create?: InputMaybe<
-    ReadonlyArray<CustomerContactCreateWithoutCustomerInput>
-  >;
+  readonly create?: InputMaybe<ReadonlyArray<CustomerContactCreateWithoutCustomerInput>>;
   readonly createMany?: InputMaybe<CustomerContactCreateManyCustomerInputEnvelope>;
   readonly delete?: InputMaybe<ReadonlyArray<CustomerContactWhereUniqueInput>>;
-  readonly deleteMany?: InputMaybe<
-    ReadonlyArray<CustomerContactScalarWhereInput>
-  >;
-  readonly disconnect?: InputMaybe<
-    ReadonlyArray<CustomerContactWhereUniqueInput>
-  >;
+  readonly deleteMany?: InputMaybe<ReadonlyArray<CustomerContactScalarWhereInput>>;
+  readonly disconnect?: InputMaybe<ReadonlyArray<CustomerContactWhereUniqueInput>>;
   readonly set?: InputMaybe<ReadonlyArray<CustomerContactWhereUniqueInput>>;
   readonly update?: InputMaybe<
     ReadonlyArray<CustomerContactUpdateWithWhereUniqueWithoutCustomerInput>
@@ -734,15 +714,9 @@ export enum CustomerScalarFieldEnum {
 }
 
 export interface CustomerScalarWhereWithAggregatesInput {
-  readonly AND?: InputMaybe<
-    ReadonlyArray<CustomerScalarWhereWithAggregatesInput>
-  >;
-  readonly NOT?: InputMaybe<
-    ReadonlyArray<CustomerScalarWhereWithAggregatesInput>
-  >;
-  readonly OR?: InputMaybe<
-    ReadonlyArray<CustomerScalarWhereWithAggregatesInput>
-  >;
+  readonly AND?: InputMaybe<ReadonlyArray<CustomerScalarWhereWithAggregatesInput>>;
+  readonly NOT?: InputMaybe<ReadonlyArray<CustomerScalarWhereWithAggregatesInput>>;
+  readonly OR?: InputMaybe<ReadonlyArray<CustomerScalarWhereWithAggregatesInput>>;
   readonly city?: InputMaybe<StringWithAggregatesFilter>;
   readonly dateCreated?: InputMaybe<DateTimeWithAggregatesFilter>;
   readonly dateUpdated?: InputMaybe<DateTimeWithAggregatesFilter>;
@@ -1223,9 +1197,7 @@ export interface QueryGroupByCustomerArgs {
 export interface QueryGroupByCustomerContactArgs {
   by: ReadonlyArray<CustomerContactScalarFieldEnum>;
   having?: InputMaybe<CustomerContactScalarWhereWithAggregatesInput>;
-  orderBy?: InputMaybe<
-    ReadonlyArray<CustomerContactOrderByWithAggregationInput>
-  >;
+  orderBy?: InputMaybe<ReadonlyArray<CustomerContactOrderByWithAggregationInput>>;
   skip?: InputMaybe<Scalars['Int']['input']>;
   take?: InputMaybe<Scalars['Int']['input']>;
   where?: InputMaybe<CustomerContactWhereInput>;
@@ -1306,7 +1278,7 @@ export interface StringWithAggregatesFilter {
 }
 
 export interface User {
-  readonly address: Scalars['String']['output'];
+  readonly city: Scalars['String']['output'];
   readonly dateCreated: Scalars['DateTimeISO']['output'];
   readonly email: Scalars['String']['output'];
   readonly firstName: Scalars['String']['output'];
@@ -1315,11 +1287,14 @@ export interface User {
   readonly password: Scalars['String']['output'];
   readonly phone: Scalars['String']['output'];
   readonly role: Scalars['String']['output'];
+  readonly state: Scalars['String']['output'];
+  readonly streetAddress: Scalars['String']['output'];
+  readonly zip: Scalars['String']['output'];
 }
 
 export interface UserCountAggregate {
   readonly _all: Scalars['Int']['output'];
-  readonly address: Scalars['Int']['output'];
+  readonly city: Scalars['Int']['output'];
   readonly dateCreated: Scalars['Int']['output'];
   readonly email: Scalars['Int']['output'];
   readonly firstName: Scalars['Int']['output'];
@@ -1328,10 +1303,13 @@ export interface UserCountAggregate {
   readonly password: Scalars['Int']['output'];
   readonly phone: Scalars['Int']['output'];
   readonly role: Scalars['Int']['output'];
+  readonly state: Scalars['Int']['output'];
+  readonly streetAddress: Scalars['Int']['output'];
+  readonly zip: Scalars['Int']['output'];
 }
 
 export interface UserCountOrderByAggregateInput {
-  readonly address?: InputMaybe<SortOrder>;
+  readonly city?: InputMaybe<SortOrder>;
   readonly dateCreated?: InputMaybe<SortOrder>;
   readonly email?: InputMaybe<SortOrder>;
   readonly firstName?: InputMaybe<SortOrder>;
@@ -1340,10 +1318,13 @@ export interface UserCountOrderByAggregateInput {
   readonly password?: InputMaybe<SortOrder>;
   readonly phone?: InputMaybe<SortOrder>;
   readonly role?: InputMaybe<SortOrder>;
+  readonly state?: InputMaybe<SortOrder>;
+  readonly streetAddress?: InputMaybe<SortOrder>;
+  readonly zip?: InputMaybe<SortOrder>;
 }
 
 export interface UserCreateInput {
-  readonly address: Scalars['String']['input'];
+  readonly city: Scalars['String']['input'];
   readonly dateCreated?: InputMaybe<Scalars['DateTimeISO']['input']>;
   readonly email: Scalars['String']['input'];
   readonly firstName: Scalars['String']['input'];
@@ -1352,10 +1333,13 @@ export interface UserCreateInput {
   readonly password: Scalars['String']['input'];
   readonly phone: Scalars['String']['input'];
   readonly role: Scalars['String']['input'];
+  readonly state: Scalars['String']['input'];
+  readonly streetAddress: Scalars['String']['input'];
+  readonly zip: Scalars['String']['input'];
 }
 
 export interface UserCreateManyInput {
-  readonly address: Scalars['String']['input'];
+  readonly city: Scalars['String']['input'];
   readonly dateCreated?: InputMaybe<Scalars['DateTimeISO']['input']>;
   readonly email: Scalars['String']['input'];
   readonly firstName: Scalars['String']['input'];
@@ -1364,13 +1348,16 @@ export interface UserCreateManyInput {
   readonly password: Scalars['String']['input'];
   readonly phone: Scalars['String']['input'];
   readonly role: Scalars['String']['input'];
+  readonly state: Scalars['String']['input'];
+  readonly streetAddress: Scalars['String']['input'];
+  readonly zip: Scalars['String']['input'];
 }
 
 export interface UserGroupBy {
   readonly _count?: Maybe<UserCountAggregate>;
   readonly _max?: Maybe<UserMaxAggregate>;
   readonly _min?: Maybe<UserMinAggregate>;
-  readonly address: Scalars['String']['output'];
+  readonly city: Scalars['String']['output'];
   readonly dateCreated: Scalars['DateTimeISO']['output'];
   readonly email: Scalars['String']['output'];
   readonly firstName: Scalars['String']['output'];
@@ -1379,10 +1366,13 @@ export interface UserGroupBy {
   readonly password: Scalars['String']['output'];
   readonly phone: Scalars['String']['output'];
   readonly role: Scalars['String']['output'];
+  readonly state: Scalars['String']['output'];
+  readonly streetAddress: Scalars['String']['output'];
+  readonly zip: Scalars['String']['output'];
 }
 
 export interface UserMaxAggregate {
-  readonly address?: Maybe<Scalars['String']['output']>;
+  readonly city?: Maybe<Scalars['String']['output']>;
   readonly dateCreated?: Maybe<Scalars['DateTimeISO']['output']>;
   readonly email?: Maybe<Scalars['String']['output']>;
   readonly firstName?: Maybe<Scalars['String']['output']>;
@@ -1391,10 +1381,13 @@ export interface UserMaxAggregate {
   readonly password?: Maybe<Scalars['String']['output']>;
   readonly phone?: Maybe<Scalars['String']['output']>;
   readonly role?: Maybe<Scalars['String']['output']>;
+  readonly state?: Maybe<Scalars['String']['output']>;
+  readonly streetAddress?: Maybe<Scalars['String']['output']>;
+  readonly zip?: Maybe<Scalars['String']['output']>;
 }
 
 export interface UserMaxOrderByAggregateInput {
-  readonly address?: InputMaybe<SortOrder>;
+  readonly city?: InputMaybe<SortOrder>;
   readonly dateCreated?: InputMaybe<SortOrder>;
   readonly email?: InputMaybe<SortOrder>;
   readonly firstName?: InputMaybe<SortOrder>;
@@ -1403,10 +1396,13 @@ export interface UserMaxOrderByAggregateInput {
   readonly password?: InputMaybe<SortOrder>;
   readonly phone?: InputMaybe<SortOrder>;
   readonly role?: InputMaybe<SortOrder>;
+  readonly state?: InputMaybe<SortOrder>;
+  readonly streetAddress?: InputMaybe<SortOrder>;
+  readonly zip?: InputMaybe<SortOrder>;
 }
 
 export interface UserMinAggregate {
-  readonly address?: Maybe<Scalars['String']['output']>;
+  readonly city?: Maybe<Scalars['String']['output']>;
   readonly dateCreated?: Maybe<Scalars['DateTimeISO']['output']>;
   readonly email?: Maybe<Scalars['String']['output']>;
   readonly firstName?: Maybe<Scalars['String']['output']>;
@@ -1415,10 +1411,13 @@ export interface UserMinAggregate {
   readonly password?: Maybe<Scalars['String']['output']>;
   readonly phone?: Maybe<Scalars['String']['output']>;
   readonly role?: Maybe<Scalars['String']['output']>;
+  readonly state?: Maybe<Scalars['String']['output']>;
+  readonly streetAddress?: Maybe<Scalars['String']['output']>;
+  readonly zip?: Maybe<Scalars['String']['output']>;
 }
 
 export interface UserMinOrderByAggregateInput {
-  readonly address?: InputMaybe<SortOrder>;
+  readonly city?: InputMaybe<SortOrder>;
   readonly dateCreated?: InputMaybe<SortOrder>;
   readonly email?: InputMaybe<SortOrder>;
   readonly firstName?: InputMaybe<SortOrder>;
@@ -1427,13 +1426,16 @@ export interface UserMinOrderByAggregateInput {
   readonly password?: InputMaybe<SortOrder>;
   readonly phone?: InputMaybe<SortOrder>;
   readonly role?: InputMaybe<SortOrder>;
+  readonly state?: InputMaybe<SortOrder>;
+  readonly streetAddress?: InputMaybe<SortOrder>;
+  readonly zip?: InputMaybe<SortOrder>;
 }
 
 export interface UserOrderByWithAggregationInput {
   readonly _count?: InputMaybe<UserCountOrderByAggregateInput>;
   readonly _max?: InputMaybe<UserMaxOrderByAggregateInput>;
   readonly _min?: InputMaybe<UserMinOrderByAggregateInput>;
-  readonly address?: InputMaybe<SortOrder>;
+  readonly city?: InputMaybe<SortOrder>;
   readonly dateCreated?: InputMaybe<SortOrder>;
   readonly email?: InputMaybe<SortOrder>;
   readonly firstName?: InputMaybe<SortOrder>;
@@ -1442,10 +1444,13 @@ export interface UserOrderByWithAggregationInput {
   readonly password?: InputMaybe<SortOrder>;
   readonly phone?: InputMaybe<SortOrder>;
   readonly role?: InputMaybe<SortOrder>;
+  readonly state?: InputMaybe<SortOrder>;
+  readonly streetAddress?: InputMaybe<SortOrder>;
+  readonly zip?: InputMaybe<SortOrder>;
 }
 
 export interface UserOrderByWithRelationInput {
-  readonly address?: InputMaybe<SortOrder>;
+  readonly city?: InputMaybe<SortOrder>;
   readonly dateCreated?: InputMaybe<SortOrder>;
   readonly email?: InputMaybe<SortOrder>;
   readonly firstName?: InputMaybe<SortOrder>;
@@ -1454,10 +1459,13 @@ export interface UserOrderByWithRelationInput {
   readonly password?: InputMaybe<SortOrder>;
   readonly phone?: InputMaybe<SortOrder>;
   readonly role?: InputMaybe<SortOrder>;
+  readonly state?: InputMaybe<SortOrder>;
+  readonly streetAddress?: InputMaybe<SortOrder>;
+  readonly zip?: InputMaybe<SortOrder>;
 }
 
 export enum UserScalarFieldEnum {
-  Address = 0,
+  City = 0,
   DateCreated = 1,
   Email = 2,
   FirstName = 3,
@@ -1466,13 +1474,16 @@ export enum UserScalarFieldEnum {
   Password = 6,
   Phone = 7,
   Role = 8,
+  State = 9,
+  StreetAddress = 10,
+  Zip = 11,
 }
 
 export interface UserScalarWhereWithAggregatesInput {
   readonly AND?: InputMaybe<ReadonlyArray<UserScalarWhereWithAggregatesInput>>;
   readonly NOT?: InputMaybe<ReadonlyArray<UserScalarWhereWithAggregatesInput>>;
   readonly OR?: InputMaybe<ReadonlyArray<UserScalarWhereWithAggregatesInput>>;
-  readonly address?: InputMaybe<StringWithAggregatesFilter>;
+  readonly city?: InputMaybe<StringWithAggregatesFilter>;
   readonly dateCreated?: InputMaybe<DateTimeWithAggregatesFilter>;
   readonly email?: InputMaybe<StringWithAggregatesFilter>;
   readonly firstName?: InputMaybe<StringWithAggregatesFilter>;
@@ -1481,10 +1492,13 @@ export interface UserScalarWhereWithAggregatesInput {
   readonly password?: InputMaybe<StringWithAggregatesFilter>;
   readonly phone?: InputMaybe<StringWithAggregatesFilter>;
   readonly role?: InputMaybe<StringWithAggregatesFilter>;
+  readonly state?: InputMaybe<StringWithAggregatesFilter>;
+  readonly streetAddress?: InputMaybe<StringWithAggregatesFilter>;
+  readonly zip?: InputMaybe<StringWithAggregatesFilter>;
 }
 
 export interface UserUpdateInput {
-  readonly address?: InputMaybe<Scalars['String']['input']>;
+  readonly city?: InputMaybe<Scalars['String']['input']>;
   readonly dateCreated?: InputMaybe<Scalars['DateTimeISO']['input']>;
   readonly email?: InputMaybe<Scalars['String']['input']>;
   readonly firstName?: InputMaybe<Scalars['String']['input']>;
@@ -1493,10 +1507,13 @@ export interface UserUpdateInput {
   readonly password?: InputMaybe<Scalars['String']['input']>;
   readonly phone?: InputMaybe<Scalars['String']['input']>;
   readonly role?: InputMaybe<Scalars['String']['input']>;
+  readonly state?: InputMaybe<Scalars['String']['input']>;
+  readonly streetAddress?: InputMaybe<Scalars['String']['input']>;
+  readonly zip?: InputMaybe<Scalars['String']['input']>;
 }
 
 export interface UserUpdateManyMutationInput {
-  readonly address?: InputMaybe<Scalars['String']['input']>;
+  readonly city?: InputMaybe<Scalars['String']['input']>;
   readonly dateCreated?: InputMaybe<Scalars['DateTimeISO']['input']>;
   readonly email?: InputMaybe<Scalars['String']['input']>;
   readonly firstName?: InputMaybe<Scalars['String']['input']>;
@@ -1505,13 +1522,16 @@ export interface UserUpdateManyMutationInput {
   readonly password?: InputMaybe<Scalars['String']['input']>;
   readonly phone?: InputMaybe<Scalars['String']['input']>;
   readonly role?: InputMaybe<Scalars['String']['input']>;
+  readonly state?: InputMaybe<Scalars['String']['input']>;
+  readonly streetAddress?: InputMaybe<Scalars['String']['input']>;
+  readonly zip?: InputMaybe<Scalars['String']['input']>;
 }
 
 export interface UserWhereInput {
   readonly AND?: InputMaybe<ReadonlyArray<UserWhereInput>>;
   readonly NOT?: InputMaybe<ReadonlyArray<UserWhereInput>>;
   readonly OR?: InputMaybe<ReadonlyArray<UserWhereInput>>;
-  readonly address?: InputMaybe<StringFilter>;
+  readonly city?: InputMaybe<StringFilter>;
   readonly dateCreated?: InputMaybe<DateTimeFilter>;
   readonly email?: InputMaybe<StringFilter>;
   readonly firstName?: InputMaybe<StringFilter>;
@@ -1520,13 +1540,16 @@ export interface UserWhereInput {
   readonly password?: InputMaybe<StringFilter>;
   readonly phone?: InputMaybe<StringFilter>;
   readonly role?: InputMaybe<StringFilter>;
+  readonly state?: InputMaybe<StringFilter>;
+  readonly streetAddress?: InputMaybe<StringFilter>;
+  readonly zip?: InputMaybe<StringFilter>;
 }
 
 export interface UserWhereUniqueInput {
   readonly AND?: InputMaybe<ReadonlyArray<UserWhereInput>>;
   readonly NOT?: InputMaybe<ReadonlyArray<UserWhereInput>>;
   readonly OR?: InputMaybe<ReadonlyArray<UserWhereInput>>;
-  readonly address?: InputMaybe<StringFilter>;
+  readonly city?: InputMaybe<StringFilter>;
   readonly dateCreated?: InputMaybe<DateTimeFilter>;
   readonly email?: InputMaybe<Scalars['String']['input']>;
   readonly firstName?: InputMaybe<StringFilter>;
@@ -1535,6 +1558,9 @@ export interface UserWhereUniqueInput {
   readonly password?: InputMaybe<StringFilter>;
   readonly phone?: InputMaybe<StringFilter>;
   readonly role?: InputMaybe<StringFilter>;
+  readonly state?: InputMaybe<StringFilter>;
+  readonly streetAddress?: InputMaybe<StringFilter>;
+  readonly zip?: InputMaybe<StringFilter>;
 }
 
 export type SigninQueryVariables = Exact<{
@@ -1607,30 +1633,18 @@ export const Signin = {
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'username' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'username' } },
           type: {
             kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'String' },
-            },
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
           },
         },
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'password' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'password' } },
           type: {
             kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'String' },
-            },
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
           },
         },
       ],
@@ -1644,18 +1658,12 @@ export const Signin = {
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'username' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'username' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'username' } },
               },
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'password' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'password' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'password' } },
               },
             ],
           },
@@ -1674,16 +1682,10 @@ export const GetCustomerContacts = {
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'customerId' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'customerId' } },
           type: {
             kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'String' },
-            },
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
           },
         },
       ],
@@ -1727,10 +1729,7 @@ export const GetCustomerContacts = {
                 { kind: 'Field', name: { kind: 'Name', value: 'id' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'firstName' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'lastName' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'streetAddress' },
-                },
+                { kind: 'Field', name: { kind: 'Name', value: 'streetAddress' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'city' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'state' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'zip' } },
@@ -1745,10 +1744,7 @@ export const GetCustomerContacts = {
       },
     },
   ],
-} as unknown as DocumentNode<
-  GetCustomerContactsQuery,
-  GetCustomerContactsQueryVariables
->;
+} as unknown as DocumentNode<GetCustomerContactsQuery, GetCustomerContactsQueryVariables>;
 export const GetCustomers = {
   kind: 'Document',
   definitions: [
@@ -1768,10 +1764,7 @@ export const GetCustomers = {
                 { kind: 'Field', name: { kind: 'Name', value: 'id' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'name' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'phone' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'streetAddress' },
-                },
+                { kind: 'Field', name: { kind: 'Name', value: 'streetAddress' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'city' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'state' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'zip' } },
@@ -1795,16 +1788,10 @@ export const GetSearchResults = {
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'query' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'query' } },
           type: {
             kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'String' },
-            },
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
           },
         },
       ],
@@ -1818,10 +1805,7 @@ export const GetSearchResults = {
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'query' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'query' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'query' } },
               },
             ],
             selectionSet: {
@@ -1838,7 +1822,4 @@ export const GetSearchResults = {
       },
     },
   ],
-} as unknown as DocumentNode<
-  GetSearchResultsQuery,
-  GetSearchResultsQueryVariables
->;
+} as unknown as DocumentNode<GetSearchResultsQuery, GetSearchResultsQueryVariables>;
