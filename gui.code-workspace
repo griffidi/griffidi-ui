@@ -94,6 +94,12 @@
     "[toml]": {
       "editor.defaultFormatter": "tamasfe.even-better-toml"
     },
+    "[tailwindcss]": {
+      "editor.defaultFormatter": "biomejs.biome"
+    },
+    "[postcss]": {
+      "editor.defaultFormatter": "biomejs.biome"
+    },
 
     "yaml.schemas": {
       "https://taskfile.dev/schema.json": [

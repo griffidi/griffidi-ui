@@ -7,6 +7,7 @@ import CommandPalette, {
 } from '@gui/components/command-palette/command-palette.tsx';
 import type { Item } from '@gui/components/list/item.ts';
 import { useState, useTransition } from 'react';
+import { useNavigate } from 'react-router';
 import GuiIcon from '@/components/icons/gui.tsx';
 import { GetSearchResults } from '@/types/graphql.ts';
 import styles from './search.css.ts';
@@ -33,6 +34,7 @@ const Search = () => {
   const client = useApolloClient();
   const [isPending, startTransition] = useTransition();
   const [results, setResults] = useState<CommandItem[]>([]);
+  const navigate = useNavigate();
 
   // On search, query search and set results.
   const handleSearch = (searchTerm: string) => {
@@ -55,11 +57,19 @@ const Search = () => {
     });
   };
 
-  const handleSelectedChanged = (item: Item) => {
+  const handleOpenItem = (item: Item) => {
     const selectedItem = results.find(({ id }) => id === item.id);
 
     if (selectedItem) {
-      console.log('Selected item:', selectedItem);
+      const { type, id } = selectedItem;
+
+      if (type === 1) {
+        navigate(`/users/${id}`);
+      } else if (type === 2) {
+        navigate(`/customers/${id}`);
+      } else if (type === 3) {
+        navigate(`/identifications/${id}`);
+      }
     }
   };
 
@@ -81,7 +91,7 @@ const Search = () => {
         onSearch={handleSearch}
         onClose={() => setResults([])}
         footer={<Footer />}
-        onSelectedChange={handleSelectedChanged}
+        onOpenItem={handleOpenItem}
       />
     </>
   );

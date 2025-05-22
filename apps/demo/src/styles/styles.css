@@ -1,34 +1,18 @@
 @import "../styles/variables.css";
 @import "../styles/layout.css";
 
-  * {
-    box-sizing: border-box;
-  }
+* {
+  box-sizing: border-box;
+}
 
-  button {
-    &:has(svg) {
-      cursor: pointer;
-      border-radius: 50%;
-      width: 26px;
-      height: 26px;
-      transition: all 0.2s ease-in-out;
-      color: var(--gui-color-text);
 
-      &:hover {
-        transform: scale(1.1);
-        transition: all 0.2s ease-in-out;
-        color: var(--gui-color-primary);
-      }
-    }
-  }
-
-  .brand-text-color {
-    background: linear-gradient(
-      to right,
-      var(--gui-color-primary),
-      var(--gui-color-secondary)
-    );
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
+.brand-text-color {
+  background: linear-gradient(
+    to right,
+    var(--gui-color-primary),
+    var(--gui-color-secondary)
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}

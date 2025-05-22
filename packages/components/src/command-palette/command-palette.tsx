@@ -23,9 +23,10 @@ type CommandPaletteProps = {
   resultTypeMap: CommandPaletteResultTypeMap;
   visibleResults?: number;
   footer?: ReactNode;
-  onSearch: (value: string) => void;
   onClose?: () => void;
-  onSelectedChange?: (item: Item) => void;
+  onSearch: (value: string) => void;
+  onSelect?: (item: Item) => void;
+  onOpenItem?: (item: Item) => void;
 };
 
 /**
@@ -38,9 +39,10 @@ type CommandPaletteProps = {
  * @param { resultTypeIconMap } resultTypeIconMap - The map of result types to icons.
  * @param { visibleResults } visibleResults - The number of results to display at once.
  * @param { footer } footer - The footer to display in the dialog.
- * @param { onSearch } onSearch - The function to call when the user types in the input.
  * @param { onClose } onClose - The function to call when the user closes the dialog.
- * @param { onSelectedChange } onSelectedChange - The function to call when the user selects an item.
+ * @param { onSearch } onSearch - The function to call when the user types in the input.
+ * @param { onSelect } onSelect - The function to call when the user selects an item.
+ * @param { onOpenItem } onOpenItem - The function to call when the user opens an item.
  */
 const CommandPalette: FC<CommandPaletteProps> = ({
   isSearching = false,
@@ -48,9 +50,10 @@ const CommandPalette: FC<CommandPaletteProps> = ({
   resultTypeMap,
   visibleResults = 7,
   footer,
-  onSearch,
   onClose,
-  onSelectedChange,
+  onSearch,
+  onSelect,
+  onOpenItem,
 }) => {
   const [open, setOpen] = useState(false);
   const [resultsHeight, setResultsHeight] = useState(DEFAULT_DIALOG_HEIGHT);
@@ -91,8 +94,8 @@ const CommandPalette: FC<CommandPaletteProps> = ({
     onClose?.();
   };
 
-  const handleSelectedChanged = (item: Item) => {
-    onSelectedChange?.(item);
+  const handleOpenItem = (item: Item) => {
+    onOpenItem?.(item);
     handleClose();
   };
 
@@ -127,7 +130,8 @@ const CommandPalette: FC<CommandPaletteProps> = ({
           height={resultsHeight}
           results={results}
           resultTypeIconMap={resultTypeMap}
-          onSelectedChange={handleSelectedChanged}
+          onSelect={e => onSelect?.(e)}
+          onOpenItem={handleOpenItem}
         />
         <Footer />
       </Dialog>

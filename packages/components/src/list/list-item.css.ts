@@ -20,6 +20,8 @@ export default {
     border: 'var(--_border-width) solid transparent',
 
     '&:hover': {
+      backgroundColor: 'var(--gui-color-background-lighter)',
+
       '& svg': {
         color: 'var(--gui-color-primary)',
       },
@@ -29,6 +31,10 @@ export default {
         visibility: 'visible',
         contentVisibility: 'visible',
       },
+    },
+
+    '&.gui-list-item-selected': {
+      backgroundColor: 'var(--gui-color-background-lighter)',
     },
   },
 

@@ -48,7 +48,7 @@ export default function Customers() {
           <Table.Cell>{id}</Table.Cell>
           <Table.Cell>{name}</Table.Cell>
           <Table.Cell>{city}</Table.Cell>
-          <Table.Cell>{state}</Table.Cell>
+          <Table.Cell>{state.name}</Table.Cell>
           <Table.Cell>
             <Link to={`/customers/${id}`} target="_blank" className={classes.link}>
               <Launch />

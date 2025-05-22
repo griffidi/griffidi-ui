@@ -5,6 +5,9 @@ fragment CustomerParts on Customer {
   streetAddress
   city
   stateId
+  state {
+    name
+  }
   zip
   dateCreated
   dateUpdated
