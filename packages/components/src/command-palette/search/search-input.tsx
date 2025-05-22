@@ -52,7 +52,7 @@ const SearchInput: FC<SearchInputProps> = ({ isSearching, open, onChange }) => {
         value={value}
         onChange={e => setValue(e.target.value)}
       />
-      {isSearching && <ProgressSpinner size={16} />}
+      {isSearching && <ProgressSpinner size={16} strokeWidth={1.5} />}
       <span>esc</span>
     </div>
   );

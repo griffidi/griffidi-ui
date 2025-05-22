@@ -53,7 +53,11 @@ const getCustomers = async (query: string, prisma: Context['prisma']): Promise<S
       id: true,
       name: true,
       city: true,
-      state: true,
+      state: {
+        select: {
+          code: true,
+        },
+      },
     },
   });
 
@@ -61,7 +65,7 @@ const getCustomers = async (query: string, prisma: Context['prisma']): Promise<S
     id: customer.id,
     type: SearchResultType.customer,
     name: customer.name,
-    description: `${customer.city}, ${customer.state}`,
+    description: `${customer.city}, ${customer.state.code}`,
   }));
 };
 
@@ -99,14 +103,18 @@ const getCustomerContacts = async (
       firstName: true,
       lastName: true,
       city: true,
-      state: true,
+      state: {
+        select: {
+          code: true,
+        },
+      },
     },
   });
   return customContacts.map(contact => ({
     id: contact.id,
     type: SearchResultType.customerContact,
     name: `${contact.firstName} ${contact.lastName}`,
-    description: `${contact.city}, ${contact.state}`,
+    description: `${contact.city}, ${contact.state.code}`,
   }));
 };
 
@@ -131,7 +139,11 @@ const getUsers = async (query: string, prisma: Context['prisma']): Promise<Searc
       firstName: true,
       lastName: true,
       city: true,
-      state: true,
+      state: {
+        select: {
+          code: true,
+        },
+      },
     },
   });
 
@@ -139,6 +151,6 @@ const getUsers = async (query: string, prisma: Context['prisma']): Promise<Searc
     id: user.id,
     type: SearchResultType.user,
     name: `${user.firstName} ${user.lastName}`,
-    description: `${user.city}, ${user.state}`,
+    description: `${user.city}, ${user.state.code}`,
   }));
 };

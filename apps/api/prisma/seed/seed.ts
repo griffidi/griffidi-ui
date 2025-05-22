@@ -1,11 +1,13 @@
 import { PrismaClient } from '#app/prisma/client/index.js';
 import { createCustomers } from './customer.ts';
 import { createCustomerContacts } from './customer-contact.ts';
+import { createStates } from './state.ts';
 import { createUsers } from './user.ts';
 
 const prisma = new PrismaClient();
 
 const load = async () => {
+  await createStates(prisma);
   await createUsers(prisma);
   await createCustomers(prisma);
   await createCustomerContacts(prisma);

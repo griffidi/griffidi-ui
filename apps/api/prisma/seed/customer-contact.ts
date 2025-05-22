@@ -1,5 +1,6 @@
 import type { PrismaClient } from '#app/prisma/client/index.js';
 import { faker } from './faker-context.ts';
+import { useState } from './state.ts';
 
 export const createCustomerContacts = async (prisma: PrismaClient) => {
   console.group('Seeding customer contacts');
@@ -20,6 +21,8 @@ export const createCustomerContacts = async (prisma: PrismaClient) => {
   for (let i = 0, len = customerIds.length; i < len; i++) {
     const customerId = customerIds[i];
 
+    const { randomStateId } = await useState(prisma);
+
     const createCustomerContact = () =>
       prisma.customerContact.create({
         data: {
@@ -31,7 +34,7 @@ export const createCustomerContacts = async (prisma: PrismaClient) => {
           streetAddress: faker.location.streetAddress(),
           streetAddress2: faker.location.secondaryAddress(),
           city: faker.location.city(),
-          state: faker.location.state(),
+          stateId: randomStateId(),
           zip: faker.location.zipCode(),
           phone: faker.phone.number(),
         },

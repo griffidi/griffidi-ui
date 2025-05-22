@@ -19,6 +19,12 @@ type AggregateCustomerContact {
   _min: CustomerContactMinAggregate
 }
 
+type AggregateState {
+  _count: StateCountAggregate
+  _max: StateMaxAggregate
+  _min: StateMinAggregate
+}
+
 type AggregateUser {
   _count: UserCountAggregate
   _max: UserMaxAggregate
@@ -32,7 +38,8 @@ type CreateManyAndReturnCustomer {
   id: String!
   name: String!
   phone: String!
-  state: String!
+  state: State!
+  stateId: String!
   streetAddress: String!
   streetAddress2: String
   zip: String!
@@ -49,10 +56,17 @@ type CreateManyAndReturnCustomerContact {
   id: String!
   lastName: String!
   phone: String!
-  state: String!
+  state: State!
+  stateId: String!
   streetAddress: String!
   streetAddress2: String
   zip: String!
+}
+
+type CreateManyAndReturnState {
+  code: String!
+  id: String!
+  name: String!
 }
 
 type CreateManyAndReturnUser {
@@ -65,7 +79,8 @@ type CreateManyAndReturnUser {
   password: String!
   phone: String!
   role: String!
-  state: String!
+  state: State!
+  stateId: String!
   streetAddress: String!
   streetAddress2: String
   zip: String!
@@ -80,7 +95,8 @@ type Customer {
   id: String!
   name: String!
   phone: String!
-  state: String!
+  state: State!
+  stateId: String!
   streetAddress: String!
   streetAddress2: String
   zip: String!
@@ -97,7 +113,8 @@ type CustomerContact {
   id: String!
   lastName: String!
   phone: String!
-  state: String!
+  state: State!
+  stateId: String!
   streetAddress: String!
   streetAddress2: String
   zip: String!
@@ -114,7 +131,7 @@ type CustomerContactCountAggregate {
   id: Int!
   lastName: Int!
   phone: Int!
-  state: Int!
+  stateId: Int!
   streetAddress: Int!
   streetAddress2: Int!
   zip: Int!
@@ -130,7 +147,7 @@ input CustomerContactCountOrderByAggregateInput {
   id: SortOrder
   lastName: SortOrder
   phone: SortOrder
-  state: SortOrder
+  stateId: SortOrder
   streetAddress: SortOrder
   streetAddress2: SortOrder
   zip: SortOrder
@@ -146,7 +163,7 @@ input CustomerContactCreateInput {
   id: String
   lastName: String!
   phone: String!
-  state: String!
+  state: StateCreateNestedOneWithoutCustomerContactInput!
   streetAddress: String!
   streetAddress2: String
   zip: String!
@@ -161,7 +178,7 @@ input CustomerContactCreateManyCustomerInput {
   id: String
   lastName: String!
   phone: String!
-  state: String!
+  stateId: String!
   streetAddress: String!
   streetAddress2: String
   zip: String!
@@ -181,10 +198,29 @@ input CustomerContactCreateManyInput {
   id: String
   lastName: String!
   phone: String!
-  state: String!
+  stateId: String!
   streetAddress: String!
   streetAddress2: String
   zip: String!
+}
+
+input CustomerContactCreateManyStateInput {
+  city: String!
+  customerId: String!
+  dateCreated: DateTimeISO
+  dateUpdated: DateTimeISO
+  email: String!
+  firstName: String!
+  id: String
+  lastName: String!
+  phone: String!
+  streetAddress: String!
+  streetAddress2: String
+  zip: String!
+}
+
+input CustomerContactCreateManyStateInputEnvelope {
+  data: [CustomerContactCreateManyStateInput!]!
 }
 
 input CustomerContactCreateNestedManyWithoutCustomerInput {
@@ -194,8 +230,20 @@ input CustomerContactCreateNestedManyWithoutCustomerInput {
   createMany: CustomerContactCreateManyCustomerInputEnvelope
 }
 
+input CustomerContactCreateNestedManyWithoutStateInput {
+  connect: [CustomerContactWhereUniqueInput!]
+  connectOrCreate: [CustomerContactCreateOrConnectWithoutStateInput!]
+  create: [CustomerContactCreateWithoutStateInput!]
+  createMany: CustomerContactCreateManyStateInputEnvelope
+}
+
 input CustomerContactCreateOrConnectWithoutCustomerInput {
   create: CustomerContactCreateWithoutCustomerInput!
+  where: CustomerContactWhereUniqueInput!
+}
+
+input CustomerContactCreateOrConnectWithoutStateInput {
+  create: CustomerContactCreateWithoutStateInput!
   where: CustomerContactWhereUniqueInput!
 }
 
@@ -208,7 +256,22 @@ input CustomerContactCreateWithoutCustomerInput {
   id: String
   lastName: String!
   phone: String!
-  state: String!
+  state: StateCreateNestedOneWithoutCustomerContactInput!
+  streetAddress: String!
+  streetAddress2: String
+  zip: String!
+}
+
+input CustomerContactCreateWithoutStateInput {
+  city: String!
+  customer: CustomerCreateNestedOneWithoutCustomerContactInput!
+  dateCreated: DateTimeISO
+  dateUpdated: DateTimeISO
+  email: String!
+  firstName: String!
+  id: String
+  lastName: String!
+  phone: String!
   streetAddress: String!
   streetAddress2: String
   zip: String!
@@ -227,7 +290,7 @@ type CustomerContactGroupBy {
   id: String!
   lastName: String!
   phone: String!
-  state: String!
+  stateId: String!
   streetAddress: String!
   streetAddress2: String
   zip: String!
@@ -249,7 +312,7 @@ type CustomerContactMaxAggregate {
   id: String
   lastName: String
   phone: String
-  state: String
+  stateId: String
   streetAddress: String
   streetAddress2: String
   zip: String
@@ -265,7 +328,7 @@ input CustomerContactMaxOrderByAggregateInput {
   id: SortOrder
   lastName: SortOrder
   phone: SortOrder
-  state: SortOrder
+  stateId: SortOrder
   streetAddress: SortOrder
   streetAddress2: SortOrder
   zip: SortOrder
@@ -281,7 +344,7 @@ type CustomerContactMinAggregate {
   id: String
   lastName: String
   phone: String
-  state: String
+  stateId: String
   streetAddress: String
   streetAddress2: String
   zip: String
@@ -297,7 +360,7 @@ input CustomerContactMinOrderByAggregateInput {
   id: SortOrder
   lastName: SortOrder
   phone: SortOrder
-  state: SortOrder
+  stateId: SortOrder
   streetAddress: SortOrder
   streetAddress2: SortOrder
   zip: SortOrder
@@ -320,7 +383,7 @@ input CustomerContactOrderByWithAggregationInput {
   id: SortOrder
   lastName: SortOrder
   phone: SortOrder
-  state: SortOrder
+  stateId: SortOrder
   streetAddress: SortOrder
   streetAddress2: SortOrderInput
   zip: SortOrder
@@ -337,7 +400,8 @@ input CustomerContactOrderByWithRelationInput {
   id: SortOrder
   lastName: SortOrder
   phone: SortOrder
-  state: SortOrder
+  state: StateOrderByWithRelationInput
+  stateId: SortOrder
   streetAddress: SortOrder
   streetAddress2: SortOrderInput
   zip: SortOrder
@@ -353,7 +417,7 @@ enum CustomerContactScalarFieldEnum {
   id
   lastName
   phone
-  state
+  stateId
   streetAddress
   streetAddress2
   zip
@@ -372,7 +436,7 @@ input CustomerContactScalarWhereInput {
   id: StringFilter
   lastName: StringFilter
   phone: StringFilter
-  state: StringFilter
+  stateId: StringFilter
   streetAddress: StringFilter
   streetAddress2: StringNullableFilter
   zip: StringFilter
@@ -391,7 +455,7 @@ input CustomerContactScalarWhereWithAggregatesInput {
   id: StringWithAggregatesFilter
   lastName: StringWithAggregatesFilter
   phone: StringWithAggregatesFilter
-  state: StringWithAggregatesFilter
+  stateId: StringWithAggregatesFilter
   streetAddress: StringWithAggregatesFilter
   streetAddress2: StringNullableWithAggregatesFilter
   zip: StringWithAggregatesFilter
@@ -407,7 +471,7 @@ input CustomerContactUpdateInput {
   id: String
   lastName: String
   phone: String
-  state: String
+  state: StateUpdateOneRequiredWithoutCustomerContactNestedInput
   streetAddress: String
   streetAddress2: String
   zip: String
@@ -422,13 +486,17 @@ input CustomerContactUpdateManyMutationInput {
   id: String
   lastName: String
   phone: String
-  state: String
   streetAddress: String
   streetAddress2: String
   zip: String
 }
 
 input CustomerContactUpdateManyWithWhereWithoutCustomerInput {
+  data: CustomerContactUpdateManyMutationInput!
+  where: CustomerContactScalarWhereInput!
+}
+
+input CustomerContactUpdateManyWithWhereWithoutStateInput {
   data: CustomerContactUpdateManyMutationInput!
   where: CustomerContactScalarWhereInput!
 }
@@ -447,8 +515,27 @@ input CustomerContactUpdateManyWithoutCustomerNestedInput {
   upsert: [CustomerContactUpsertWithWhereUniqueWithoutCustomerInput!]
 }
 
+input CustomerContactUpdateManyWithoutStateNestedInput {
+  connect: [CustomerContactWhereUniqueInput!]
+  connectOrCreate: [CustomerContactCreateOrConnectWithoutStateInput!]
+  create: [CustomerContactCreateWithoutStateInput!]
+  createMany: CustomerContactCreateManyStateInputEnvelope
+  delete: [CustomerContactWhereUniqueInput!]
+  deleteMany: [CustomerContactScalarWhereInput!]
+  disconnect: [CustomerContactWhereUniqueInput!]
+  set: [CustomerContactWhereUniqueInput!]
+  update: [CustomerContactUpdateWithWhereUniqueWithoutStateInput!]
+  updateMany: [CustomerContactUpdateManyWithWhereWithoutStateInput!]
+  upsert: [CustomerContactUpsertWithWhereUniqueWithoutStateInput!]
+}
+
 input CustomerContactUpdateWithWhereUniqueWithoutCustomerInput {
   data: CustomerContactUpdateWithoutCustomerInput!
+  where: CustomerContactWhereUniqueInput!
+}
+
+input CustomerContactUpdateWithWhereUniqueWithoutStateInput {
+  data: CustomerContactUpdateWithoutStateInput!
   where: CustomerContactWhereUniqueInput!
 }
 
@@ -461,7 +548,22 @@ input CustomerContactUpdateWithoutCustomerInput {
   id: String
   lastName: String
   phone: String
-  state: String
+  state: StateUpdateOneRequiredWithoutCustomerContactNestedInput
+  streetAddress: String
+  streetAddress2: String
+  zip: String
+}
+
+input CustomerContactUpdateWithoutStateInput {
+  city: String
+  customer: CustomerUpdateOneRequiredWithoutCustomerContactNestedInput
+  dateCreated: DateTimeISO
+  dateUpdated: DateTimeISO
+  email: String
+  firstName: String
+  id: String
+  lastName: String
+  phone: String
   streetAddress: String
   streetAddress2: String
   zip: String
@@ -470,6 +572,12 @@ input CustomerContactUpdateWithoutCustomerInput {
 input CustomerContactUpsertWithWhereUniqueWithoutCustomerInput {
   create: CustomerContactCreateWithoutCustomerInput!
   update: CustomerContactUpdateWithoutCustomerInput!
+  where: CustomerContactWhereUniqueInput!
+}
+
+input CustomerContactUpsertWithWhereUniqueWithoutStateInput {
+  create: CustomerContactCreateWithoutStateInput!
+  update: CustomerContactUpdateWithoutStateInput!
   where: CustomerContactWhereUniqueInput!
 }
 
@@ -487,7 +595,8 @@ input CustomerContactWhereInput {
   id: StringFilter
   lastName: StringFilter
   phone: StringFilter
-  state: StringFilter
+  state: StateRelationFilter
+  stateId: StringFilter
   streetAddress: StringFilter
   streetAddress2: StringNullableFilter
   zip: StringFilter
@@ -507,7 +616,8 @@ input CustomerContactWhereUniqueInput {
   id: String
   lastName: StringFilter
   phone: StringFilter
-  state: StringFilter
+  state: StateRelationFilter
+  stateId: StringFilter
   streetAddress: StringFilter
   streetAddress2: StringNullableFilter
   zip: StringFilter
@@ -525,7 +635,7 @@ type CustomerCountAggregate {
   id: Int!
   name: Int!
   phone: Int!
-  state: Int!
+  stateId: Int!
   streetAddress: Int!
   streetAddress2: Int!
   zip: Int!
@@ -538,7 +648,7 @@ input CustomerCountOrderByAggregateInput {
   id: SortOrder
   name: SortOrder
   phone: SortOrder
-  state: SortOrder
+  stateId: SortOrder
   streetAddress: SortOrder
   streetAddress2: SortOrder
   zip: SortOrder
@@ -552,7 +662,7 @@ input CustomerCreateInput {
   id: String
   name: String!
   phone: String!
-  state: String!
+  state: StateCreateNestedOneWithoutCustomerInput!
   streetAddress: String!
   streetAddress2: String
   zip: String!
@@ -565,10 +675,33 @@ input CustomerCreateManyInput {
   id: String
   name: String!
   phone: String!
-  state: String!
+  stateId: String!
   streetAddress: String!
   streetAddress2: String
   zip: String!
+}
+
+input CustomerCreateManyStateInput {
+  city: String!
+  dateCreated: DateTimeISO
+  dateUpdated: DateTimeISO
+  id: String
+  name: String!
+  phone: String!
+  streetAddress: String!
+  streetAddress2: String
+  zip: String!
+}
+
+input CustomerCreateManyStateInputEnvelope {
+  data: [CustomerCreateManyStateInput!]!
+}
+
+input CustomerCreateNestedManyWithoutStateInput {
+  connect: [CustomerWhereUniqueInput!]
+  connectOrCreate: [CustomerCreateOrConnectWithoutStateInput!]
+  create: [CustomerCreateWithoutStateInput!]
+  createMany: CustomerCreateManyStateInputEnvelope
 }
 
 input CustomerCreateNestedOneWithoutCustomerContactInput {
@@ -582,6 +715,11 @@ input CustomerCreateOrConnectWithoutCustomerContactInput {
   where: CustomerWhereUniqueInput!
 }
 
+input CustomerCreateOrConnectWithoutStateInput {
+  create: CustomerCreateWithoutStateInput!
+  where: CustomerWhereUniqueInput!
+}
+
 input CustomerCreateWithoutCustomerContactInput {
   city: String!
   dateCreated: DateTimeISO
@@ -589,7 +727,20 @@ input CustomerCreateWithoutCustomerContactInput {
   id: String
   name: String!
   phone: String!
-  state: String!
+  state: StateCreateNestedOneWithoutCustomerInput!
+  streetAddress: String!
+  streetAddress2: String
+  zip: String!
+}
+
+input CustomerCreateWithoutStateInput {
+  CustomerContact: CustomerContactCreateNestedManyWithoutCustomerInput
+  city: String!
+  dateCreated: DateTimeISO
+  dateUpdated: DateTimeISO
+  id: String
+  name: String!
+  phone: String!
   streetAddress: String!
   streetAddress2: String
   zip: String!
@@ -605,10 +756,16 @@ type CustomerGroupBy {
   id: String!
   name: String!
   phone: String!
-  state: String!
+  stateId: String!
   streetAddress: String!
   streetAddress2: String
   zip: String!
+}
+
+input CustomerListRelationFilter {
+  every: CustomerWhereInput
+  none: CustomerWhereInput
+  some: CustomerWhereInput
 }
 
 type CustomerMaxAggregate {
@@ -618,7 +775,7 @@ type CustomerMaxAggregate {
   id: String
   name: String
   phone: String
-  state: String
+  stateId: String
   streetAddress: String
   streetAddress2: String
   zip: String
@@ -631,7 +788,7 @@ input CustomerMaxOrderByAggregateInput {
   id: SortOrder
   name: SortOrder
   phone: SortOrder
-  state: SortOrder
+  stateId: SortOrder
   streetAddress: SortOrder
   streetAddress2: SortOrder
   zip: SortOrder
@@ -644,7 +801,7 @@ type CustomerMinAggregate {
   id: String
   name: String
   phone: String
-  state: String
+  stateId: String
   streetAddress: String
   streetAddress2: String
   zip: String
@@ -657,10 +814,14 @@ input CustomerMinOrderByAggregateInput {
   id: SortOrder
   name: SortOrder
   phone: SortOrder
-  state: SortOrder
+  stateId: SortOrder
   streetAddress: SortOrder
   streetAddress2: SortOrder
   zip: SortOrder
+}
+
+input CustomerOrderByRelationAggregateInput {
+  _count: SortOrder
 }
 
 input CustomerOrderByWithAggregationInput {
@@ -673,7 +834,7 @@ input CustomerOrderByWithAggregationInput {
   id: SortOrder
   name: SortOrder
   phone: SortOrder
-  state: SortOrder
+  stateId: SortOrder
   streetAddress: SortOrder
   streetAddress2: SortOrderInput
   zip: SortOrder
@@ -687,7 +848,8 @@ input CustomerOrderByWithRelationInput {
   id: SortOrder
   name: SortOrder
   phone: SortOrder
-  state: SortOrder
+  state: StateOrderByWithRelationInput
+  stateId: SortOrder
   streetAddress: SortOrder
   streetAddress2: SortOrderInput
   zip: SortOrder
@@ -705,10 +867,26 @@ enum CustomerScalarFieldEnum {
   id
   name
   phone
-  state
+  stateId
   streetAddress
   streetAddress2
   zip
+}
+
+input CustomerScalarWhereInput {
+  AND: [CustomerScalarWhereInput!]
+  NOT: [CustomerScalarWhereInput!]
+  OR: [CustomerScalarWhereInput!]
+  city: StringFilter
+  dateCreated: DateTimeFilter
+  dateUpdated: DateTimeFilter
+  id: StringFilter
+  name: StringFilter
+  phone: StringFilter
+  stateId: StringFilter
+  streetAddress: StringFilter
+  streetAddress2: StringNullableFilter
+  zip: StringFilter
 }
 
 input CustomerScalarWhereWithAggregatesInput {
@@ -721,7 +899,7 @@ input CustomerScalarWhereWithAggregatesInput {
   id: StringWithAggregatesFilter
   name: StringWithAggregatesFilter
   phone: StringWithAggregatesFilter
-  state: StringWithAggregatesFilter
+  stateId: StringWithAggregatesFilter
   streetAddress: StringWithAggregatesFilter
   streetAddress2: StringNullableWithAggregatesFilter
   zip: StringWithAggregatesFilter
@@ -735,7 +913,7 @@ input CustomerUpdateInput {
   id: String
   name: String
   phone: String
-  state: String
+  state: StateUpdateOneRequiredWithoutCustomerNestedInput
   streetAddress: String
   streetAddress2: String
   zip: String
@@ -748,10 +926,28 @@ input CustomerUpdateManyMutationInput {
   id: String
   name: String
   phone: String
-  state: String
   streetAddress: String
   streetAddress2: String
   zip: String
+}
+
+input CustomerUpdateManyWithWhereWithoutStateInput {
+  data: CustomerUpdateManyMutationInput!
+  where: CustomerScalarWhereInput!
+}
+
+input CustomerUpdateManyWithoutStateNestedInput {
+  connect: [CustomerWhereUniqueInput!]
+  connectOrCreate: [CustomerCreateOrConnectWithoutStateInput!]
+  create: [CustomerCreateWithoutStateInput!]
+  createMany: CustomerCreateManyStateInputEnvelope
+  delete: [CustomerWhereUniqueInput!]
+  deleteMany: [CustomerScalarWhereInput!]
+  disconnect: [CustomerWhereUniqueInput!]
+  set: [CustomerWhereUniqueInput!]
+  update: [CustomerUpdateWithWhereUniqueWithoutStateInput!]
+  updateMany: [CustomerUpdateManyWithWhereWithoutStateInput!]
+  upsert: [CustomerUpsertWithWhereUniqueWithoutStateInput!]
 }
 
 input CustomerUpdateOneRequiredWithoutCustomerContactNestedInput {
@@ -767,6 +963,11 @@ input CustomerUpdateToOneWithWhereWithoutCustomerContactInput {
   where: CustomerWhereInput
 }
 
+input CustomerUpdateWithWhereUniqueWithoutStateInput {
+  data: CustomerUpdateWithoutStateInput!
+  where: CustomerWhereUniqueInput!
+}
+
 input CustomerUpdateWithoutCustomerContactInput {
   city: String
   dateCreated: DateTimeISO
@@ -774,10 +975,29 @@ input CustomerUpdateWithoutCustomerContactInput {
   id: String
   name: String
   phone: String
-  state: String
+  state: StateUpdateOneRequiredWithoutCustomerNestedInput
   streetAddress: String
   streetAddress2: String
   zip: String
+}
+
+input CustomerUpdateWithoutStateInput {
+  CustomerContact: CustomerContactUpdateManyWithoutCustomerNestedInput
+  city: String
+  dateCreated: DateTimeISO
+  dateUpdated: DateTimeISO
+  id: String
+  name: String
+  phone: String
+  streetAddress: String
+  streetAddress2: String
+  zip: String
+}
+
+input CustomerUpsertWithWhereUniqueWithoutStateInput {
+  create: CustomerCreateWithoutStateInput!
+  update: CustomerUpdateWithoutStateInput!
+  where: CustomerWhereUniqueInput!
 }
 
 input CustomerUpsertWithoutCustomerContactInput {
@@ -797,7 +1017,8 @@ input CustomerWhereInput {
   id: StringFilter
   name: StringFilter
   phone: StringFilter
-  state: StringFilter
+  state: StateRelationFilter
+  stateId: StringFilter
   streetAddress: StringFilter
   streetAddress2: StringNullableFilter
   zip: StringFilter
@@ -814,7 +1035,8 @@ input CustomerWhereUniqueInput {
   id: String
   name: StringFilter
   phone: StringFilter
-  state: StringFilter
+  state: StateRelationFilter
+  stateId: StringFilter
   streetAddress: StringFilter
   streetAddress2: StringNullableFilter
   zip: StringFilter
@@ -853,27 +1075,35 @@ input DateTimeWithAggregatesFilter {
 type Mutation {
   createManyAndReturnCustomer(data: [CustomerCreateManyInput!]!): [CreateManyAndReturnCustomer!]!
   createManyAndReturnCustomerContact(data: [CustomerContactCreateManyInput!]!): [CreateManyAndReturnCustomerContact!]!
+  createManyAndReturnState(data: [StateCreateManyInput!]!): [CreateManyAndReturnState!]!
   createManyAndReturnUser(data: [UserCreateManyInput!]!): [CreateManyAndReturnUser!]!
   createManyCustomer(data: [CustomerCreateManyInput!]!): AffectedRowsOutput!
   createManyCustomerContact(data: [CustomerContactCreateManyInput!]!): AffectedRowsOutput!
+  createManyState(data: [StateCreateManyInput!]!): AffectedRowsOutput!
   createManyUser(data: [UserCreateManyInput!]!): AffectedRowsOutput!
   createOneCustomer(data: CustomerCreateInput!): Customer!
   createOneCustomerContact(data: CustomerContactCreateInput!): CustomerContact!
+  createOneState(data: StateCreateInput!): State!
   createOneUser(data: UserCreateInput!): User!
   deleteManyCustomer(where: CustomerWhereInput): AffectedRowsOutput!
   deleteManyCustomerContact(where: CustomerContactWhereInput): AffectedRowsOutput!
+  deleteManyState(where: StateWhereInput): AffectedRowsOutput!
   deleteManyUser(where: UserWhereInput): AffectedRowsOutput!
   deleteOneCustomer(where: CustomerWhereUniqueInput!): Customer
   deleteOneCustomerContact(where: CustomerContactWhereUniqueInput!): CustomerContact
+  deleteOneState(where: StateWhereUniqueInput!): State
   deleteOneUser(where: UserWhereUniqueInput!): User
   updateManyCustomer(data: CustomerUpdateManyMutationInput!, where: CustomerWhereInput): AffectedRowsOutput!
   updateManyCustomerContact(data: CustomerContactUpdateManyMutationInput!, where: CustomerContactWhereInput): AffectedRowsOutput!
+  updateManyState(data: StateUpdateManyMutationInput!, where: StateWhereInput): AffectedRowsOutput!
   updateManyUser(data: UserUpdateManyMutationInput!, where: UserWhereInput): AffectedRowsOutput!
   updateOneCustomer(data: CustomerUpdateInput!, where: CustomerWhereUniqueInput!): Customer
   updateOneCustomerContact(data: CustomerContactUpdateInput!, where: CustomerContactWhereUniqueInput!): CustomerContact
+  updateOneState(data: StateUpdateInput!, where: StateWhereUniqueInput!): State
   updateOneUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   upsertOneCustomer(create: CustomerCreateInput!, update: CustomerUpdateInput!, where: CustomerWhereUniqueInput!): Customer!
   upsertOneCustomerContact(create: CustomerContactCreateInput!, update: CustomerContactUpdateInput!, where: CustomerContactWhereUniqueInput!): CustomerContact!
+  upsertOneState(create: StateCreateInput!, update: StateUpdateInput!, where: StateWhereUniqueInput!): State!
   upsertOneUser(create: UserCreateInput!, update: UserUpdateInput!, where: UserWhereUniqueInput!): User!
 }
 
@@ -994,6 +1224,7 @@ enum NullsOrder {
 type Query {
   aggregateCustomer(cursor: CustomerWhereUniqueInput, orderBy: [CustomerOrderByWithRelationInput!], skip: Int, take: Int, where: CustomerWhereInput): AggregateCustomer!
   aggregateCustomerContact(cursor: CustomerContactWhereUniqueInput, orderBy: [CustomerContactOrderByWithRelationInput!], skip: Int, take: Int, where: CustomerContactWhereInput): AggregateCustomerContact!
+  aggregateState(cursor: StateWhereUniqueInput, orderBy: [StateOrderByWithRelationInput!], skip: Int, take: Int, where: StateWhereInput): AggregateState!
   aggregateUser(cursor: UserWhereUniqueInput, orderBy: [UserOrderByWithRelationInput!], skip: Int, take: Int, where: UserWhereInput): AggregateUser!
   customer(where: CustomerWhereUniqueInput!): Customer
   customerContact(where: CustomerContactWhereUniqueInput!): CustomerContact
@@ -1003,16 +1234,22 @@ type Query {
   findFirstCustomerContact(cursor: CustomerContactWhereUniqueInput, distinct: [CustomerContactScalarFieldEnum!], orderBy: [CustomerContactOrderByWithRelationInput!], skip: Int, take: Int, where: CustomerContactWhereInput): CustomerContact
   findFirstCustomerContactOrThrow(cursor: CustomerContactWhereUniqueInput, distinct: [CustomerContactScalarFieldEnum!], orderBy: [CustomerContactOrderByWithRelationInput!], skip: Int, take: Int, where: CustomerContactWhereInput): CustomerContact
   findFirstCustomerOrThrow(cursor: CustomerWhereUniqueInput, distinct: [CustomerScalarFieldEnum!], orderBy: [CustomerOrderByWithRelationInput!], skip: Int, take: Int, where: CustomerWhereInput): Customer
+  findFirstState(cursor: StateWhereUniqueInput, distinct: [StateScalarFieldEnum!], orderBy: [StateOrderByWithRelationInput!], skip: Int, take: Int, where: StateWhereInput): State
+  findFirstStateOrThrow(cursor: StateWhereUniqueInput, distinct: [StateScalarFieldEnum!], orderBy: [StateOrderByWithRelationInput!], skip: Int, take: Int, where: StateWhereInput): State
   findFirstUser(cursor: UserWhereUniqueInput, distinct: [UserScalarFieldEnum!], orderBy: [UserOrderByWithRelationInput!], skip: Int, take: Int, where: UserWhereInput): User
   findFirstUserOrThrow(cursor: UserWhereUniqueInput, distinct: [UserScalarFieldEnum!], orderBy: [UserOrderByWithRelationInput!], skip: Int, take: Int, where: UserWhereInput): User
   getCustomer(where: CustomerWhereUniqueInput!): Customer
   getCustomerContact(where: CustomerContactWhereUniqueInput!): CustomerContact
+  getState(where: StateWhereUniqueInput!): State
   getUser(where: UserWhereUniqueInput!): User
   groupByCustomer(by: [CustomerScalarFieldEnum!]!, having: CustomerScalarWhereWithAggregatesInput, orderBy: [CustomerOrderByWithAggregationInput!], skip: Int, take: Int, where: CustomerWhereInput): [CustomerGroupBy!]!
   groupByCustomerContact(by: [CustomerContactScalarFieldEnum!]!, having: CustomerContactScalarWhereWithAggregatesInput, orderBy: [CustomerContactOrderByWithAggregationInput!], skip: Int, take: Int, where: CustomerContactWhereInput): [CustomerContactGroupBy!]!
+  groupByState(by: [StateScalarFieldEnum!]!, having: StateScalarWhereWithAggregatesInput, orderBy: [StateOrderByWithAggregationInput!], skip: Int, take: Int, where: StateWhereInput): [StateGroupBy!]!
   groupByUser(by: [UserScalarFieldEnum!]!, having: UserScalarWhereWithAggregatesInput, orderBy: [UserOrderByWithAggregationInput!], skip: Int, take: Int, where: UserWhereInput): [UserGroupBy!]!
   search(query: String!): [SearchResult!]
   signin(password: String!, username: String!): String
+  state(where: StateWhereUniqueInput!): State
+  states(cursor: StateWhereUniqueInput, distinct: [StateScalarFieldEnum!], orderBy: [StateOrderByWithRelationInput!], skip: Int, take: Int, where: StateWhereInput): [State!]!
   user(where: UserWhereUniqueInput!): User
   users(cursor: UserWhereUniqueInput, distinct: [UserScalarFieldEnum!], orderBy: [UserOrderByWithRelationInput!], skip: Int, take: Int, where: UserWhereInput): [User!]!
 }
@@ -1032,6 +1269,298 @@ enum SortOrder {
 input SortOrderInput {
   nulls: NullsOrder
   sort: SortOrder!
+}
+
+type State {
+  _count: StateCount
+  code: String!
+  customer(cursor: CustomerWhereUniqueInput, distinct: [CustomerScalarFieldEnum!], orderBy: [CustomerOrderByWithRelationInput!], skip: Int, take: Int, where: CustomerWhereInput): [Customer!]!
+  customerContact(cursor: CustomerContactWhereUniqueInput, distinct: [CustomerContactScalarFieldEnum!], orderBy: [CustomerContactOrderByWithRelationInput!], skip: Int, take: Int, where: CustomerContactWhereInput): [CustomerContact!]!
+  id: String!
+  name: String!
+  user(cursor: UserWhereUniqueInput, distinct: [UserScalarFieldEnum!], orderBy: [UserOrderByWithRelationInput!], skip: Int, take: Int, where: UserWhereInput): [User!]!
+}
+
+type StateCount {
+  customer(where: CustomerWhereInput): Int!
+  customerContact(where: CustomerContactWhereInput): Int!
+  user(where: UserWhereInput): Int!
+}
+
+type StateCountAggregate {
+  _all: Int!
+  code: Int!
+  id: Int!
+  name: Int!
+}
+
+input StateCountOrderByAggregateInput {
+  code: SortOrder
+  id: SortOrder
+  name: SortOrder
+}
+
+input StateCreateInput {
+  code: String!
+  customer: CustomerCreateNestedManyWithoutStateInput
+  customerContact: CustomerContactCreateNestedManyWithoutStateInput
+  id: String
+  name: String!
+  user: UserCreateNestedManyWithoutStateInput
+}
+
+input StateCreateManyInput {
+  code: String!
+  id: String
+  name: String!
+}
+
+input StateCreateNestedOneWithoutCustomerContactInput {
+  connect: StateWhereUniqueInput
+  connectOrCreate: StateCreateOrConnectWithoutCustomerContactInput
+  create: StateCreateWithoutCustomerContactInput
+}
+
+input StateCreateNestedOneWithoutCustomerInput {
+  connect: StateWhereUniqueInput
+  connectOrCreate: StateCreateOrConnectWithoutCustomerInput
+  create: StateCreateWithoutCustomerInput
+}
+
+input StateCreateNestedOneWithoutUserInput {
+  connect: StateWhereUniqueInput
+  connectOrCreate: StateCreateOrConnectWithoutUserInput
+  create: StateCreateWithoutUserInput
+}
+
+input StateCreateOrConnectWithoutCustomerContactInput {
+  create: StateCreateWithoutCustomerContactInput!
+  where: StateWhereUniqueInput!
+}
+
+input StateCreateOrConnectWithoutCustomerInput {
+  create: StateCreateWithoutCustomerInput!
+  where: StateWhereUniqueInput!
+}
+
+input StateCreateOrConnectWithoutUserInput {
+  create: StateCreateWithoutUserInput!
+  where: StateWhereUniqueInput!
+}
+
+input StateCreateWithoutCustomerContactInput {
+  code: String!
+  customer: CustomerCreateNestedManyWithoutStateInput
+  id: String
+  name: String!
+  user: UserCreateNestedManyWithoutStateInput
+}
+
+input StateCreateWithoutCustomerInput {
+  code: String!
+  customerContact: CustomerContactCreateNestedManyWithoutStateInput
+  id: String
+  name: String!
+  user: UserCreateNestedManyWithoutStateInput
+}
+
+input StateCreateWithoutUserInput {
+  code: String!
+  customer: CustomerCreateNestedManyWithoutStateInput
+  customerContact: CustomerContactCreateNestedManyWithoutStateInput
+  id: String
+  name: String!
+}
+
+type StateGroupBy {
+  _count: StateCountAggregate
+  _max: StateMaxAggregate
+  _min: StateMinAggregate
+  code: String!
+  id: String!
+  name: String!
+}
+
+type StateMaxAggregate {
+  code: String
+  id: String
+  name: String
+}
+
+input StateMaxOrderByAggregateInput {
+  code: SortOrder
+  id: SortOrder
+  name: SortOrder
+}
+
+type StateMinAggregate {
+  code: String
+  id: String
+  name: String
+}
+
+input StateMinOrderByAggregateInput {
+  code: SortOrder
+  id: SortOrder
+  name: SortOrder
+}
+
+input StateOrderByWithAggregationInput {
+  _count: StateCountOrderByAggregateInput
+  _max: StateMaxOrderByAggregateInput
+  _min: StateMinOrderByAggregateInput
+  code: SortOrder
+  id: SortOrder
+  name: SortOrder
+}
+
+input StateOrderByWithRelationInput {
+  code: SortOrder
+  customer: CustomerOrderByRelationAggregateInput
+  customerContact: CustomerContactOrderByRelationAggregateInput
+  id: SortOrder
+  name: SortOrder
+  user: UserOrderByRelationAggregateInput
+}
+
+input StateRelationFilter {
+  is: StateWhereInput
+  isNot: StateWhereInput
+}
+
+enum StateScalarFieldEnum {
+  code
+  id
+  name
+}
+
+input StateScalarWhereWithAggregatesInput {
+  AND: [StateScalarWhereWithAggregatesInput!]
+  NOT: [StateScalarWhereWithAggregatesInput!]
+  OR: [StateScalarWhereWithAggregatesInput!]
+  code: StringWithAggregatesFilter
+  id: StringWithAggregatesFilter
+  name: StringWithAggregatesFilter
+}
+
+input StateUpdateInput {
+  code: String
+  customer: CustomerUpdateManyWithoutStateNestedInput
+  customerContact: CustomerContactUpdateManyWithoutStateNestedInput
+  id: String
+  name: String
+  user: UserUpdateManyWithoutStateNestedInput
+}
+
+input StateUpdateManyMutationInput {
+  code: String
+  id: String
+  name: String
+}
+
+input StateUpdateOneRequiredWithoutCustomerContactNestedInput {
+  connect: StateWhereUniqueInput
+  connectOrCreate: StateCreateOrConnectWithoutCustomerContactInput
+  create: StateCreateWithoutCustomerContactInput
+  update: StateUpdateToOneWithWhereWithoutCustomerContactInput
+  upsert: StateUpsertWithoutCustomerContactInput
+}
+
+input StateUpdateOneRequiredWithoutCustomerNestedInput {
+  connect: StateWhereUniqueInput
+  connectOrCreate: StateCreateOrConnectWithoutCustomerInput
+  create: StateCreateWithoutCustomerInput
+  update: StateUpdateToOneWithWhereWithoutCustomerInput
+  upsert: StateUpsertWithoutCustomerInput
+}
+
+input StateUpdateOneRequiredWithoutUserNestedInput {
+  connect: StateWhereUniqueInput
+  connectOrCreate: StateCreateOrConnectWithoutUserInput
+  create: StateCreateWithoutUserInput
+  update: StateUpdateToOneWithWhereWithoutUserInput
+  upsert: StateUpsertWithoutUserInput
+}
+
+input StateUpdateToOneWithWhereWithoutCustomerContactInput {
+  data: StateUpdateWithoutCustomerContactInput!
+  where: StateWhereInput
+}
+
+input StateUpdateToOneWithWhereWithoutCustomerInput {
+  data: StateUpdateWithoutCustomerInput!
+  where: StateWhereInput
+}
+
+input StateUpdateToOneWithWhereWithoutUserInput {
+  data: StateUpdateWithoutUserInput!
+  where: StateWhereInput
+}
+
+input StateUpdateWithoutCustomerContactInput {
+  code: String
+  customer: CustomerUpdateManyWithoutStateNestedInput
+  id: String
+  name: String
+  user: UserUpdateManyWithoutStateNestedInput
+}
+
+input StateUpdateWithoutCustomerInput {
+  code: String
+  customerContact: CustomerContactUpdateManyWithoutStateNestedInput
+  id: String
+  name: String
+  user: UserUpdateManyWithoutStateNestedInput
+}
+
+input StateUpdateWithoutUserInput {
+  code: String
+  customer: CustomerUpdateManyWithoutStateNestedInput
+  customerContact: CustomerContactUpdateManyWithoutStateNestedInput
+  id: String
+  name: String
+}
+
+input StateUpsertWithoutCustomerContactInput {
+  create: StateCreateWithoutCustomerContactInput!
+  update: StateUpdateWithoutCustomerContactInput!
+  where: StateWhereInput
+}
+
+input StateUpsertWithoutCustomerInput {
+  create: StateCreateWithoutCustomerInput!
+  update: StateUpdateWithoutCustomerInput!
+  where: StateWhereInput
+}
+
+input StateUpsertWithoutUserInput {
+  create: StateCreateWithoutUserInput!
+  update: StateUpdateWithoutUserInput!
+  where: StateWhereInput
+}
+
+input StateWhereInput {
+  AND: [StateWhereInput!]
+  NOT: [StateWhereInput!]
+  OR: [StateWhereInput!]
+  code: StringFilter
+  customer: CustomerListRelationFilter
+  customerContact: CustomerContactListRelationFilter
+  id: StringFilter
+  name: StringFilter
+  user: UserListRelationFilter
+}
+
+input StateWhereUniqueInput {
+  AND: [StateWhereInput!]
+  NOT: [StateWhereInput!]
+  OR: [StateWhereInput!]
+  code: StringFilter
+  customer: CustomerListRelationFilter
+  customerContact: CustomerContactListRelationFilter
+  id: String
+  name: StringFilter
+  user: UserListRelationFilter
 }
 
 input StringFilter {
@@ -1106,7 +1635,8 @@ type User {
   password: String!
   phone: String!
   role: String!
-  state: String!
+  state: State!
+  stateId: String!
   streetAddress: String!
   streetAddress2: String
   zip: String!
@@ -1123,7 +1653,7 @@ type UserCountAggregate {
   password: Int!
   phone: Int!
   role: Int!
-  state: Int!
+  stateId: Int!
   streetAddress: Int!
   streetAddress2: Int!
   zip: Int!
@@ -1139,7 +1669,7 @@ input UserCountOrderByAggregateInput {
   password: SortOrder
   phone: SortOrder
   role: SortOrder
-  state: SortOrder
+  stateId: SortOrder
   streetAddress: SortOrder
   streetAddress2: SortOrder
   zip: SortOrder
@@ -1155,7 +1685,7 @@ input UserCreateInput {
   password: String!
   phone: String!
   role: String!
-  state: String!
+  state: StateCreateNestedOneWithoutUserInput!
   streetAddress: String!
   streetAddress2: String
   zip: String!
@@ -1171,7 +1701,53 @@ input UserCreateManyInput {
   password: String!
   phone: String!
   role: String!
-  state: String!
+  stateId: String!
+  streetAddress: String!
+  streetAddress2: String
+  zip: String!
+}
+
+input UserCreateManyStateInput {
+  city: String!
+  dateCreated: DateTimeISO
+  email: String!
+  firstName: String!
+  id: String
+  lastName: String!
+  password: String!
+  phone: String!
+  role: String!
+  streetAddress: String!
+  streetAddress2: String
+  zip: String!
+}
+
+input UserCreateManyStateInputEnvelope {
+  data: [UserCreateManyStateInput!]!
+}
+
+input UserCreateNestedManyWithoutStateInput {
+  connect: [UserWhereUniqueInput!]
+  connectOrCreate: [UserCreateOrConnectWithoutStateInput!]
+  create: [UserCreateWithoutStateInput!]
+  createMany: UserCreateManyStateInputEnvelope
+}
+
+input UserCreateOrConnectWithoutStateInput {
+  create: UserCreateWithoutStateInput!
+  where: UserWhereUniqueInput!
+}
+
+input UserCreateWithoutStateInput {
+  city: String!
+  dateCreated: DateTimeISO
+  email: String!
+  firstName: String!
+  id: String
+  lastName: String!
+  password: String!
+  phone: String!
+  role: String!
   streetAddress: String!
   streetAddress2: String
   zip: String!
@@ -1190,10 +1766,16 @@ type UserGroupBy {
   password: String!
   phone: String!
   role: String!
-  state: String!
+  stateId: String!
   streetAddress: String!
   streetAddress2: String
   zip: String!
+}
+
+input UserListRelationFilter {
+  every: UserWhereInput
+  none: UserWhereInput
+  some: UserWhereInput
 }
 
 type UserMaxAggregate {
@@ -1206,7 +1788,7 @@ type UserMaxAggregate {
   password: String
   phone: String
   role: String
-  state: String
+  stateId: String
   streetAddress: String
   streetAddress2: String
   zip: String
@@ -1222,7 +1804,7 @@ input UserMaxOrderByAggregateInput {
   password: SortOrder
   phone: SortOrder
   role: SortOrder
-  state: SortOrder
+  stateId: SortOrder
   streetAddress: SortOrder
   streetAddress2: SortOrder
   zip: SortOrder
@@ -1238,7 +1820,7 @@ type UserMinAggregate {
   password: String
   phone: String
   role: String
-  state: String
+  stateId: String
   streetAddress: String
   streetAddress2: String
   zip: String
@@ -1254,10 +1836,14 @@ input UserMinOrderByAggregateInput {
   password: SortOrder
   phone: SortOrder
   role: SortOrder
-  state: SortOrder
+  stateId: SortOrder
   streetAddress: SortOrder
   streetAddress2: SortOrder
   zip: SortOrder
+}
+
+input UserOrderByRelationAggregateInput {
+  _count: SortOrder
 }
 
 input UserOrderByWithAggregationInput {
@@ -1273,7 +1859,7 @@ input UserOrderByWithAggregationInput {
   password: SortOrder
   phone: SortOrder
   role: SortOrder
-  state: SortOrder
+  stateId: SortOrder
   streetAddress: SortOrder
   streetAddress2: SortOrderInput
   zip: SortOrder
@@ -1289,7 +1875,8 @@ input UserOrderByWithRelationInput {
   password: SortOrder
   phone: SortOrder
   role: SortOrder
-  state: SortOrder
+  state: StateOrderByWithRelationInput
+  stateId: SortOrder
   streetAddress: SortOrder
   streetAddress2: SortOrderInput
   zip: SortOrder
@@ -1305,10 +1892,29 @@ enum UserScalarFieldEnum {
   password
   phone
   role
-  state
+  stateId
   streetAddress
   streetAddress2
   zip
+}
+
+input UserScalarWhereInput {
+  AND: [UserScalarWhereInput!]
+  NOT: [UserScalarWhereInput!]
+  OR: [UserScalarWhereInput!]
+  city: StringFilter
+  dateCreated: DateTimeFilter
+  email: StringFilter
+  firstName: StringFilter
+  id: StringFilter
+  lastName: StringFilter
+  password: StringFilter
+  phone: StringFilter
+  role: StringFilter
+  stateId: StringFilter
+  streetAddress: StringFilter
+  streetAddress2: StringNullableFilter
+  zip: StringFilter
 }
 
 input UserScalarWhereWithAggregatesInput {
@@ -1324,7 +1930,7 @@ input UserScalarWhereWithAggregatesInput {
   password: StringWithAggregatesFilter
   phone: StringWithAggregatesFilter
   role: StringWithAggregatesFilter
-  state: StringWithAggregatesFilter
+  stateId: StringWithAggregatesFilter
   streetAddress: StringWithAggregatesFilter
   streetAddress2: StringNullableWithAggregatesFilter
   zip: StringWithAggregatesFilter
@@ -1340,7 +1946,7 @@ input UserUpdateInput {
   password: String
   phone: String
   role: String
-  state: String
+  state: StateUpdateOneRequiredWithoutUserNestedInput
   streetAddress: String
   streetAddress2: String
   zip: String
@@ -1356,10 +1962,54 @@ input UserUpdateManyMutationInput {
   password: String
   phone: String
   role: String
-  state: String
   streetAddress: String
   streetAddress2: String
   zip: String
+}
+
+input UserUpdateManyWithWhereWithoutStateInput {
+  data: UserUpdateManyMutationInput!
+  where: UserScalarWhereInput!
+}
+
+input UserUpdateManyWithoutStateNestedInput {
+  connect: [UserWhereUniqueInput!]
+  connectOrCreate: [UserCreateOrConnectWithoutStateInput!]
+  create: [UserCreateWithoutStateInput!]
+  createMany: UserCreateManyStateInputEnvelope
+  delete: [UserWhereUniqueInput!]
+  deleteMany: [UserScalarWhereInput!]
+  disconnect: [UserWhereUniqueInput!]
+  set: [UserWhereUniqueInput!]
+  update: [UserUpdateWithWhereUniqueWithoutStateInput!]
+  updateMany: [UserUpdateManyWithWhereWithoutStateInput!]
+  upsert: [UserUpsertWithWhereUniqueWithoutStateInput!]
+}
+
+input UserUpdateWithWhereUniqueWithoutStateInput {
+  data: UserUpdateWithoutStateInput!
+  where: UserWhereUniqueInput!
+}
+
+input UserUpdateWithoutStateInput {
+  city: String
+  dateCreated: DateTimeISO
+  email: String
+  firstName: String
+  id: String
+  lastName: String
+  password: String
+  phone: String
+  role: String
+  streetAddress: String
+  streetAddress2: String
+  zip: String
+}
+
+input UserUpsertWithWhereUniqueWithoutStateInput {
+  create: UserCreateWithoutStateInput!
+  update: UserUpdateWithoutStateInput!
+  where: UserWhereUniqueInput!
 }
 
 input UserWhereInput {
@@ -1375,7 +2025,8 @@ input UserWhereInput {
   password: StringFilter
   phone: StringFilter
   role: StringFilter
-  state: StringFilter
+  state: StateRelationFilter
+  stateId: StringFilter
   streetAddress: StringFilter
   streetAddress2: StringNullableFilter
   zip: StringFilter
@@ -1394,7 +2045,8 @@ input UserWhereUniqueInput {
   password: StringFilter
   phone: StringFilter
   role: StringFilter
-  state: StringFilter
+  state: StateRelationFilter
+  stateId: StringFilter
   streetAddress: StringFilter
   streetAddress2: StringNullableFilter
   zip: StringFilter

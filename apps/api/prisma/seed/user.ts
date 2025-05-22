@@ -1,9 +1,12 @@
 import type { PrismaClient } from '#app/prisma/client/index.js';
 import { Role } from '../../src/constants/role.ts';
 import { faker } from './faker-context.ts';
+import { useState } from './state.ts';
 
 export const createUsers = async (prisma: PrismaClient) => {
   console.group('Seeding users');
+
+  const { randomStateId } = await useState(prisma);
 
   const createAdminUser = () =>
     prisma.user.create({
@@ -14,7 +17,7 @@ export const createUsers = async (prisma: PrismaClient) => {
         email: 'admin@fu.com',
         streetAddress: '123 Admin St',
         city: 'St. Augustine',
-        state: 'FL',
+        stateId: randomStateId(),
         zip: '32084',
         phone: '123-456-7890',
         role: Role.Admin,
@@ -32,7 +35,7 @@ export const createUsers = async (prisma: PrismaClient) => {
         email: faker.internet.email(),
         streetAddress: faker.location.streetAddress(),
         city: faker.location.city(),
-        state: faker.location.state({ abbreviated: true }),
+        stateId: randomStateId(),
         zip: faker.location.zipCode(),
         phone: faker.phone.number(),
         role: Role.User,
@@ -51,7 +54,7 @@ export const createUsers = async (prisma: PrismaClient) => {
         streetAddress: faker.location.streetAddress(),
         streetAddress2: faker.location.secondaryAddress(),
         city: faker.location.city(),
-        state: faker.location.state({ abbreviated: true }),
+        stateId: randomStateId(),
         zip: faker.location.zipCode(),
         phone: faker.phone.number(),
         role: Role.Sales,
@@ -70,7 +73,7 @@ export const createUsers = async (prisma: PrismaClient) => {
         streetAddress: faker.location.streetAddress(),
         streetAddress2: faker.location.secondaryAddress(),
         city: faker.location.city(),
-        state: faker.location.state({ abbreviated: true }),
+        stateId: randomStateId(),
         zip: faker.location.zipCode(),
         phone: faker.phone.number(),
         role: Role.Accounting,

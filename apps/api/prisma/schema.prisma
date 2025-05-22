@@ -25,6 +25,15 @@ generator typegraphql {
   useSimpleInputs        = true
 }
 
+model State {
+  id              String            @id @default(uuid())
+  name            String
+  code            String
+  user            User[]
+  customer        Customer[]
+  customerContact CustomerContact[]
+}
+
 model User {
   id             String   @id @default(uuid())
   firstName      String
@@ -33,12 +42,13 @@ model User {
   streetAddress  String
   streetAddress2 String?
   city           String
-  state          String
+  stateId        String
   zip            String
   phone          String
   password       String
   role           String
   dateCreated    DateTime @default(now())
+  state          State    @relation(fields: [stateId], references: [id])
 }
 
 // enum Role {
@@ -54,12 +64,13 @@ model Customer {
   streetAddress   String
   streetAddress2  String?
   city            String
-  state           String
+  stateId         String
   zip             String
   phone           String
   dateCreated     DateTime          @default(now())
   dateUpdated     DateTime          @updatedAt
   CustomerContact CustomerContact[]
+  state           State             @relation(fields: [stateId], references: [id])
 }
 
 model CustomerContact {
@@ -71,10 +82,11 @@ model CustomerContact {
   streetAddress  String
   streetAddress2 String?
   city           String
-  state          String
+  stateId        String
   zip            String
   phone          String
   dateCreated    DateTime @default(now())
   dateUpdated    DateTime @updatedAt
   customer       Customer @relation(fields: [customerId], references: [id])
+  state          State    @relation(fields: [stateId], references: [id])
 }

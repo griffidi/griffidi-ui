@@ -5,7 +5,7 @@ query getCustomerContacts($customerId: String!) {
     lastName
     streetAddress
     city
-    state
+    stateId
     zip
     phone
     email
