@@ -7,14 +7,17 @@ const useStyles = makeStyles(styles);
 type ListItemProps = {
   name?: string;
   description?: string;
-  icon?: React.ReactNode;
+  leadingIcon?: React.ReactNode;
+  trailingIcon?: React.ReactNode;
   onClick?: () => void;
 };
 
 const ListItem: FC<ListItemProps & HTMLAttributes<HTMLElement>> = ({
+  className,
   name,
   description,
-  icon,
+  leadingIcon,
+  trailingIcon,
   onClick,
   ...props
 }) => {
@@ -22,12 +25,15 @@ const ListItem: FC<ListItemProps & HTMLAttributes<HTMLElement>> = ({
   const handleClick = () => onClick?.();
 
   return (
-    <div className={classes.item} onClick={handleClick} {...props}>
-      {icon && <div className={classes.icon}>{icon}</div>}
+    <div className={`${classes.item} ${className}`} onClick={handleClick} {...props}>
+      {leadingIcon && <div className={classes.leadingIcon}>{leadingIcon}</div>}
       <div className={classes.content}>
         <div className={classes.name}>{name}</div>
         {description && <div className={classes.description}>{description}</div>}
       </div>
+      {trailingIcon && (
+        <div className={`${classes.trailingIcon} trailing-icon`}>{trailingIcon}</div>
+      )}
     </div>
   );
 };

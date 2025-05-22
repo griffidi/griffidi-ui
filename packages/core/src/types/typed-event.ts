@@ -1,3 +1,5 @@
-export interface TypedEvent<T extends Element> extends Event {
-  target: T;
-}
+import type { SyntheticEvent } from 'react';
+
+export type TypedEvent<E, T extends SyntheticEvent<E, T>> = T & {
+  target: E;
+};

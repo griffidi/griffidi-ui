@@ -1,8 +1,9 @@
 import { useQuery } from '@apollo/client/react/hooks';
+import { Launch } from '@carbon/icons-react';
 import { makeStyles } from '@griffel/react';
 import ProgressSpinner from '@gui/components/progress-spinner/progress-spinner.tsx';
 import Table from '@gui/components/table/index.tsx';
-import { type LoaderFunctionArgs, redirect } from 'react-router';
+import { Link, type LoaderFunctionArgs, redirect } from 'react-router';
 import ErrorMessage from '@/components/error/error-message.tsx';
 import { useAuth } from '@/hooks/useAuth.ts';
 import { type Customer, GetCustomers } from '@/types/graphql';
@@ -10,10 +11,9 @@ import styles from './customers.css.ts';
 
 const useStyles = makeStyles(styles);
 
-export const loader = async ({ request }: LoaderFunctionArgs) => {
+export async function loader({ request }: LoaderFunctionArgs) {
   const { isAuthenticated } = await useAuth(request);
 
-  console.log(`customers loader: ${isAuthenticated}`);
   if (!isAuthenticated) {
     const params = new URLSearchParams();
     params.set('from', new URL(request.url).pathname);
@@ -21,9 +21,9 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   }
 
   return { isAuthenticated };
-};
+}
 
-const Customers = () => {
+export default function Customers() {
   const classes = useStyles();
   const {
     loading,
@@ -41,6 +41,7 @@ const Customers = () => {
         <Table.HeaderCell>Name</Table.HeaderCell>
         <Table.HeaderCell>City</Table.HeaderCell>
         <Table.HeaderCell>State</Table.HeaderCell>
+        <Table.HeaderCell></Table.HeaderCell>
       </Table.HeaderRow>
       {customers.map(({ id, name, city, state }) => (
         <Table.Row key={id}>
@@ -48,10 +49,13 @@ const Customers = () => {
           <Table.Cell>{name}</Table.Cell>
           <Table.Cell>{city}</Table.Cell>
           <Table.Cell>{state}</Table.Cell>
+          <Table.Cell>
+            <Link to={`/customers/${id}`} target="_blank" className={classes.link}>
+              <Launch />
+            </Link>
+          </Table.Cell>
         </Table.Row>
       ))}
     </Table.Root>
   );
-};
-
-export default Customers;
+}

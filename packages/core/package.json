@@ -2,7 +2,7 @@
   "name": "@gui/core",
   "private": false,
   "version": "1.0.0",
-  "packageManager": "pnpm@10.9.0",
+  "packageManager": "pnpm@10.11.0",
   "engines": {
     "node": ">=23.11.0"
   },

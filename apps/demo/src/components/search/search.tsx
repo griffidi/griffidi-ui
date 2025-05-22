@@ -1,12 +1,17 @@
 import { useApolloClient } from '@apollo/client/react/hooks';
 import { Customer, Identification, User } from '@carbon/icons-react';
+import { makeStyles } from '@griffel/react';
 import type { CommandItem } from '@gui/components/command-palette/command-item.ts';
 import CommandPalette, {
   type CommandPaletteResultTypeMap,
 } from '@gui/components/command-palette/command-palette.tsx';
 import type { Item } from '@gui/components/list/item.ts';
 import { useState, useTransition } from 'react';
+import GuiIcon from '@/components/icons/gui.tsx';
 import { GetSearchResults } from '@/types/graphql.ts';
+import styles from './search.css.ts';
+
+const useStyles = makeStyles(styles);
 
 const resultTypeMap = {
   1: {
@@ -24,6 +29,7 @@ const resultTypeMap = {
 } satisfies CommandPaletteResultTypeMap;
 
 const Search = () => {
+  const classes = useStyles();
   const client = useApolloClient();
   const [isPending, startTransition] = useTransition();
   const [results, setResults] = useState<CommandItem[]>([]);
@@ -57,6 +63,15 @@ const Search = () => {
     }
   };
 
+  const Footer = () => {
+    return (
+      <div className={classes.footer}>
+        <span className={classes.searchBy}>search by</span>
+        <GuiIcon size={18} className={classes.icon} />
+      </div>
+    );
+  };
+
   return (
     <>
       <CommandPalette
@@ -65,6 +80,7 @@ const Search = () => {
         resultTypeMap={resultTypeMap}
         onSearch={handleSearch}
         onClose={() => setResults([])}
+        footer={<Footer />}
         onSelectedChange={handleSelectedChanged}
       />
     </>

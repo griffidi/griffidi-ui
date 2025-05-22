@@ -1,15 +1,17 @@
+import { Launch } from '@carbon/icons-react';
+import { makeStyles } from '@griffel/react';
 import type { FC } from 'react';
 import type { Item } from '../../list/item.ts';
 import ListItem from '../../list/list-item.tsx';
 import VirtualList from '../../list/virtual-list.tsx';
-import ProgressSpinner from '../../progress-spinner/progress-spinner.tsx';
 import type { CommandItem } from '../command-item.ts';
 import type { CommandPaletteResultTypeMap } from '../command-palette.tsx';
+import styles from './search-result.css.ts';
+
+const useStyles = makeStyles(styles);
 
 type SearchResultsProps = {
   height: number;
-  isSearching: boolean;
-  visibleResults?: number;
   results: CommandItem[];
   resultTypeIconMap: CommandPaletteResultTypeMap;
   onSelectedChange: (item: Item) => void;
@@ -20,22 +22,16 @@ type SearchResultsProps = {
  * the user can select from.
  *
  * @param { height } height - The height of the list.
- * @param { isSearching } isSearching - Whether or not the search is in progress.
- * @param { visibleResults } visibleResults - The number of results to display at once.
  * @param { results } results - The results to display.
  * @param { onSelectedChange } onSelectedChange - The function to call when the user selects an item.
  */
 const SearchResults: FC<SearchResultsProps> = ({
   height,
-  isSearching,
-  visibleResults,
   results,
   resultTypeIconMap,
   onSelectedChange,
 }) => {
-  if (isSearching) {
-    return <ProgressSpinner />;
-  }
+  const classes = useStyles();
 
   if (!results || results.length === 0) {
     return null;
@@ -51,10 +47,12 @@ const SearchResults: FC<SearchResultsProps> = ({
 
     return (
       <ListItem
+        className={classes.item}
         key={id}
         name={name}
         description={description}
-        icon={icon}
+        leadingIcon={icon}
+        trailingIcon={<Launch />}
         style={{
           ...style,
           color: iconColorCssVar,
@@ -66,9 +64,9 @@ const SearchResults: FC<SearchResultsProps> = ({
 
   return (
     <VirtualList
-      height={height}
+      height={height + 2} // Add 2px to account for the border
       itemCount={results.length}
-      itemSize={visibleResults}
+      itemSize={52}
       renderItem={renderItem}
     ></VirtualList>
   );

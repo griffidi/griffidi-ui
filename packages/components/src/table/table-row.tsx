@@ -1,4 +1,5 @@
 import { makeStyles } from '@griffel/react';
+import type { FC, MouseEvent, ReactElement } from 'react';
 
 const useStyles = makeStyles({
   row: {
@@ -7,12 +8,20 @@ const useStyles = makeStyles({
   },
 });
 
-const TableRow: React.FC<{
-  children: React.ReactElement | React.ReactElement[];
-}> = ({ children }) => {
+type TableRowProps = {
+  children: ReactElement[];
+  className?: string;
+  onClick?: (e: MouseEvent<HTMLElement>) => void;
+};
+
+const TableRow: FC<TableRowProps> = ({ children, className = '', onClick }) => {
   const classes = useStyles();
 
-  return <div className={classes.row}>{children}</div>;
+  return (
+    <div className={`${classes.row} gui-table-row ${className}`} onClick={onClick}>
+      {children}
+    </div>
+  );
 };
 
 export default TableRow;

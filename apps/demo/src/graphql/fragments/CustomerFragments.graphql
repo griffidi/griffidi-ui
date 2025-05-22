@@ -1,0 +1,11 @@
+fragment CustomerParts on Customer {
+  id
+  name
+  phone
+  streetAddress
+  city
+  state
+  zip
+  dateCreated
+  dateUpdated
+}

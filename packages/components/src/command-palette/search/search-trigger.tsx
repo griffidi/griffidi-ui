@@ -22,9 +22,7 @@ const SearchTrigger: FC<SearchTriggerProps> = ({ onClick }) => {
   return (
     <div className={classes.searchTrigger} onClick={onClick}>
       <Search />
-      <span>
-        type <span>/</span> to search
-      </span>
+      <span>⌘&nbsp;&nbsp;+&nbsp;&nbsp;/</span>
     </div>
   );
 };

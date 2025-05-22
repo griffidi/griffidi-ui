@@ -1,6 +1,6 @@
 import { ApolloProvider } from '@apollo/client/react/context';
 import { createDOMRenderer, RendererProvider } from '@griffel/react';
-import { StrictMode } from 'react';
+import { StrictMode, Suspense } from 'react';
 import {
   isRouteErrorResponse,
   Links,
@@ -12,10 +12,8 @@ import {
   useLoaderData,
 } from 'react-router';
 import { AuthProvider } from '@/auth/auth-context.tsx';
-import {
-  clientConfig,
-  createApolloClient,
-} from '@/client/create-apollo-client.ts';
+import { clientConfig, createApolloClient } from '@/client/create-apollo-client.ts';
+import Loading from '@/components/loading/loading.tsx';
 import { useAuth } from '@/hooks/useAuth.ts';
 import Footer from '@/layout/footer';
 import Header from '@/layout/header';
@@ -56,11 +54,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   return { isAuthenticated, username };
 };
 
-export function Layout({
-  children,
-}: {
-  children: React.ReactElement | React.ReactElement[];
-}) {
+export function Layout({ children }: { children: React.ReactElement | React.ReactElement[] }) {
   return (
     <html lang="en">
       <head>
@@ -88,8 +82,10 @@ export default function App() {
     <RendererProvider renderer={createDOMRenderer()}>
       <AuthProvider value={auth}>
         <Header />
-        <main className="w-screen h-screen py-24 px-[2rem]">
-          <Outlet />
+        <main>
+          <Suspense fallback={<Loading />}>
+            <Outlet />
+          </Suspense>
         </main>
         <Footer />
       </AuthProvider>
@@ -105,9 +101,7 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   if (isRouteErrorResponse(error)) {
     message = error.status === 404 ? '404' : 'Error';
     details =
-      error.status === 404
-        ? 'The requested page could not be found.'
-        : error.statusText || details;
+      error.status === 404 ? 'The requested page could not be found.' : error.statusText || details;
   } else if (import.meta.env.DEV && error && error instanceof Error) {
     details = error.message;
     stack = error.stack;

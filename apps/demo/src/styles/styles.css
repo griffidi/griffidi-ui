@@ -1,9 +1,6 @@
 @import "../styles/variables.css";
 @import "../styles/layout.css";
 
-@layer defaults, components, utilities;
-
-@layer defaults {
   * {
     box-sizing: border-box;
   }
@@ -15,6 +12,7 @@
       width: 26px;
       height: 26px;
       transition: all 0.2s ease-in-out;
+      color: var(--gui-color-text);
 
       &:hover {
         transform: scale(1.1);
@@ -23,9 +21,7 @@
       }
     }
   }
-}
 
-@layer utilities {
   .brand-text-color {
     background: linear-gradient(
       to right,
@@ -36,4 +32,3 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
-}

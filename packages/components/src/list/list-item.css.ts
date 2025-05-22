@@ -2,9 +2,6 @@ import type { CssStyles } from '../types/css.ts';
 
 export default {
   root: {
-    '--_background-color':
-      'var(--gui-navigation-item-background-color, var(--gui-color-background))',
-    '--_on_border-color': 'var(--gui-navigation-item-on-border-color, var(--gui-color-border))',
     '--_border-width': 'var(--gui-navigation-item-border-width, 1px)',
     '--_color': 'var(--gui-navigation-item-color, var(--gui-color-text))',
   },
@@ -14,7 +11,7 @@ export default {
     alignItems: 'center',
     gap: '12px',
     paddingInline: '16px',
-    background: 'var(--_background-color)',
+    background: 'var(--gui-navigation-item-background-color, var(--gui-color-background)))',
     borderRadius: 'var(--radius-lg)',
     color: 'var(--_color)',
     cursor: 'pointer',
@@ -23,7 +20,15 @@ export default {
     border: 'var(--_border-width) solid transparent',
 
     '&:hover': {
-      border: 'var(--_border-width) solid var(--gui-color-border)',
+      '& svg': {
+        color: 'var(--gui-color-primary)',
+      },
+
+      '& .trailing-icon': {
+        opacity: 1,
+        visibility: 'visible',
+        contentVisibility: 'visible',
+      },
     },
   },
 
@@ -54,19 +59,37 @@ export default {
     display: 'flex',
     alignItems: 'center',
     width: '100%',
-    color: 'var(--gui-color-text-weak)',
+    color: 'var(--gui-color-text-lighter)',
     fontSize: '0.6rem',
   },
 
-  icon: {
+  leadingIcon: {
     display: 'flex',
-    // marginLeft: 'auto',
     fontSize: '20px',
 
     '& svg': {
       width: '20px',
       height: '20px',
-      color: 'var(--gui-color-text-weak)',
+      color: 'var(--gui-color-text-lighter)',
+      transition: 'color 0.3s ease-in-out',
+      willChange: 'color',
+    },
+  },
+
+  trailingIcon: {
+    display: 'flex',
+    marginLeft: 'auto',
+    fontSize: '20px',
+    opacity: 0,
+    visibility: 'hidden',
+    contentVisibility: 'hidden',
+    transition: 'opacity 0.3s ease-in-out',
+    willChange: 'opacity',
+
+    '& svg': {
+      width: '20px',
+      height: '20px',
+      color: 'var(--gui-color-text-lighter)',
     },
   },
 } satisfies CssStyles;

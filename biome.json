@@ -1,33 +1,23 @@
 {
-  "$schema": "https://biomejs.dev/schemas/2.0.0-beta/schema.json",
-  "vcs": {
-    "enabled": true,
-    "clientKind": "git",
-    "useIgnoreFile": true,
-    "defaultBranch": "main"
-  },
-  "linter": {
-    "enabled": true,
-    "rules": {
-      "recommended": true,
-      "correctness": {
-        "useImportExtensions": "off",
-        "noEmptyPattern": "off"
-      },
-      "suspicious": {
-        "noAssignInExpressions": "off"
-      },
-      "a11y": {
-        "useButtonType": "off",
-        "useHtmlLang": "off",
-        "useKeyWithClickEvents": "off"
-      },
-      "nursery": {
-        "useSortedClasses": "off"
-      },
-      "complexity": {
-        "useLiteralKeys": "off"
+  "$schema": "https://biomejs.dev/schemas/2.0.0-beta.1/schema.json",
+  "assist": {
+    "actions": {
+      "source": {
+        "useSortedKeys": "off",
+        "useSortedProperties": "off",
+        "organizeImports": {
+          "level": "on",
+          "options": {
+            "groups": ["builtin", "external", "internal", "parent", "sibling", "index"]
+          }
+        },
+        "recommended": true
       }
+    }
+  },
+  "css": {
+    "formatter": {
+      "enabled": true
     }
   },
   "formatter": {
@@ -36,26 +26,13 @@
     "lineWidth": 100,
     "useEditorconfig": true
   },
-  "assist": {
-    "actions": {
-      "source": {
-        "useSortedKeys": "on",
-        "useSortedProperties": "on",
-        "organizeImports": {
-          "level": "on",
-          "options": {
-            "groups": [
-              "builtin",
-              "external",
-              "internal",
-              "parent",
-              "sibling",
-              "index"
-            ]
-          }
-        },
-        "recommended": true
-      }
+  "html": {
+    "formatter": {
+      "enabled": true,
+      "attributePosition": "multiline",
+      "bracketSameLine": true,
+      "indentStyle": "space",
+      "indentScriptAndStyle": true
     }
   },
   "javascript": {
@@ -84,13 +61,34 @@
       "allowTrailingCommas": true
     }
   },
-  "html": {
-    "formatter": {
-      "enabled": true,
-      "attributePosition": "multiline",
-      "bracketSameLine": true,
-      "indentStyle": "space",
-      "indentScriptAndStyle": true
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true,
+      "correctness": {
+        "useImportExtensions": "off",
+        "noEmptyPattern": "off"
+      },
+      "suspicious": {
+        "noAssignInExpressions": "off"
+      },
+      "a11y": {
+        "useButtonType": "off",
+        "useHtmlLang": "off",
+        "useKeyWithClickEvents": "off"
+      },
+      "nursery": {
+        "useSortedClasses": "off"
+      },
+      "complexity": {
+        "useLiteralKeys": "off"
+      }
     }
+  },
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true,
+    "defaultBranch": "main"
   }
 }

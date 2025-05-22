@@ -1,12 +1,14 @@
-import { Search } from '@carbon/icons-react';
+import { Search as SearchIcon } from '@carbon/icons-react';
 import { makeStyles } from '@griffel/react';
 import { useDebounce } from '@gui/core';
 import { type FC, useEffect, useRef, useState } from 'react';
+import ProgressSpinner from '../../progress-spinner/progress-spinner.tsx';
 import styles from './search-input.css.ts';
 
 const useStyles = makeStyles(styles);
 
 type SearchInputProps = {
+  isSearching: boolean;
   open: boolean;
   onChange: (value: string) => void;
 };
@@ -14,10 +16,11 @@ type SearchInputProps = {
 /**
  * This is the search input for the command palette. It is a controlled input.
  *
+ * @param { isSearching } isSearching - Whether or not the search is in progress.
  * @param { open } open - Whether or not the input is open.
  * @param { onChange } onChange - The function to call when the user types in the input.
  */
-const SearchInput: FC<SearchInputProps> = ({ open, onChange }) => {
+const SearchInput: FC<SearchInputProps> = ({ isSearching, open, onChange }) => {
   const classes = useStyles();
   const inputRef = useRef<HTMLInputElement>(null);
   const [value, setValue] = useState('');
@@ -41,7 +44,7 @@ const SearchInput: FC<SearchInputProps> = ({ open, onChange }) => {
 
   return (
     <div className={classes.searchInput}>
-      <Search />
+      <SearchIcon size={21} />
       <input
         ref={inputRef}
         placeholder="type to search..."
@@ -49,6 +52,8 @@ const SearchInput: FC<SearchInputProps> = ({ open, onChange }) => {
         value={value}
         onChange={e => setValue(e.target.value)}
       />
+      {isSearching && <ProgressSpinner size={16} />}
+      <span>esc</span>
     </div>
   );
 };

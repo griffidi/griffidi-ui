@@ -6,70 +6,21 @@ import { commitSession, getSession } from '@/app/sessions.server.ts';
 import { signin } from '@/auth/auth.ts';
 import { useAuth } from '@/hooks/useAuth.ts';
 import type { Route } from './+types/login.ts';
+import styles from './login.css.ts';
 
-const useStyles = makeStyles({
-  container: {
-    display: 'grid',
-    placeItems: 'center',
-    height: '100%',
-  },
+const useStyles = makeStyles(styles);
 
-  form: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '1.3rem',
-    margin: '0 auto',
-    width: '300px',
-
-    '> header': {
-      fontSize: '3rem',
-    },
-  },
-
-  input: {
-    width: '100%',
-    padding: '0.3rem 0.5rem',
-    borderRadius: 'var(--radius-sm)',
-    border: '1px solid var(--color-gray-700)',
-    backgroundColor: '#fff',
-    color: 'var(--color-gray-200)',
-  },
-
-  actions: {
-    '--gui-button-background-color': 'var(--gui-color-secondary)',
-
-    display: 'flex',
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-  },
-});
-
-/**
- * This component is used to render the form actions,
- * such as the submit button.
- */
-const Actions = () => {
-  const { pending } = useFormStatus();
-
-  return (
-    <Button type="submit" disabled={pending}>
-      Login
-    </Button>
-  );
-};
-
-const loader = async ({ request }: Route.LoaderArgs) => {
+export async function loader({ request }: Route.LoaderArgs) {
   const { isAuthenticated } = await useAuth(request);
 
-  console.log(`login loader: ${isAuthenticated}`);
   if (isAuthenticated) {
     return redirect('/');
   }
 
   return { isAuthenticated };
-};
+}
 
-const action = async ({ request }: Route.ActionArgs) => {
+export async function action({ request }: Route.ActionArgs) {
   const form = await request.formData();
   const username = form.get('username')?.toString()!;
   const password = form.get('password')?.toString()!;
@@ -102,9 +53,27 @@ const action = async ({ request }: Route.ActionArgs) => {
       'Set-Cookie': await commitSession(session),
     },
   });
+}
+
+/**
+ * This component is used to render the form actions,
+ * such as the submit button.
+ */
+const Actions = () => {
+  const { pending } = useFormStatus();
+
+  return (
+    <Button type="submit" disabled={pending}>
+      Login
+    </Button>
+  );
 };
 
-const Login = () => {
+/**
+ * This component is used to render the login form.
+ * It uses the `Form` component from `react-router` to handle the form submission.
+ */
+export default function Login() {
   const classes = useStyles();
 
   return (
@@ -141,7 +110,4 @@ const Login = () => {
       </Form>
     </div>
   );
-};
-
-export { action, loader };
-export default Login;
+}

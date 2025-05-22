@@ -2,9 +2,10 @@ import type { FC } from 'react';
 
 type GuiProps = {
   className?: string;
+  size?: number;
 };
 
-const GuiIcon: FC<GuiProps> = ({ className }) => {
+const GuiIcon: FC<GuiProps> = ({ className, size = 24 }) => {
   return (
     <svg
       data-icon="gui-icon"
@@ -12,6 +13,8 @@ const GuiIcon: FC<GuiProps> = ({ className }) => {
       viewBox="0 0 48 48"
       className={className}
       fill="currentColor"
+      width={size}
+      height={size}
     >
       <title>Ghost UI</title>
       <defs>

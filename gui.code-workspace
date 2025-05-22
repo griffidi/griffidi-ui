@@ -18,32 +18,14 @@
     "pnpm.packageManager": "pnpm",
 
     "biome.rename": true,
-    // "biome.projects": [
-    //   {
-    //     "name": "root",
-    //     "path": "."
-    //   },
-    //   {
-    //     "name": "demo",
-    //     "path": "./apps/demo"
-    //   },
-    //   {
-    //     "name": "core",
-    //     "path": "./packages/core"
-    //   },
-    //   {
-    //     "name": "components",
-    //     "path": "./packages/components"
-    //   }
-    // ],
 
     "editor.lightbulb.enabled": "on",
     "editor.defaultFormatter": "biomejs.biome",
     "editor.insertSpaces": true,
     "editor.codeActionsOnSave": {
-      "source.organizeImports.biome": "explicit"
-      // "quickfix.biome": "explicit",
-      // "source.biome": "explicit"
+      "source.organizeImports.biome": "explicit",
+      "quickfix.biome": "explicit",
+      "source.biome": "explicit"
     },
     "editor.codeActions.triggerOnFocusChange": true,
 
@@ -51,9 +33,12 @@
     "editor.roundedSelection": true,
     "workbench.commandPalette.experimental.suggestCommands": true,
     "editor.rulers": [100],
+    "editor.overviewRulerBorder": true,
+    "editor.experimentalGpuAcceleration": "on",
     "editor.experimentalEditContextEnabled": true,
     "editor.experimentalWhitespaceRendering": "font",
     "editor.renderWhitespace": "none",
+
     "js/ts.implicitProjectConfig.experimentalDecorators": true,
     "javascript.format.semicolons": "insert",
     "javascript.preferences.importModuleSpecifier": "shortest",
@@ -153,7 +138,7 @@
       "**/CVS": true,
       "**/.DS_Store": true,
       "**/Thumbs.db": true,
-      // "**/node_modules": true,
+      "**/node_modules": true,
       "**/dist": true,
       "**/.react-router": true
     },

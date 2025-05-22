@@ -1608,6 +1608,26 @@ export type GetCustomersQuery = {
   }>;
 };
 
+export type GetCustomerByIdQueryVariables = Exact<{
+  id: Scalars['String']['input'];
+}>;
+
+export type GetCustomerByIdQuery = {
+  readonly customer?:
+    | {
+        readonly id: string;
+        readonly name: string;
+        readonly phone: string;
+        readonly streetAddress: string;
+        readonly city: string;
+        readonly state: string;
+        readonly zip: string;
+        readonly dateCreated: unknown;
+        readonly dateUpdated: unknown;
+      }
+    | undefined;
+};
+
 export type GetSearchResultsQueryVariables = Exact<{
   query: Scalars['String']['input'];
 }>;
@@ -1623,6 +1643,42 @@ export type GetSearchResultsQuery = {
     | undefined;
 };
 
+export type CustomerPartsFragment = {
+  readonly id: string;
+  readonly name: string;
+  readonly phone: string;
+  readonly streetAddress: string;
+  readonly city: string;
+  readonly state: string;
+  readonly zip: string;
+  readonly dateCreated: unknown;
+  readonly dateUpdated: unknown;
+};
+
+export const CustomerPartsFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'CustomerParts' },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Customer' } },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'phone' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'streetAddress' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'city' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'state' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'zip' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'dateCreated' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'dateUpdated' } },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<CustomerPartsFragment, unknown>;
 export const Signin = {
   kind: 'Document',
   definitions: [
@@ -1761,23 +1817,104 @@ export const GetCustomers = {
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'phone' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'streetAddress' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'city' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'state' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'zip' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'dateCreated' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'dateUpdated' } },
+                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'CustomerParts' } },
               ],
             },
           },
         ],
       },
     },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'CustomerParts' },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Customer' } },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'phone' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'streetAddress' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'city' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'state' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'zip' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'dateCreated' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'dateUpdated' } },
+        ],
+      },
+    },
   ],
 } as unknown as DocumentNode<GetCustomersQuery, GetCustomersQueryVariables>;
+export const GetCustomerById = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'getCustomerById' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'id' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'customer' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'where' },
+                value: {
+                  kind: 'ObjectValue',
+                  fields: [
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'id' },
+                      value: { kind: 'Variable', name: { kind: 'Name', value: 'id' } },
+                    },
+                  ],
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'CustomerParts' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'CustomerParts' },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Customer' } },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'phone' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'streetAddress' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'city' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'state' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'zip' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'dateCreated' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'dateUpdated' } },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<GetCustomerByIdQuery, GetCustomerByIdQueryVariables>;
 export const GetSearchResults = {
   kind: 'Document',
   definitions: [

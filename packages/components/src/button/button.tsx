@@ -1,12 +1,11 @@
 import { makeStyles } from '@griffel/react';
+import type { ButtonHTMLAttributes, FC } from 'react';
 
 const useStyles = makeStyles({
   button: {
-    '--_background-color': 'var(--gui-button-background-color, var(--color-blue-500))',
-
     padding: '0.3rem 1.5rem',
-    borderRadius: 'var(--radius-sm)',
-    backgroundColor: 'var(--_background-color)',
+    borderRadius: '8px',
+    // backgroundColor: 'var(--gui-button-background-color, var(--color-blue-500))',
     color: '#fff',
     border: 'none',
     cursor: 'pointer',
@@ -17,12 +16,20 @@ const useStyles = makeStyles({
   },
 });
 
-const Button: React.FC<React.ButtonHTMLAttributes<HTMLButtonElement>> = props => {
+type ButtonProps = {
+  variant?: 'primary' | 'secondary';
+} & ButtonHTMLAttributes<HTMLButtonElement>;
+
+const Button: FC<ButtonProps> = ({ children, variant = 'primary', ...props }) => {
   const classes = useStyles();
 
+  const buttonStyles = {
+    backgroundColor: `var(--gui-button-background-color, var(${variant === 'primary' ? '--gui-color-primary' : '--gui-color-gray'}))`,
+  };
+
   return (
-    <button {...props} className={classes.button}>
-      {props.children}
+    <button {...props} className={classes.button} style={buttonStyles}>
+      {children}
     </button>
   );
 };

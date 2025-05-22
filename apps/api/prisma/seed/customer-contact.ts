@@ -29,6 +29,7 @@ export const createCustomerContacts = async (prisma: PrismaClient) => {
           lastName: faker.person.lastName(),
           email: faker.internet.email(),
           streetAddress: faker.location.streetAddress(),
+          streetAddress2: faker.location.secondaryAddress(),
           city: faker.location.city(),
           state: faker.location.state(),
           zip: faker.location.zipCode(),
@@ -37,9 +38,7 @@ export const createCustomerContacts = async (prisma: PrismaClient) => {
       });
 
     console.log('Adding customer contacts for customerId:', customerId);
-    Array.from({ length: 10 }).forEach(
-      async () => await createCustomerContact(),
-    );
+    Array.from({ length: 10 }).forEach(async () => await createCustomerContact());
   }
 
   console.groupEnd();

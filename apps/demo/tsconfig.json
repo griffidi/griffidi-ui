@@ -9,15 +9,11 @@
     "rootDirs": [".", "./.react-router/types"],
     "paths": {
       "@/*": ["./*"],
+      "@/+types/*": ["../.react-router/types/src/app/routes/+types/*"],
       "@gui/components/*": ["../../packages/components/src/*"],
       "@gui/core/*": ["../../packages/core/src/*"]
     }
   },
-  "include": [
-    "src/**/*",
-    "**/.server/**/*",
-    "**/.client/**/*",
-    ".react-router/types/**/*"
-  ],
+  "include": ["src/**/*", "**/.server/**/*", "**/.client/**/*", ".react-router/types/**/*"],
   "exclude": ["node_modules", "dist"]
 }

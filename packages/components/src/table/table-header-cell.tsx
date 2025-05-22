@@ -1,4 +1,5 @@
 import { makeStyles } from '@griffel/react';
+import type { FC, ReactElement } from 'react';
 import sharedStyles from './table-cell-shared.css.ts';
 
 const useStyles = makeStyles({
@@ -10,16 +11,18 @@ const useStyles = makeStyles({
 
     background: 'var(--_table-header-cell-background-color)',
     borderBottom: '1px solid var(--gui-color-border)',
-    paddingBlock: 'var(--padding-block)',
     color: 'var(--gui-color-primary)',
     fontSize: '1.1rem',
     fontWeight: '700',
+    paddingBlock: 'var(--padding-block)',
   },
 });
 
-const TableHeaderCell: React.FC<{
-  children: React.ReactElement | React.ReactElement[] | string;
-}> = ({ children }) => {
+type TableHeaderCellProps = {
+  children?: ReactElement[] | ReactElement | string | undefined;
+};
+
+const TableHeaderCell: FC<TableHeaderCellProps> = ({ children }) => {
   const classes = useStyles();
 
   return <div className={classes.cell}>{children}</div>;

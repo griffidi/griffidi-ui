@@ -3,7 +3,7 @@
   "description": "A full-stack workspace with core and component libraries, an GraphQL API project and a React demo app",
   "private": true,
   "license": "MIT",
-  "packageManager": "pnpm@10.9.0",
+  "packageManager": "pnpm@10.11.0",
   "engines": {
     "node": ">=23.11.0"
   },

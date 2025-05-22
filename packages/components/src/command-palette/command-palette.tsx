@@ -7,8 +7,10 @@ import SearchResults from './search/search-result.tsx';
 import SearchTrigger from './search/search-trigger.tsx';
 
 const DEFAULT_DIALOG_HEIGHT = 26;
-const NAV_ITEM_GAP = 8;
+const NAV_ITEM_GAP = 0;
 const NAV_ITEM_HEIGHT = 52;
+const FOOTER_HEIGHT = 24;
+const FOOTER_MARGIN_TOP = 0;
 
 export type CommandPaletteResultTypeMap = Record<
   string | number,
@@ -20,6 +22,7 @@ type CommandPaletteProps = {
   results: CommandItem[];
   resultTypeMap: CommandPaletteResultTypeMap;
   visibleResults?: number;
+  footer?: ReactNode;
   onSearch: (value: string) => void;
   onClose?: () => void;
   onSelectedChange?: (item: Item) => void;
@@ -34,6 +37,7 @@ type CommandPaletteProps = {
  * @param { results } results - The results to display.
  * @param { resultTypeIconMap } resultTypeIconMap - The map of result types to icons.
  * @param { visibleResults } visibleResults - The number of results to display at once.
+ * @param { footer } footer - The footer to display in the dialog.
  * @param { onSearch } onSearch - The function to call when the user types in the input.
  * @param { onClose } onClose - The function to call when the user closes the dialog.
  * @param { onSelectedChange } onSelectedChange - The function to call when the user selects an item.
@@ -43,12 +47,16 @@ const CommandPalette: FC<CommandPaletteProps> = ({
   results,
   resultTypeMap,
   visibleResults = 7,
+  footer,
   onSearch,
   onClose,
   onSelectedChange,
 }) => {
   const [open, setOpen] = useState(false);
   const [resultsHeight, setResultsHeight] = useState(DEFAULT_DIALOG_HEIGHT);
+  const footerHeight = footer ? FOOTER_HEIGHT : 0;
+  const footerMarginTop = footer ? FOOTER_MARGIN_TOP : 0;
+  const defaultDialogHeight = DEFAULT_DIALOG_HEIGHT + footerHeight + footerMarginTop;
 
   // Listen for the '/' key to open the command palette.
   useEffect(() => {
@@ -88,24 +96,40 @@ const CommandPalette: FC<CommandPaletteProps> = ({
     handleClose();
   };
 
+  const Footer = () => {
+    return footer ? (
+      <footer
+        style={{
+          display: 'flex',
+          justifyContent: 'flex-end',
+          alignItems: 'center',
+          height: `${FOOTER_HEIGHT}px`,
+          marginTop: `${FOOTER_MARGIN_TOP}px`,
+        }}
+      >
+        {footer}
+      </footer>
+    ) : null;
+  };
+
   return (
     <>
       <SearchTrigger onClick={() => setOpen(true)} />
       <Dialog
         open={open}
         width="500px"
-        minHeight={`${DEFAULT_DIALOG_HEIGHT}px`}
+        minHeight={`${defaultDialogHeight}px`}
         position={{ top: '100px', right: '0', bottom: '0', left: '0' }}
         onClose={handleClose}
       >
-        <SearchInput open={open} onChange={onSearch} />
+        <SearchInput isSearching={isSearching} open={open} onChange={onSearch} />
         <SearchResults
           height={resultsHeight}
-          isSearching={isSearching}
           results={results}
           resultTypeIconMap={resultTypeMap}
           onSelectedChange={handleSelectedChanged}
         />
+        <Footer />
       </Dialog>
     </>
   );

@@ -18,16 +18,7 @@ export default {
     '> span': {
       display: 'flex',
       alignItems: 'center',
-      gap: '0.4rem',
-
-      '> span': {
-        display: 'grid',
-        placeContent: 'center',
-        border: '1px solid var(--gui-color-border)',
-        borderRadius: 'var(--radius-sm)',
-        padding: '0 0.4rem',
-        fontSize: '0.7rem',
-      },
+      fontWeight: 200,
     },
 
     '&:hover': {

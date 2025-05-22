@@ -14,7 +14,7 @@ export default {
     },
 
     '> a svg[data-icon="gui-icon"]': {
-      color: '#fff',
+      color: 'var(--gui-color-text)',
 
       '&:hover': {
         color: 'var(--color-blue-500)',

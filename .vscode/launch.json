@@ -7,11 +7,7 @@
       "type": "node-terminal",
       "noDebug": false,
       "command": "pnpm run dev",
-      "skipFiles": [
-        "**/<node_internals>/**",
-        "**/node_modules/**",
-        "!**/node_modules/@gui/**"
-      ],
+      "skipFiles": ["**/<node_internals>/**", "**/node_modules/**", "!**/node_modules/@gui/**"],
       "sourceMaps": true,
       "smartStep": true,
       "internalConsoleOptions": "openOnSessionStart",
@@ -28,11 +24,7 @@
       "type": "node-terminal",
       "noDebug": false,
       "command": "pnpm run dev",
-      "skipFiles": [
-        "**/<node_internals>/**",
-        "**/node_modules/**",
-        "!**/node_modules/@hui/**"
-      ],
+      "skipFiles": ["**/<node_internals>/**", "**/node_modules/**", "!**/node_modules/@hui/**"],
       "sourceMaps": true,
       "smartStep": true,
       "internalConsoleOptions": "openOnSessionStart",
@@ -44,7 +36,7 @@
     },
     {
       "name": "Launch demo:client (edge)",
-      "type": "msedge",
+      "type": "pwa-msedge",
       "request": "launch",
       "url": "http://localhost:3006/",
       "webRoot": "${workspaceFolder}/apps/demo/src",
@@ -80,11 +72,7 @@
   "compounds": [
     {
       "name": "Debug demo (edge)",
-      "configurations": [
-        "Launch api",
-        "Launch demo:serve",
-        "Launch demo:client (edge)"
-      ],
+      "configurations": ["Launch api", "Launch demo:serve", "Launch demo:client (edge)"],
       "stopAll": true,
       "presentation": {
         "hidden": false,
@@ -94,11 +82,7 @@
     },
     {
       "name": "Debug demo (chrome)",
-      "configurations": [
-        "Launch api",
-        "Launch demo:serve",
-        "Launch demo:client (chrome)"
-      ],
+      "configurations": ["Launch api", "Launch demo:serve", "Launch demo:client (chrome)"],
       "stopAll": true,
       "presentation": {
         "hidden": false,

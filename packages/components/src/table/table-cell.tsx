@@ -1,4 +1,5 @@
 import { makeStyles } from '@griffel/react';
+import type { FC, ReactElement } from 'react';
 import sharedStyles from './table-cell-shared.css.ts';
 
 const useStyles = makeStyles({
@@ -9,12 +10,15 @@ const useStyles = makeStyles({
   },
 });
 
-const TableCell: React.FC<{
-  children: React.ReactElement | React.ReactElement[] | string;
-}> = ({ children }) => {
+type TableCellProps = {
+  children?: ReactElement[] | ReactElement | string | undefined;
+  className?: string;
+};
+
+const TableCell: FC<TableCellProps> = ({ children, className }) => {
   const classes = useStyles();
 
-  return <div className={classes.cell}>{children}</div>;
+  return <div className={`${classes.cell} ${className}`}>{children}</div>;
 };
 
 export default TableCell;

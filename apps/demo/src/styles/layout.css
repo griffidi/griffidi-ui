@@ -17,7 +17,7 @@ body {
     align-items: center;
     width: 100vw;
     padding-inline: 1.25rem;
-    background: 'var(--gui-color-background)',
+    background: "var(--gui-color-background)",;
   }
 
   & > header {
@@ -33,15 +33,47 @@ body {
     padding-block: 0.75rem;
     z-index: 1;
   }
+
+  & > main {
+    height: 100dvh;
+    width: 100%;
+    padding-block-start: calc(var(--app-header-height) + 1.25rem);
+    padding-inline: 1.25rem;
+  }
 }
 
 input {
+  font-size: var(--gui-font-size);
+  font-weight: var(--gui-font-weight);
+  padding: 0.5rem 0.5rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-gray-700);
+  background-color: #fff;
+  color: var(--gui-color-input);
+  outline: none;
+  font-weight: var(--gui-font-weight-input);
+
+  &::placeholder {
+    color: var(--gui-color-text-lighter);
+  }
+
   &:-webkit-autofill {
-    -webkit-box-shadow: 0 0 0 100px var(--gui-text-fill-background-color) inset;
-    -webkit-text-fill-color: var(--gui-text-fill-color);
+    -webkit-box-shadow: 0 0 0 100px var(--gui-color-text-fill-background) inset;
+    -webkit-text-fill-color: var(--gui-color-text-fill);
   }
   &:autofill {
-    box-shadow: 0 0 0 100px var(--gui-text-fill-background-color) inset;
-    color: var(--gui-text-fill-color);
+    box-shadow: 0 0 0 100px var(--gui-color-text-fill-background) inset;
+    color: var(--gui-color-text-fill);
+  }
+}
+
+a {
+  color: var(--gui-color-text);
+  text-decoration: none;
+  font-weight: var(--gui-font-weight-bold);
+  transition: color 0.2s ease-in-out;
+
+  &:hover {
+    color: var(--gui-color-primary);
   }
 }
