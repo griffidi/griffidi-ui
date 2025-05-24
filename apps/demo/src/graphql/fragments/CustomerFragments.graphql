@@ -6,6 +6,7 @@ fragment CustomerParts on Customer {
   city
   stateId
   state {
+    id
     name
   }
   zip

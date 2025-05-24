@@ -1,5 +1,6 @@
 import { ApolloProvider } from '@apollo/client/react/context';
 import { createDOMRenderer, RendererProvider } from '@griffel/react';
+import componentStyles from '@gui/components/index.css?url';
 import { StrictMode, Suspense } from 'react';
 import {
   isRouteErrorResponse,
@@ -44,6 +45,10 @@ export const links: Route.LinksFunction = () => [
   {
     rel: 'stylesheet',
     href: styles,
+  },
+  {
+    rel: 'stylesheet',
+    href: componentStyles,
   },
 ];
 

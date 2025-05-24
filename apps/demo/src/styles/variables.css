@@ -9,6 +9,7 @@
   --gui-color-background: var(--color-gray-800);
   --gui-color-background-darker: color-mix(in oklab, var(--gui-color-background) 90%, black);
   --gui-color-background-lighter: color-mix(in oklab, var(--gui-color-background) 90%, black);
+  --gui-color-background-hover: var(--gui-color-background-darker);
 
   /* text color */
   --gui-color-text: var(--color-slate-300);
@@ -18,6 +19,7 @@
   --gui-color-text-fill: var(--color-slate-700);
   --gui-color-text-lighter: var(--color-slate-100);
   --gui-color-text-darker: var(--color-slate-600);
+  --gui-color-background-input: var(--color-slate-400);
   --gui-color-input: var(--color-slate-600);
   --gui-color-border: var(--color-slate-700);
 

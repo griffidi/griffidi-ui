@@ -4,11 +4,11 @@ import type { ButtonHTMLAttributes, FC } from 'react';
 const useStyles = makeStyles({
   button: {
     padding: '0.3rem 1.5rem',
-    borderRadius: '8px',
-    // backgroundColor: 'var(--gui-button-background-color, var(--color-blue-500))',
+    borderRadius: '6px',
     color: '#fff',
     border: 'none',
     cursor: 'pointer',
+    fontWeight: '400',
 
     '&:hover': {
       backgroundColor: 'color-mix(in oklab, var(--_background-color) 90%, black)',

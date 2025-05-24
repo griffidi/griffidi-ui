@@ -53,7 +53,7 @@ export default {
     display: 'flex',
     justifyContent: 'space-between',
 
-    '& input': {
+    '& input, & select': {
       width: '32%',
     },
   },

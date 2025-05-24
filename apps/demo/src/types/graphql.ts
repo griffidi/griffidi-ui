@@ -2540,7 +2540,7 @@ export type GetCustomersQuery = {
     readonly zip: string;
     readonly dateCreated: unknown;
     readonly dateUpdated: unknown;
-    readonly state: { readonly name: string };
+    readonly state: { readonly id: string; readonly name: string };
   }>;
 };
 
@@ -2560,9 +2560,19 @@ export type GetCustomerByIdQuery = {
         readonly zip: string;
         readonly dateCreated: unknown;
         readonly dateUpdated: unknown;
-        readonly state: { readonly name: string };
+        readonly state: { readonly id: string; readonly name: string };
       }
     | undefined;
+};
+
+export type GetLocationStatesQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GetLocationStatesQuery = {
+  readonly states: ReadonlyArray<{
+    readonly id: string;
+    readonly name: string;
+    readonly code: string;
+  }>;
 };
 
 export type GetSearchResultsQueryVariables = Exact<{
@@ -2590,7 +2600,7 @@ export type CustomerPartsFragment = {
   readonly zip: string;
   readonly dateCreated: unknown;
   readonly dateUpdated: unknown;
-  readonly state: { readonly name: string };
+  readonly state: { readonly id: string; readonly name: string };
 };
 
 export const CustomerPartsFragmentDoc = {
@@ -2614,7 +2624,10 @@ export const CustomerPartsFragmentDoc = {
             name: { kind: 'Name', value: 'state' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+              ],
             },
           },
           { kind: 'Field', name: { kind: 'Name', value: 'zip' } },
@@ -2788,7 +2801,10 @@ export const GetCustomers = {
             name: { kind: 'Name', value: 'state' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+              ],
             },
           },
           { kind: 'Field', name: { kind: 'Name', value: 'zip' } },
@@ -2866,7 +2882,10 @@ export const GetCustomerById = {
             name: { kind: 'Name', value: 'state' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+              ],
             },
           },
           { kind: 'Field', name: { kind: 'Name', value: 'zip' } },
@@ -2877,6 +2896,33 @@ export const GetCustomerById = {
     },
   ],
 } as unknown as DocumentNode<GetCustomerByIdQuery, GetCustomerByIdQueryVariables>;
+export const GetLocationStates = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'getLocationStates' },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'states' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'code' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<GetLocationStatesQuery, GetLocationStatesQueryVariables>;
 export const GetSearchResults = {
   kind: 'Document',
   definitions: [

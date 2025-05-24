@@ -28,6 +28,9 @@
     "./dialog/dialog.tsx": {
       "import": "./src/dialog/dialog.tsx"
     },
+    "./dropdownlist/*.tsx": {
+      "import": "./src/dropdownlist/*.tsx"
+    },
     "./list/*.tsx": {
       "import": "./src/list/*.tsx"
     },
@@ -39,6 +42,12 @@
     },
     "./progress-spinner/*.tsx": {
       "import": "./src/progress-spinner/*.tsx"
+    },
+    "./styles/*.css": {
+      "import": "./src/styles/*.css"
+    },
+    "./index.css": {
+      "import": "./src/index.css"
     },
     "./table/*.tsx": {
       "import": "./src/table/*.tsx"

@@ -3,6 +3,7 @@ import { makeStyles } from '@griffel/react';
 import Button from '@gui/components/button/button.tsx';
 import { Form, redirect, useParams } from 'react-router';
 import type { Route } from '@/+types/index.ts';
+import LocationStateDropdownList from '@/components/dropdownlist/location-state-dropdownlist.tsx';
 import { useAuth } from '@/hooks/useAuth.ts';
 import { GetCustomerById } from '@/types/graphql.ts';
 import styles from './[id].css.ts';
@@ -49,7 +50,7 @@ export default function Customer() {
 
         <div className={classes.inputGroup}>
           <input id="customer-name" type="text" name="contact" defaultValue={name} />
-          <input id="customer-phone" type="tel" name="contact" defaultValue={phone} />
+          <input type="tel" name="contact" defaultValue={phone} />
         </div>
       </div>
 
@@ -64,9 +65,9 @@ export default function Customer() {
             defaultValue={streetAddress}
           />
           <div className={classes.addressCityStateZip}>
-            <input id="customer-city" type="text" name="city" defaultValue={city} />
-            <input id="customer-state" type="text" name="state" defaultValue={state} />
-            <input id="customer-zip" type="text" name="zip" defaultValue={zip} />
+            <input type="text" name="city" defaultValue={city} />
+            <LocationStateDropdownList name="state" defaultValue={state!.id} />
+            <input type="text" name="zip" defaultValue={zip} />
           </div>
         </div>
       </div>
