@@ -5,6 +5,7 @@ import ProgressSpinner from '@gui/components/progress-spinner/progress-spinner.t
 import Table from '@gui/components/table/index.tsx';
 import { Link, type LoaderFunctionArgs, redirect } from 'react-router';
 import ErrorMessage from '@/components/error/error-message.tsx';
+import Loading from '@/components/loading/loading.tsx';
 import { useAuth } from '@/hooks/useAuth.ts';
 import { type Customer, GetCustomers } from '@/types/graphql';
 import styles from './customers.css.ts';
@@ -31,7 +32,7 @@ export default function Customers() {
     data: { customers = [] } = { customers: [] as Customer[] },
   } = useQuery(GetCustomers);
 
-  if (loading) return <ProgressSpinner />;
+  if (loading) return <Loading />;
   if (error) return <ErrorMessage message={error.message} />;
 
   return (

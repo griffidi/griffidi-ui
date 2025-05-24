@@ -33,6 +33,7 @@ select {
   background-color: var(--gui-color-background);
   color: var(--gui-color-text);
   font-weight: var(--gui-font-weight);
+  max-height: clamp(200px, 50vh, 300px);
 }
 
 option {
@@ -40,8 +41,6 @@ option {
   justify-content: flex-start;
   gap: 20px;
 
-  /* border: 2px solid #ddd; */
-  /* background: #eee; */
   padding: 0.2rem 0.1rem;
   transition: 0.4s;
 
@@ -51,7 +50,6 @@ option {
 
   &:is(:focus-visible, :hover) {
     background: var(--gui-color-background-hover);
-    /* color: var(--gui-color-text); */
   }
 
   &:checked {
