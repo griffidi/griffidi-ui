@@ -39,7 +39,7 @@ const Search = () => {
   // On search, query search and set results.
   const handleSearch = (searchTerm: string) => {
     startTransition(async () => {
-      if (!searchTerm || searchTerm.length < 3) {
+      if (!searchTerm || searchTerm.length < 2) {
         setResults([]);
         return;
       }

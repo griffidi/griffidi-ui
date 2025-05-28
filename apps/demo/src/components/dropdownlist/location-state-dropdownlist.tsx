@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/client/react/hooks';
 import DropdownList from '@gui/components/dropdownlist/dropdownlist.tsx';
-import type { FC } from 'react';
+import type { FC, SelectHTMLAttributes } from 'react';
 import { GetLocationStates } from '@/types/graphql.ts';
 
 type LocationStateDropdownListProps = {
@@ -8,13 +8,14 @@ type LocationStateDropdownListProps = {
   defaultValue?: string;
   value?: string;
   name?: string;
-};
+} & SelectHTMLAttributes<HTMLSelectElement>;
 
 const LocationStateDropdownList: FC<LocationStateDropdownListProps> = ({
   onChange,
   defaultValue,
-  value,
+  value = defaultValue,
   name,
+  ...props
 }) => {
   const {
     data: { states = [] } = {},
@@ -30,6 +31,7 @@ const LocationStateDropdownList: FC<LocationStateDropdownListProps> = ({
       defaultValue={defaultValue}
       value={value}
       name={name}
+      {...props}
     />
   );
 };

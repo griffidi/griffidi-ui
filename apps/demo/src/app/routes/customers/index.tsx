@@ -1,14 +1,13 @@
 import { useQuery } from '@apollo/client/react/hooks';
 import { Launch } from '@carbon/icons-react';
 import { makeStyles } from '@griffel/react';
-import ProgressSpinner from '@gui/components/progress-spinner/progress-spinner.tsx';
 import Table from '@gui/components/table/index.tsx';
 import { Link, type LoaderFunctionArgs, redirect } from 'react-router';
 import ErrorMessage from '@/components/error/error-message.tsx';
 import Loading from '@/components/loading/loading.tsx';
 import { useAuth } from '@/hooks/useAuth.ts';
 import { type Customer, GetCustomers } from '@/types/graphql';
-import styles from './customers.css.ts';
+import styles from './index.css.ts';
 
 const useStyles = makeStyles(styles);
 

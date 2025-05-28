@@ -3,32 +3,35 @@ import type { ButtonHTMLAttributes, FC } from 'react';
 
 const useStyles = makeStyles({
   button: {
+    '--_background-color': 'var(--gui-button-background-color, var(--gui-color-primary))',
+
     padding: '0.3rem 1.5rem',
     borderRadius: '6px',
     color: '#fff',
     border: 'none',
     cursor: 'pointer',
     fontWeight: '400',
+    backgroundColor: 'var(--_background-color)',
 
-    '&:hover': {
+    '&:disabled': {
+      backgroundColor: 'var(--gui-color-disabled-button)',
+      color: 'var(--gui-color-disabled-button-text)',
+      cursor: 'not-allowed',
+    },
+
+    '&:not([disabled]):hover': {
       backgroundColor: 'color-mix(in oklab, var(--_background-color) 90%, black)',
     },
   },
 });
 
-type ButtonProps = {
-  variant?: 'primary' | 'secondary';
-} & ButtonHTMLAttributes<HTMLButtonElement>;
+type ButtonProps = {} & ButtonHTMLAttributes<HTMLButtonElement>;
 
-const Button: FC<ButtonProps> = ({ children, variant = 'primary', ...props }) => {
+const Button: FC<ButtonProps> = ({ children, disabled, ...props }) => {
   const classes = useStyles();
 
-  const buttonStyles = {
-    backgroundColor: `var(--gui-button-background-color, var(${variant === 'primary' ? '--gui-color-primary' : '--gui-color-gray'}))`,
-  };
-
   return (
-    <button {...props} className={classes.button} style={buttonStyles}>
+    <button {...props} className={classes.button} disabled={disabled}>
       {children}
     </button>
   );

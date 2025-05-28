@@ -20,7 +20,7 @@ body {
     align-items: center;
     width: 100vw;
     padding-inline: 1.25rem;
-    background: "var(--gui-color-background)",;
+    background: "transparent";
   }
 
   & > header {
@@ -38,10 +38,10 @@ body {
   }
 
   & > main {
-    height: 100%;
+    height: calc(100% + (1.25rem * 2));
     width: 100%;
-    padding-block-start: calc(var(--app-header-height) + 1.25rem);
-    padding-block-end: calc(var(--app-footer-height) + 1.25rem);
+    margin-block-start: calc(var(--app-header-height) + 1.25rem);
+    margin-block-end: calc(var(--app-footer-height) + 1.25rem);
     padding-inline: 1.25rem;
   }
 }

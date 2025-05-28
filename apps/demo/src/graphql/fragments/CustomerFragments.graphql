@@ -3,6 +3,7 @@ fragment CustomerParts on Customer {
   name
   phone
   streetAddress
+  streetAddress2
   city
   stateId
   state {

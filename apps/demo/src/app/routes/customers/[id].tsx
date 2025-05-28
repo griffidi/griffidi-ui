@@ -1,14 +1,18 @@
-import { useSuspenseQuery } from '@apollo/client/react/hooks';
+import { useMutation, useSuspenseQuery } from '@apollo/client/react/hooks';
 import { makeStyles } from '@griffel/react';
-import Button from '@gui/components/button/button.tsx';
-import { Form, redirect, useParams } from 'react-router';
+import { useEffect, useState, useTransition } from 'react';
+import { redirect, useParams } from 'react-router';
 import type { Route } from '@/+types/index.ts';
-import LocationStateDropdownList from '@/components/dropdownlist/location-state-dropdownlist.tsx';
+import CustomerDetail from '@/components/customer-detail/customer-detail.tsx';
+import type { CustomerFormData } from '@/components/customer-detail/customer-form-data.ts';
+import loadingStyles from '@/components/loading/loading.css.ts';
+import Loading from '@/components/loading/loading.tsx';
 import { useAuth } from '@/hooks/useAuth.ts';
-import { GetCustomerById } from '@/types/graphql.ts';
+import { type CustomerUpdateInput, GetCustomerById, UpdateCustomer } from '@/types/graphql.ts';
 import styles from './[id].css.ts';
 
 const useStyles = makeStyles(styles);
+const useLoadingStyles = makeStyles(loadingStyles);
 
 export async function loader({ request }: Route.LoaderArgs) {
   const { isAuthenticated } = await useAuth(request);
@@ -22,11 +26,12 @@ export async function loader({ request }: Route.LoaderArgs) {
   return { isAuthenticated };
 }
 
-export function action() {}
-
 export default function Customer() {
   const classes = useStyles();
+  const loadingClasses = useLoadingStyles();
   const { id = '' } = useParams<{ id: string }>();
+  const [updatedCustomer, setUpdatedCustomer] = useState<CustomerUpdateInput | null>(null);
+  const [isPending, startTransition] = useTransition();
 
   const {
     data: { customer },
@@ -36,51 +41,41 @@ export default function Customer() {
     },
   });
 
-  const { name, phone, dateCreated, dateUpdated, city, state, streetAddress, zip } = customer ?? {};
+  const [saveCustomer] = useMutation(UpdateCustomer, {
+    variables: {
+      id,
+      data: updatedCustomer!,
+    },
+    onCompleted: data => {
+      if (data?.updateOneCustomer) {
+        console.log('Customer updated successfully:', data.updateOneCustomer);
+      }
+    },
+    onError: error => {
+      console.error('Error updating customer:', error);
+    },
+  });
+
+  const handleDelete = async () => {
+    // Implement delete logic here
+    console.log('Deleting customer with ID:', id);
+  };
+
+  const handleSave = (data: CustomerFormData) => setUpdatedCustomer(data);
+
+  // biome-ignore lint/correctness/useExhaustiveDependencies: adding saveCustomer to dependencies causes an infinite loop.
+  useEffect(() => {
+    if (updatedCustomer) {
+      startTransition(async () => {
+        await saveCustomer();
+      });
+    }
+  }, [updatedCustomer]);
 
   return (
-    <Form method="post" className={classes.form}>
-      <header className={classes.header}>
-        <span className={classes.headerTitle}>Customer</span>
-        <span className={classes.headerDescription}>Update customer information</span>
-      </header>
-
-      <div className={classes.sectionGroup}>
-        <label htmlFor="customer-name">Contact</label>
-
-        <div className={classes.inputGroup}>
-          <input id="customer-name" type="text" name="contact" defaultValue={name} />
-          <input type="tel" name="contact" defaultValue={phone} />
-        </div>
-      </div>
-
-      <div className={classes.sectionGroup}>
-        <label htmlFor="customer-streetAddress">Address</label>
-
-        <div className={classes.inputGroup}>
-          <input
-            id="customer-streetAddress"
-            type="text"
-            name="streetAddress"
-            defaultValue={streetAddress}
-          />
-          <div className={classes.addressCityStateZip}>
-            <input type="text" name="city" defaultValue={city} />
-            <LocationStateDropdownList name="state" defaultValue={state!.id} />
-            <input type="text" name="zip" defaultValue={zip} />
-          </div>
-        </div>
-      </div>
-
-      <footer className={classes.footer}>
-        <Button type="submit">Save</Button>
-        <Button type="button" variant="secondary">
-          Cancel
-        </Button>
-        <Button type="button" variant="secondary">
-          Delete
-        </Button>
-      </footer>
-    </Form>
+    <div className={classes.container}>
+      {isPending && <Loading className={loadingClasses.fill} />}
+      <CustomerDetail customer={customer!} onSave={handleSave} onDelete={handleDelete} />
+    </div>
   );
 }

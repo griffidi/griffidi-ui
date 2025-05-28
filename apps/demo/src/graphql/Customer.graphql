@@ -9,3 +9,15 @@ query getCustomerById($id: String!) {
     ...CustomerParts
   }
 }
+
+mutation updateCustomer($id: String!, $data: CustomerUpdateInput!) {
+  updateOneCustomer(where: { id: $id }, data: $data) {
+    ...CustomerParts
+  }
+}
+
+mutation deleteCustomer($id: String!) {
+  deleteOneCustomer(where: { id: $id }) {
+    ...CustomerParts
+  }
+}

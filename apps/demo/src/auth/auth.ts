@@ -1,7 +1,4 @@
-import {
-  clientConfig,
-  createApolloClient,
-} from '@/client/create-apollo-client.ts';
+import { clientConfig, createApolloClient } from '@/client/create-apollo-client.ts';
 import { Signin } from '@/types/graphql';
 
 export const signin = async (username: string, password: string) => {

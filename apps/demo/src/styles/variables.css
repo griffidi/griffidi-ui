@@ -22,6 +22,8 @@
   --gui-color-background-input: var(--color-slate-400);
   --gui-color-input: var(--color-slate-600);
   --gui-color-border: var(--color-slate-700);
+  --gui-color-disabled-button: var(--color-slate-600);
+  --gui-color-disabled-button-text: var(--color-slate-300);
 
   /* gradient colors */
   --gui-color-gradient-brand: linear-gradient(
