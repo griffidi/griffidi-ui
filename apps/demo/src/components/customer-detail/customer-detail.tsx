@@ -96,7 +96,7 @@ const CustomerDetail = ({ customer, onSave, onDelete }: CustomerDetailProps) => 
             <Controller
               name="stateId"
               control={control}
-              rules={{ required: true }}
+              rules={{ required: false }}
               render={({ field }) => (
                 <LocationStateDropdownList defaultValue={state!.id} {...field} />
               )}

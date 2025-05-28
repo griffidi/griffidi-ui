@@ -1,15 +1,9 @@
 import { makeStyles } from '@griffel/react';
 import ProgressSpinner from '@gui/components/progress-spinner/progress-spinner.tsx';
 import type { FC, HTMLAttributes } from 'react';
+import styles from './loading.css.ts';
 
-const useStyles = makeStyles({
-  container: {
-    display: 'grid',
-    placeItems: 'center',
-    height: '100%',
-    width: '100%',
-  },
-});
+const useStyles = makeStyles(styles);
 
 const Loading: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
   const classes = useStyles();

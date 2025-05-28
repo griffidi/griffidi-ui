@@ -1,11 +1,18 @@
 import type { CssStyles } from '@gui/components/types/css.ts';
 
 export default {
+  container: {
+    display: 'grid',
+    placeItems: 'center',
+    height: '100%',
+    width: '100%',
+  },
+
   fill: {
     position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
+    inset: '0',
+    display: 'grid',
+    placeItems: 'center',
     backgroundColor: 'rgba(0, 0, 0, 0.12)',
     borderRadius: 'var(--radius-2xl)',
   },
