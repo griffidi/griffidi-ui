@@ -1,6 +1,8 @@
 import { useMutation, useSuspenseQuery } from '@apollo/client/react/hooks';
 import { makeStyles } from '@griffel/react';
+import ConfirmDialog from '@gui/components/dialog/confirm-dialog.tsx';
 import { useEffect, useState, useTransition } from 'react';
+import { set } from 'react-hook-form';
 import { redirect, useParams } from 'react-router';
 import type { Route } from '@/+types/index.ts';
 import CustomerDetail from '@/components/customer-detail/customer-detail.tsx';
@@ -8,7 +10,12 @@ import type { CustomerFormData } from '@/components/customer-detail/customer-for
 import loadingStyles from '@/components/loading/loading.css.ts';
 import Loading from '@/components/loading/loading.tsx';
 import { useAuth } from '@/hooks/useAuth.ts';
-import { type CustomerUpdateInput, GetCustomerById, UpdateCustomer } from '@/types/graphql.ts';
+import {
+  type CustomerUpdateInput,
+  DeleteCustomer,
+  GetCustomerById,
+  UpdateCustomer,
+} from '@/types/graphql.ts';
 import styles from './[id].css.ts';
 
 const useStyles = makeStyles(styles);
@@ -32,6 +39,7 @@ export default function Customer() {
   const { id = '' } = useParams<{ id: string }>();
   const [updatedCustomer, setUpdatedCustomer] = useState<CustomerUpdateInput | null>(null);
   const [isPending, startTransition] = useTransition();
+  const [confirmDialogOpen, setConfirmDialogOpen] = useState(false);
 
   const {
     data: { customer },
@@ -56,9 +64,15 @@ export default function Customer() {
     },
   });
 
+  const [deleteCustomer] = useMutation(DeleteCustomer, {
+    variables: {
+      id,
+    },
+  });
+
   const handleDelete = async () => {
-    // Implement delete logic here
     console.log('Deleting customer with ID:', id);
+    // await deleteCustomer();
   };
 
   const handleSave = (data: CustomerFormData) => setUpdatedCustomer(data);
@@ -75,7 +89,18 @@ export default function Customer() {
   return (
     <div className={classes.container}>
       {isPending && <Loading className={loadingClasses.fill} />}
-      <CustomerDetail customer={customer!} onSave={handleSave} onDelete={handleDelete} />
+      <CustomerDetail
+        customer={customer!}
+        onSave={handleSave}
+        onDelete={() => setConfirmDialogOpen(true)}
+      />
+      <ConfirmDialog
+        title="Delete Customer"
+        message="Are you sure you want to delete this customer?"
+        open={confirmDialogOpen} // Replace with actual state to control dialog visibility
+        confirmButtonText="Delete"
+        onConfirm={handleDelete}
+      />
     </div>
   );
 }

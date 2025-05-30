@@ -25,8 +25,8 @@
     "./command-palette/*.ts": {
       "import": "./src/command-palette/*.ts"
     },
-    "./dialog/dialog.tsx": {
-      "import": "./src/dialog/dialog.tsx"
+    "./dialog/*.tsx": {
+      "import": "./src/dialog/*.tsx"
     },
     "./dropdownlist/*.tsx": {
       "import": "./src/dropdownlist/*.tsx"
